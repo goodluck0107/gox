@@ -7,5 +7,5 @@ import (
 var clientFacade *client.ClientFacade
 
 func Init() {
-	clientFacade = client.BootClient(1, 0, NewCallBack())
+	clientFacade = client.BootClient(NewCallBack())
 }
