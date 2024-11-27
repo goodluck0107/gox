@@ -18,7 +18,7 @@ import (
 	"gitee.com/andyxt/gox/service"
 )
 
-func BootClient(execRoutinePoolID int64, facadeRoutinePoolID int64, callback routineCommands.ICallBack) *ClientFacade {
+func BootClient(callback routineCommands.ICallBack) *ClientFacade {
 	bootStrap :=
 		bootc.NewClientBootStrap(connector.NormalSocket)
 	connector := bootStrap.GetConnector()
