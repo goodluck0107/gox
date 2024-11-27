@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"time"
 	"unicode"
 	"unicode/utf8"
 )
@@ -361,3 +362,15 @@ func ConvertInterface2Int32Array(v interface{}) ([]int32, error) {
 		return nil, errors.New("ConvertInterface2Int32Array error with untype")
 	}
 }
+
+func ConvertTime2Int64(value string) (iValue int64, err error) {
+	timeValue, err := time.Parse(defauleDateFormat, value)
+	if err != nil {
+		return
+	}
+	return timeValue.Unix(), nil
+}
+
+const (
+	defauleDateFormat string = "2006-01-02 15:04:05"
+)
