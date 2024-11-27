@@ -1,0 +1,35 @@
+go run ./cli
+connect 30000 10033964
+connect 30001 10033964
+request /Login {"UID":10033964,"Token":"9123b15cfc0b1e0b023b59fd080641ce"}
+
+connect 30000 11033064
+request /Login {"UID":11033064,"Token":"25fd8174d904bf97a2fba12bc530601b"}
+
+heart 15
+request /Logout {}
+exit
+
+mails
+    request  /GetMails {}
+    request /InsertMail {"Mail":{ "ID":0,"Type":0,"Title1":"Title1","Title2":"Title2","Content":"Content","From":"From","Time":1664277376,"Expire":  360000,"Readed" : false}}
+    request /ReadMail {"ID":6}
+    request /InsertMail {"Mail":{ "ID":0,"Type":0,"Title1":"Title1","Title2":"Title2","Content":"Content","From":"From","Time":1664277376,"Expire":  360000,"Readed" : false,"Props":[{"ID":10001,"Amount":100}]}}
+	request /GetMailAward {"IDList":[11]}
+	
+signin
+    request  /SignInGetInfo {}
+
+online_awards
+    request /AwardListStatus {}
+
+gameplay_common
+    request /DistributeAsk {"GamePlayID":1,"GameRoomID":5001}
+    request /OutTable {}
+    request /KickOutPlayer {"KickedUID":10033964}
+
+ludo
+    request /LudoGetInfo {}
+    
+backend
+    request /KickUser {"UID":11033064,"Token":"25fd8174d904bf97a2fba12bc530601b","KickUIDList":[10033964]}
