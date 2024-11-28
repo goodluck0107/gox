@@ -33,28 +33,28 @@ func (event *RoutineInboundCmdMsgRecv) Wait() (interface{}, bool) {
 }
 func (event *RoutineInboundCmdMsgRecv) Exec() {
 	msgCtx := event.Ctx
-	logger.Debug("RoutineInboundCmdMsgRecv Exec-Start", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount(0))
+	logger.Debug("RoutineInboundCmdMsgRecv Exec-Start", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount())
 	if extends.IsConflict(msgCtx) { // 此连接已经被标记为冲突
-		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-ChlCtx IsConflict !!!", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount(0))
+		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-ChlCtx IsConflict !!!", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount())
 		return
 	}
 	if extends.IsClose(msgCtx) { // 此连接已经被标记为关闭
-		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-ChlCtx IsClose !!!", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount(0))
+		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-ChlCtx IsClose !!!", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount())
 		return
 	}
 	if extends.IsLogout(msgCtx) { // 此连接已经被标记为登出
-		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-ChlCtx IsLogout !!!", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount(0))
+		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-ChlCtx IsLogout !!!", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount())
 		return
 	}
 	if extends.IsSystemKick(msgCtx) { // 此连接已经被标记为踢出
-		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-ChlCtx IsSystemKick !!!", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount(0))
+		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-ChlCtx IsSystemKick !!!", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount())
 		return
 	}
-	logger.Debug("RoutineInboundCmdMsgRecv Exec-CallService", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount(0))
+	logger.Debug("RoutineInboundCmdMsgRecv Exec-CallService", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount())
 	serviceErr := callService(msgCtx, event.Data.(*message.Message))
 	if serviceErr != nil {
 		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-CallServiceError !!!", extends.ChannelContextToString(msgCtx), "serviceError:", serviceErr)
 		return
 	}
-	logger.Debug("RoutineInboundCmdMsgRecv Exec-End-Success", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount(0))
+	logger.Debug("RoutineInboundCmdMsgRecv Exec-End-Success", extends.ChannelContextToString(msgCtx), "sessionCount", session.GetCount())
 }

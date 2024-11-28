@@ -10,48 +10,6 @@ const (
 	SessionMapsCount int64 = 1000 // 降低锁粒度，提高并发度
 )
 
-type SessionMap struct {
-	mSessions map[int64]ISession
-	mLock     *sync.Mutex
-}
-
-func NewSessionMap() (ret *SessionMap) {
-	ret = new(SessionMap)
-	ret.mSessions = make(map[int64]ISession)
-	ret.mLock = new(sync.Mutex)
-	return
-}
-
-func (sessionMap *SessionMap) add(value ISession) {
-	if value == nil {
-		return
-	}
-	defer sessionMap.mLock.Unlock()
-	sessionMap.mLock.Lock()
-	sessionMap.mSessions[value.UID()] = value
-}
-
-func (sessionMap *SessionMap) remove(uKey int64) {
-	defer sessionMap.mLock.Unlock()
-	sessionMap.mLock.Lock()
-	delete(sessionMap.mSessions, uKey)
-}
-
-func (sessionMap *SessionMap) get(uKey int64) (ret ISession) {
-	defer sessionMap.mLock.Unlock()
-	sessionMap.mLock.Lock()
-	ret = sessionMap.mSessions[uKey]
-	return
-}
-
-func (sessionMap *SessionMap) TraverseDo(f func(ISession, interface{}), paramData interface{}) {
-	defer sessionMap.mLock.Unlock()
-	sessionMap.mLock.Lock()
-	for _, session := range sessionMap.mSessions {
-		f(session, paramData)
-	}
-}
-
 type SessionPool struct {
 	mSesionMaps      map[int64]*SessionMap
 	mSessionCount    int64
@@ -121,5 +79,47 @@ func (sessionPool *SessionPool) GetSession(uId int64) ISession {
 func (sessionPool *SessionPool) TraverseDo(f func(ISession, interface{}), paramData interface{}) {
 	for _, listChannels := range sessionPool.mSesionMaps {
 		listChannels.TraverseDo(f, paramData)
+	}
+}
+
+type SessionMap struct {
+	mSessions map[int64]ISession
+	mLock     *sync.Mutex
+}
+
+func NewSessionMap() (ret *SessionMap) {
+	ret = new(SessionMap)
+	ret.mSessions = make(map[int64]ISession)
+	ret.mLock = new(sync.Mutex)
+	return
+}
+
+func (sessionMap *SessionMap) add(value ISession) {
+	if value == nil {
+		return
+	}
+	defer sessionMap.mLock.Unlock()
+	sessionMap.mLock.Lock()
+	sessionMap.mSessions[value.UID()] = value
+}
+
+func (sessionMap *SessionMap) remove(uKey int64) {
+	defer sessionMap.mLock.Unlock()
+	sessionMap.mLock.Lock()
+	delete(sessionMap.mSessions, uKey)
+}
+
+func (sessionMap *SessionMap) get(uKey int64) (ret ISession) {
+	defer sessionMap.mLock.Unlock()
+	sessionMap.mLock.Lock()
+	ret = sessionMap.mSessions[uKey]
+	return
+}
+
+func (sessionMap *SessionMap) TraverseDo(f func(ISession, interface{}), paramData interface{}) {
+	defer sessionMap.mLock.Unlock()
+	sessionMap.mLock.Lock()
+	for _, session := range sessionMap.mSessions {
+		f(session, paramData)
 	}
 }

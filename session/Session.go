@@ -2,8 +2,8 @@ package session
 
 import "sync"
 
-const sessionKeyID = "txxiongtao-sessionId"
-const sessionKeyUID = "txxiongtao-sessionUId"
+const sessionKeyID = "GONAX-SessionID"
+const sessionKeyUID = "GONAX-SessionUID"
 
 type Session struct {
 	lock     *sync.Mutex // 扯犊子玩意，同协程都不可重入

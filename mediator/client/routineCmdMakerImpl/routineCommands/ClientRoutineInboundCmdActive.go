@@ -32,7 +32,7 @@ func (activeEvent *ClientRoutineInboundCmdActive) Wait() (result interface{}, ok
 func (activeEvent *ClientRoutineInboundCmdActive) Exec() {
 	logger.Debug("ClientRoutineInboundCmdActive Exec")
 	uID := activeEvent.ChlCtx.ContextAttr().GetInt64(key.ChannelFireUser)
-	iSession := session.GetSession(0, uID)
+	iSession := session.GetSession(uID)
 	if iSession == nil {
 		logger.Debug("连接已经被主动关闭，新连接直接关闭")
 		extends.Close(activeEvent.ChlCtx)

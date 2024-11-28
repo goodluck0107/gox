@@ -28,7 +28,7 @@ func (closeEvent *ClientRoutineInboundCmdClose) Wait() (result interface{}, ok b
 func (closeEvent *ClientRoutineInboundCmdClose) Exec() {
 	logger.Debug("ClientRoutineInboundCmdClose Exec")
 	//connectionKey := strconv.Itoa(int(id)) + ip + strconv.Itoa(port)
-	iSession := session.GetSession(0, closeEvent.uID)
+	iSession := session.GetSession(closeEvent.uID)
 	if iSession == nil {
 		logger.Debug("ClientRoutineInboundCmdClose iSession == nil")
 		return
@@ -38,5 +38,5 @@ func (closeEvent *ClientRoutineInboundCmdClose) Exec() {
 		logger.Debug("ClientRoutineInboundCmdClose Close")
 		extends.Close(chlCtx)
 	}
-	session.RemoveSession(0, closeEvent.uID)
+	session.RemoveSession(closeEvent.uID)
 }

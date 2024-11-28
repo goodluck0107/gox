@@ -5,8 +5,7 @@ const (
 	ChannelPort     string = "ChannelPort"     //string
 	ChannelFireUser string = "ChannelFireUser" //int32
 
-	ChannelTag          string = "ChannelTag"          //string
-	ChannelParams       string = "ChannelParams"       //string json
-	ChannelSecurityType string = "ChannelSecurityType" //string
-	ChannelStructType   string = "ChannelStructType"   //string
+	ChannelTag    string = "ChannelTag"    //string
+	ChannelParams string = "ChannelParams" //string json
+
 )

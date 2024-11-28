@@ -53,7 +53,7 @@ func (inactiveEvent *ClientRoutineInboundCmdInactive) Exec() {
 		return
 	}
 	uId := extends.UID(inactiveEvent.ChlCtx)
-	iSession := session.GetSession(0, uId)
+	iSession := session.GetSession(uId)
 	if iSession == nil {
 		logger.Debug("ClientRoutineInboundCmdInactive 连接已经被主动关闭，不需要重连", extends.UID(inactiveEvent.ChlCtx))
 		return

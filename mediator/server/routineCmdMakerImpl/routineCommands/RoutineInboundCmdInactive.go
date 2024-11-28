@@ -29,10 +29,10 @@ func (event *RoutineInboundCmdInactive) Wait() (interface{}, bool) {
 }
 
 func (event *RoutineInboundCmdInactive) Exec() {
-	logger.Info("RoutineInboundCmdInactive Exec-Start", extends.ChannelContextToString(event.ChlCtx), "sessionCount", session.GetCount(0))
+	logger.Info("RoutineInboundCmdInactive Exec-Start", extends.ChannelContextToString(event.ChlCtx), "sessionCount", session.GetCount())
 	extends.Offlie(event.ChlCtx)          // 标记此连接已经离线
 	if extends.IsConflict(event.ChlCtx) { // 此连接已经被标记为冲突
-		logger.Info("RoutineInboundCmdInactive Exec-End-ChlCtx IsConflict !!!", extends.ChannelContextToString(event.ChlCtx), "sessionCount", session.GetCount(0))
+		logger.Info("RoutineInboundCmdInactive Exec-End-ChlCtx IsConflict !!!", extends.ChannelContextToString(event.ChlCtx), "sessionCount", session.GetCount())
 		return
 	}
 	eventBus.Trigger("Inactive", event.routineId, event.ChlCtx)

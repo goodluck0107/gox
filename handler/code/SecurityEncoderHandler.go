@@ -4,10 +4,13 @@ import (
 	"gitee.com/andyxt/gox/handler/protocol/protocolCoder"
 	"gitee.com/andyxt/gox/handler/protocol/protocolCoderImpl"
 	"gitee.com/andyxt/gox/handler/protocol/protocolDefine"
-	"gitee.com/andyxt/gox/key"
 
 	"gitee.com/andyxt/gona/boot/channel"
 	"gitee.com/andyxt/gona/logger"
+)
+
+const (
+	ChannelSecurityType string = "ChannelSecurityType" //string
 )
 
 // *ProtocolBuffer-->*ProtocolBuffer
@@ -30,7 +33,7 @@ func (encoder *SecurityEncoderHandler) createSerializierMap() map[int8]protocolC
 func (encoder *SecurityEncoderHandler) Write(ctx channel.ChannelContext, e interface{}) (ret interface{}) {
 	//logger.Debug("SecurityEncoder Write-0")
 	buf := e.([]byte)
-	encryptType := ctx.ContextAttr().GetInt8(key.ChannelSecurityType)
+	encryptType := ctx.ContextAttr().GetInt8(ChannelSecurityType)
 	if encryptType <= 0 { //不加密
 		ret = buf
 		//logger.Debug("SecurityEncoder Write1")

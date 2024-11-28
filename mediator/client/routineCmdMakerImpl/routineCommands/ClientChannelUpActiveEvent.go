@@ -36,7 +36,7 @@ func (activeEvent *ClientChannelUpActiveEvent) Wait() (result interface{}, ok bo
 
 func (activeEvent *ClientChannelUpActiveEvent) Exec() {
 	uID := activeEvent.ChlCtx.ContextAttr().GetInt64(key.ChannelFireUser)
-	iSession := session.GetSession(0, uID)
+	iSession := session.GetSession(uID)
 	if iSession == nil {
 		logger.Debug("ClientChannelUpActiveEvent Exec", "连接已经被主动关闭，新连接直接关闭")
 		extends.Close(activeEvent.ChlCtx)

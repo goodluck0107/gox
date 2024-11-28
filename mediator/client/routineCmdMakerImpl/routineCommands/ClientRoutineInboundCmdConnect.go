@@ -44,11 +44,11 @@ func (upConnectEvent *ClientRoutineInboundCmdConnect) Wait() (result interface{}
 
 func (upConnectEvent *ClientRoutineInboundCmdConnect) Exec() {
 	logger.Debug("ClientRoutineInboundCmdConnect Exec")
-	iSession := session.GetSession(0, upConnectEvent.uID) // find in online players
+	iSession := session.GetSession(upConnectEvent.uID) // find in online players
 	if iSession == nil {
 		logger.Debug("ClientRoutineInboundCmdConnect iSession == nil")
 		iSession = session.NewSession(utils.UUID(), upConnectEvent.uID)
-		session.AddSession(0, iSession)
+		session.AddSession(iSession)
 	}
 	upConnectEvent.params[key.ChannelIp] = upConnectEvent.ip
 	upConnectEvent.params[key.ChannelPort] = upConnectEvent.port
