@@ -1,4 +1,4 @@
-package routineCommands
+package outboundCommands
 
 import (
 	"gitee.com/andyxt/gox/extends"
@@ -9,17 +9,15 @@ import (
 )
 
 type ClientRoutineOutboundCmdMsgSend struct {
-	routineId int64
-	Data      protocol.IProtocol
-	OnClose   bool // 是否在消息发送完毕后关闭连接
-	PoolKey   int64
-	ChlCtx    service.IChannelContext
-	Desc      string
+	Data    protocol.IProtocol
+	OnClose bool // 是否在消息发送完毕后关闭连接
+	PoolKey int64
+	ChlCtx  service.IChannelContext
+	Desc    string
 }
 
-func NewClientRoutineOutboundCmdMsgSend(routineId int64, Data protocol.IProtocol, OnClose bool, PoolKey int64, ChlCtx service.IChannelContext, Desc string) (this *ClientRoutineOutboundCmdMsgSend) {
+func NewClientRoutineOutboundCmdMsgSend(Data protocol.IProtocol, OnClose bool, PoolKey int64, ChlCtx service.IChannelContext, Desc string) (this *ClientRoutineOutboundCmdMsgSend) {
 	this = new(ClientRoutineOutboundCmdMsgSend)
-	this.routineId = routineId
 	this.Data = Data
 	this.OnClose = OnClose
 	this.PoolKey = PoolKey
@@ -29,8 +27,9 @@ func NewClientRoutineOutboundCmdMsgSend(routineId int64, Data protocol.IProtocol
 }
 
 func (msgSendEvent *ClientRoutineOutboundCmdMsgSend) QueueId() int64 {
-	return msgSendEvent.routineId
+	return msgSendEvent.PoolKey
 }
+
 func (msgSendEvent *ClientRoutineOutboundCmdMsgSend) Wait() (result interface{}, ok bool) {
 	return nil, true
 }

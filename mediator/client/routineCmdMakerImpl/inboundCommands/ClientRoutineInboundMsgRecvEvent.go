@@ -1,4 +1,4 @@
-package routineCommands
+package inboundCommands
 
 import (
 	"gitee.com/andyxt/gox/handler/protocol"

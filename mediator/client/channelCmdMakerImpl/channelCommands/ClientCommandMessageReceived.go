@@ -4,6 +4,7 @@ import (
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/handler/protocol"
 	"gitee.com/andyxt/gox/handler/schedule"
+	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gona/logger"
@@ -29,11 +30,7 @@ func (event *ClientCommandMessageReceived) Exec() {
 	if event.ChannelCtx == nil || event.e == nil {
 		return
 	}
-	if !extends.HasUserInfo(event.ChannelCtx) {
-		logger.Debug("关闭连接：", " 关闭原因：MessageReceived but ChannelCtx is not InPool", extends.ChannelContextToString(event.ChannelCtx))
-		event.ChannelCtx.Close()
-		return
-	}
 	buf, _ := event.e.(protocol.IProtocol)
-	executor.FireEvent(event.mEventMaker.MakeMessageReceivedEvent(extends.UID(event.ChannelCtx), buf, event.ChannelCtx))
+	uID := event.ChannelCtx.ContextAttr().GetInt64(clientkey.KeyFireUser)
+	executor.FireEvent(event.mEventMaker.MakeMessageReceivedEvent(uID, buf, event.ChannelCtx))
 }

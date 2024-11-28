@@ -3,6 +3,7 @@ package channelCommands
 import (
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/handler/schedule"
+	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gona/logger"
@@ -23,9 +24,6 @@ func NewClientCommandInActive(mEventMaker schedule.IRoutineInboundEventMaker, Ch
 
 func (event *ClientCommandInActive) Exec() {
 	logger.Debug("ClientCommandInActive Exec", extends.ChannelContextToString(event.ChannelCtx))
-	if !extends.HasUserInfo(event.ChannelCtx) {
-		logger.Debug("ClientCommandInActive Exec: ChannelCtx is not IsInPool", extends.ChannelContextToString(event.ChannelCtx))
-		return
-	}
-	executor.FireEvent(event.mEventMaker.MakeInActiveEvent(extends.UID(event.ChannelCtx), event.ChannelCtx))
+	uID := event.ChannelCtx.ContextAttr().GetInt64(clientkey.KeyFireUser)
+	executor.FireEvent(event.mEventMaker.MakeInActiveEvent(uID, event.ChannelCtx))
 }

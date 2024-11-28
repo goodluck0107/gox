@@ -3,7 +3,6 @@ package extends
 import (
 	"fmt"
 
-	"gitee.com/andyxt/gox/key"
 	"gitee.com/andyxt/gox/service"
 )
 
@@ -34,14 +33,6 @@ func UID(chlCtx service.IChannelContext) int64 {
 
 func GetLngType(chlCtx service.IChannelContext) int8 {
 	return chlCtx.ContextAttr().GetInt8("lngType")
-}
-
-func SetFireUser(chlCtx service.IChannelContext, FireUserID int64) {
-	chlCtx.ContextAttr().Set(key.ChannelFireUser, FireUserID) // 连接ID,通常是玩家uid
-}
-
-func GetFireUser(chlCtx service.IChannelContext) int64 {
-	return chlCtx.ContextAttr().GetInt64(key.ChannelFireUser)
 }
 
 /**

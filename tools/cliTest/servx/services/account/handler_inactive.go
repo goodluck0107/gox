@@ -1,0 +1,23 @@
+package account
+
+import (
+	"fmt"
+
+	"gitee.com/andyxt/gox/session"
+
+	"gitee.com/andyxt/gona/logger"
+)
+
+// OnInactive 连接中断
+func onInactive(data ...interface{}) {
+	playerID := data[0].(int64)
+	// channelContext := data[1].(service.IChannelContext)
+	fmt.Println("onInactive", "playerID:", playerID)
+	logger.Info(fmt.Sprintf("InactiveRequest playerID:%v", playerID))
+	s := session.GetSession(playerID)
+	if s == nil {
+		return
+	}
+	logger.Info(fmt.Sprintf("service account onInactive 玩家%v掉线", playerID))
+	session.RemoveSession(playerID)
+}

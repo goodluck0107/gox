@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/message"
 
 	"gitee.com/andyxt/gox/tools/cli/msgproto"
@@ -45,6 +46,9 @@ func request(args []string) error {
 	if !ok {
 		return errors.New(`adapterResult not pb`)
 	}
-	clientFacade.SendMessage(message.NewMessage(1, 0, 1, 1, service.Code(msgPath), pb), false, UID, CurrentChlCtx, "")
+	if msgPath != "/Login" && !extends.HasUserInfo(CurrentChlCtx) {
+		return errors.New(`not HasUserInfo`)
+	}
+	clientFacade.SendMessage(UID, CurrentChlCtx, message.NewMessage(1, 0, 1, 1, service.Code(msgPath), pb), false, "")
 	return nil
 }

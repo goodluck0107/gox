@@ -5,7 +5,6 @@ import (
 	"gitee.com/andyxt/gox/eventBus"
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/service"
-	"gitee.com/andyxt/gox/session"
 )
 
 type RoutineInboundCmdInactive struct {
@@ -29,10 +28,10 @@ func (event *RoutineInboundCmdInactive) Wait() (interface{}, bool) {
 }
 
 func (event *RoutineInboundCmdInactive) Exec() {
-	logger.Info("RoutineInboundCmdInactive Exec-Start", extends.ChannelContextToString(event.ChlCtx), "sessionCount", session.GetCount())
+	logger.Info("RoutineInboundCmdInactive Exec-Start", extends.ChannelContextToString(event.ChlCtx))
 	extends.Offlie(event.ChlCtx)          // 标记此连接已经离线
 	if extends.IsConflict(event.ChlCtx) { // 此连接已经被标记为冲突
-		logger.Info("RoutineInboundCmdInactive Exec-End-ChlCtx IsConflict !!!", extends.ChannelContextToString(event.ChlCtx), "sessionCount", session.GetCount())
+		logger.Info("RoutineInboundCmdInactive Exec-End-ChlCtx IsConflict !!!", extends.ChannelContextToString(event.ChlCtx))
 		return
 	}
 	eventBus.Trigger("Inactive", event.routineId, event.ChlCtx)
