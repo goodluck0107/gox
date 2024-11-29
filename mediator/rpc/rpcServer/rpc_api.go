@@ -19,13 +19,13 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func Start() {
+func Start(port int64) {
 	service.Register(services.NewService())
-	listenRPC()
+	listenRPC(port)
 }
 
 // listenRPC 监听远端通知(下注与结算以及更新玩家信息)
-func listenRPC() {
+func listenRPC(port int64) {
 	params := make(map[string]interface{})
 	params[boot.KeyPacketBytesCount] = 4
 	params[boot.KeyChannelReadLimit] = 10240
@@ -34,7 +34,7 @@ func listenRPC() {
 	bootStrap :=
 		boots.NewServerBootStrap().
 			Params(params).
-			Port(fmt.Sprintf(":%v", 10086)).
+			Port(fmt.Sprintf(":%v", port)).
 			ChannelInitializer(
 				mediator.NewChannelInitializer(
 					channelCmdMakerImpl.NewChannelInboundCmdMaker(NewNofityMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), message.NewMessageFactory(),
