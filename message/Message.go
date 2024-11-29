@@ -25,6 +25,18 @@ type Message struct {
 	ProtoData   protoiface.MessageV1
 }
 
+func NewMessageDirect(routeType Type, messageType Type,
+	verion uint32, seqID uint32, msgID uint16,
+	protoData []byte) (this *Message) {
+	this = new(Message)
+	this.RouteType = routeType
+	this.MessageType = messageType
+	this.Verion = verion
+	this.SeqID = seqID
+	this.MsgID = msgID
+	this.Data = protoData
+	return
+}
 func NewMessage(routeType Type, messageType Type,
 	verion uint32, seqID uint32, msgID uint16,
 	protoData protoreflect.ProtoMessage) (this *Message) {
