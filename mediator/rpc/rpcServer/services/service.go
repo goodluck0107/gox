@@ -1,7 +1,7 @@
 package services
 
 import (
-	"gitee.com/andyxt/gox/eventBus"
+	"gitee.com/andyxt/gox/mediator/server"
 )
 
 type RpcService struct{}
@@ -10,6 +10,7 @@ func NewService() *RpcService {
 	listenEvent()
 	return &RpcService{}
 }
+
 func listenEvent() {
-	eventBus.On("Inactive", onInactive)
+	server.OnClose(onInactive)
 }

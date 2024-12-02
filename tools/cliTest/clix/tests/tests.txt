@@ -1,19 +1,7 @@
 go run ./clix
-
-Hall
-    connect 20000 11023164
-    request /Login {"UID":11023164,"Token":"3079b0a6febf9fda8c231b825bf5ea12","Cli":{"Package":"GoTest"}}
-    request /HeartbeatRequest {}
-    heart 15
-    request /Logout {}
-    exit
-
-RPC
-    go run ./clix
-    connect 10086 1
-    request /RPCLogin {"UID":1}
-    heart 15
-    request /PlayerBetEvent {"UID":11023164,"GameID":2,"BetAmount":10000}
-    request /PlayerSettleEvent {"UID":11023164,"GameID":2,"PayoutAmount":20000,"WinAmount":10000}
-    request /RPCLogout {}
-    exit
+connect 20000 11023164
+request /Login {"UID":11023164,"Token":"3079b0a6febf9fda8c231b825bf5ea12","Cli":{"Package":"GoTest"}}
+request /HeartbeatRequest {}
+heart 15
+request /Logout {}
+exit

@@ -29,8 +29,7 @@ func (*RpcService) RPCLogoutRequest(request service.IServiceRequest, msg *rpc.Lo
 }
 
 // onInactive 连接中断
-func onInactive(data ...interface{}) {
-	playerID := data[0].(int64)
+func onInactive(playerID int64, chlCtx service.IChannelContext) {
 	logger.Info(fmt.Sprintf("onInactive playerID:%v 掉线", playerID))
 	s := session.GetSession(playerID)
 	if s == nil {

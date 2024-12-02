@@ -1,6 +1,7 @@
 package server
 
 import (
+	"gitee.com/andyxt/gox/eventBus"
 	"gitee.com/andyxt/gox/executor"
 	"gitee.com/andyxt/gox/handler/schedule"
 	"gitee.com/andyxt/gox/message"
@@ -41,4 +42,12 @@ func PushClose(ChlCtx service.IChannelContext, msgMsgID uint16, v interface{}, d
 	executor.FireEvent(mRoutineOutboundCmdMaker.MakeSendMessageEvent(extends.UID(ChlCtx), message.NewMessage(routeTypeClient, messageTypeClose, 1, 0,
 		msgMsgID, v.(protoreflect.ProtoMessage)), true, extends.UID(ChlCtx), ChlCtx, desc))
 	return nil
+}
+
+func OnClose(closeFunc func(playerID int64, chlCtx service.IChannelContext)) {
+	eventBus.On("Inactive", func(data ...interface{}) {
+		playerID := data[0].(int64)
+		channelContext := data[1].(service.IChannelContext)
+		closeFunc(playerID, channelContext)
+	})
 }

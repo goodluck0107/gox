@@ -1,7 +1,7 @@
 package account
 
 import (
-	"gitee.com/andyxt/gox/eventBus"
+	"gitee.com/andyxt/gox/mediator/server"
 )
 
 type AccountService struct{}
@@ -12,5 +12,5 @@ func NewService() *AccountService {
 }
 
 func listenEvent() {
-	eventBus.On("Inactive", onInactive)
+	server.OnClose(onInactive)
 }
