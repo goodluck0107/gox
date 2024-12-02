@@ -44,6 +44,7 @@ func PushClose(ChlCtx service.IChannelContext, msgMsgID uint16, v interface{}, d
 	return nil
 }
 
+// OnClose 监听连接中断
 func OnClose(closeFunc func(playerID int64, chlCtx service.IChannelContext)) {
 	eventBus.On("Inactive", func(data ...interface{}) {
 		playerID := data[0].(int64)
