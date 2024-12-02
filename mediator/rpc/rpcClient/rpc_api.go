@@ -52,6 +52,20 @@ func RPCCall(nodeName string, playerID int64, msgCode uint16, protoData protoref
 	})
 }
 
+// RPCBroadcastRequest 调用master
+func RPCBroadcastRequest(playerID int64, msgCode uint16, protoData protoreflect.ProtoMessage) {
+	marshalV, marshalE := proto.Marshal(protoData)
+	if marshalE != nil {
+		logger.Error(fmt.Sprintf("RPC.RPCBroadcastRequest err:%v", marshalE))
+		return
+	}
+	sendMessage(mid.RPCBroadcastRequest, &rpc.RPCBroadcastRequest{
+		PlayerID: playerID,
+		FuncCode: int64(msgCode),
+		FuncData: marshalV,
+	})
+}
+
 type callBack struct{}
 
 func newCallBack() inboundCommands.ICallBack {
