@@ -111,7 +111,7 @@ func (sc *serviceCenter) register(s *service) {
 		sc.registerHandlersWithPath(s.Name, handlers)
 		return
 	}
-	logger.Error(fmt.Sprintf("service %v has no handler", s.Name))
+	logger.Warn(fmt.Sprintf("service %v has no handler", s.Name))
 }
 
 func (sc *serviceCenter) registerHandlersWithCode(serviceName string, handlers map[string]*handler) {

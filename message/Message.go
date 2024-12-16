@@ -15,13 +15,13 @@ type Type byte
 
 // Message represents a unmarshaled message or a message which to be marshaled
 type Message struct {
-	RouteType   Type   // route type 0-close,1-client,2-hall
-	MessageType Type   // message type 1-proto,2-json
-	Verion      uint32 // message short version
-	SeqID       uint32 // unique id, zero while notify mode
-	Time        int64  // unix time
-	MsgID       uint16 // route for locating service
-	Data        []byte // payload
+	RouteType   Type   // 路由类型: 0-close,1-client,2-hall
+	MessageType Type   // 协议类型: 1-proto,2-json
+	Verion      uint32 // 协议版本
+	SeqID       uint32 // 消息唯一ID,从0开始递增
+	Time        int64  // 时间戳
+	MsgID       uint16 // 协议ID
+	Data        []byte // 协议数据
 	ProtoData   protoiface.MessageV1
 }
 
