@@ -15,8 +15,8 @@ type Type byte
 
 // Message represents a unmarshaled message or a message which to be marshaled
 type Message struct {
-	RouteType   Type   // route type 0-client,1-hall
-	MessageType Type   // message type 0-close,1-proto
+	RouteType   Type   // route type 0-close,1-client,2-hall
+	MessageType Type   // message type 1-proto,2-json
 	Verion      uint32 // message short version
 	SeqID       uint32 // unique id, zero while notify mode
 	Time        int64  // unix time
