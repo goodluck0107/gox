@@ -14,8 +14,8 @@ import (
 )
 
 // RouteForRPCCallRequest RPC调用
-func (*RpcService) RouteForRPCCallRequest() (string, uint32) {
-	return "/RPCCallRequest", uint32(mid.RPCCallRequest)
+func (*RpcService) RouteForRPCCallRequest() (string, uint32, uint32) {
+	return "/RPCCallRequest", uint32(mid.RPCCallRequest), service.ProtoTypePB
 }
 
 func (*RpcService) RPCCallRequest(request service.IServiceRequest, msg *rpc.RPCCallRequest) error {

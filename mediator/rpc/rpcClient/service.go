@@ -21,8 +21,8 @@ func NewService() *RpcClientService {
 }
 
 // RouteForRPCLoginResponse 登录
-func (*RpcClientService) RouteForRPCLoginResponse() (string, uint32) {
-	return "/RPCLoginResponse", uint32(mid.RPCLoginResponse)
+func (*RpcClientService) RouteForRPCLoginResponse() (string, uint32, uint32) {
+	return "/RPCLoginResponse", uint32(mid.RPCLoginResponse), service.ProtoTypePB
 }
 
 func (*RpcClientService) RPCLoginResponse(request service.IServiceRequest, msg *rpc.LoginResponse) error {
@@ -34,8 +34,8 @@ func (*RpcClientService) RPCLoginResponse(request service.IServiceRequest, msg *
 }
 
 // RouteForRPCLogoutResponse 登出
-func (*RpcClientService) RouteForRPCLogoutResponse() (string, uint32) {
-	return "/RPCLogoutResponse", uint32(mid.RPCLogoutResponse)
+func (*RpcClientService) RouteForRPCLogoutResponse() (string, uint32, uint32) {
+	return "/RPCLogoutResponse", uint32(mid.RPCLogoutResponse), service.ProtoTypePB
 }
 
 func (*RpcClientService) RPCLogoutResponse(request service.IServiceRequest, msg *rpc.LogoutResponse) error {
@@ -46,8 +46,8 @@ func (*RpcClientService) RPCLogoutResponse(request service.IServiceRequest, msg 
 }
 
 // RouteForRPCHeartbeatResponse 心跳
-func (*RpcClientService) RouteForRPCHeartbeatResponse() (string, uint32) {
-	return "/RPCHeartbeatResponse", uint32(mid.RPCHeartbeatResponse)
+func (*RpcClientService) RouteForRPCHeartbeatResponse() (string, uint32, uint32) {
+	return "/RPCHeartbeatResponse", uint32(mid.RPCHeartbeatResponse), service.ProtoTypePB
 }
 
 func (*RpcClientService) RPCHeartbeatResponse(request service.IServiceRequest, msg *rpc.HeartbeatResponse) error {
@@ -56,8 +56,8 @@ func (*RpcClientService) RPCHeartbeatResponse(request service.IServiceRequest, m
 }
 
 // RouteForRPCLoginConflictPush 登录冲突
-func (*RpcClientService) RouteForRPCLoginConflictPush() (string, uint32) {
-	return "/RPCLoginConflictPush", uint32(mid.RPCLoginConflictPush)
+func (*RpcClientService) RouteForRPCLoginConflictPush() (string, uint32, uint32) {
+	return "/RPCLoginConflictPush", uint32(mid.RPCLoginConflictPush), service.ProtoTypePB
 }
 
 func (*RpcClientService) RPCLoginConflictPush(request service.IServiceRequest, msg *rpc.LoginConflictPush) error {
@@ -68,8 +68,8 @@ func (*RpcClientService) RPCLoginConflictPush(request service.IServiceRequest, m
 }
 
 // RouteForRPCCallPush 处理服务器推送的RPC调用
-func (*RpcClientService) RouteForRPCCallPush() (string, uint32) {
-	return "/RPCCallPush", uint32(mid.RPCCallPush)
+func (*RpcClientService) RouteForRPCCallPush() (string, uint32, uint32) {
+	return "/RPCCallPush", uint32(mid.RPCCallPush), service.ProtoTypePB
 }
 
 func (*RpcClientService) RPCCallPush(request service.IServiceRequest, msg *rpc.RPCCallPush) error {

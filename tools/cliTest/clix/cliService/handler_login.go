@@ -9,8 +9,8 @@ import (
 )
 
 // RouteForLoginResp is route for the handler LoginResp.
-func (*Service) RouteForLoginResp() (string, uint32) {
-	return "/LoginResp", uint32(mid.LoginResponse)
+func (*Service) RouteForLoginResp() (string, uint32, uint32) {
+	return "/LoginResp", uint32(mid.LoginResponse), service.ProtoTypePB
 }
 
 // LoginResp is the handler for AccountService.Login.

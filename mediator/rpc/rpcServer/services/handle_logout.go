@@ -12,8 +12,8 @@ import (
 )
 
 // RouteForRPCLogoutRequest 登出
-func (*RpcService) RouteForRPCLogoutRequest() (string, uint32) {
-	return "/RPCLogoutRequest", uint32(mid.RPCLogoutRequest)
+func (*RpcService) RouteForRPCLogoutRequest() (string, uint32, uint32) {
+	return "/RPCLogoutRequest", uint32(mid.RPCLogoutRequest), service.ProtoTypePB
 }
 
 func (*RpcService) RPCLogoutRequest(request service.IServiceRequest, msg *rpc.LogoutRequest) error {

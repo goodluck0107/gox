@@ -14,8 +14,8 @@ import (
 )
 
 // RouteForRPCBroadcastRequest RPC广播
-func (*RpcService) RouteForRPCBroadcastRequest() (string, uint32) {
-	return "/RPCBroadcastRequest", uint32(mid.RPCBroadcastRequest)
+func (*RpcService) RouteForRPCBroadcastRequest() (string, uint32, uint32) {
+	return "/RPCBroadcastRequest", uint32(mid.RPCBroadcastRequest), service.ProtoTypePB
 }
 
 func (*RpcService) RPCBroadcastRequest(request service.IServiceRequest, msg *rpc.RPCBroadcastRequest) error {

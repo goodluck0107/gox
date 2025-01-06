@@ -14,8 +14,8 @@ import (
 )
 
 // RouteForRPCLoginRequest 登录
-func (*RpcService) RouteForRPCLoginRequest() (string, uint32) {
-	return "/RPCLoginRequest", uint32(mid.RPCLoginRequest)
+func (*RpcService) RouteForRPCLoginRequest() (string, uint32, uint32) {
+	return "/RPCLoginRequest", uint32(mid.RPCLoginRequest), service.ProtoTypePB
 }
 
 func (*RpcService) RPCLoginRequest(request service.IServiceRequest, msg *rpc.LoginRequest) error {

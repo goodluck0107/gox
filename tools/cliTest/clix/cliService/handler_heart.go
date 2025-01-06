@@ -7,8 +7,8 @@ import (
 )
 
 // RouteForHeartbeatResp is route for the handler LoginResp.
-func (*Service) RouteForHeartbeatResp() (string, uint32) {
-	return "/HeartbeatResp", uint32(mid.HeartbeatResponse)
+func (*Service) RouteForHeartbeatResp() (string, uint32, uint32) {
+	return "/HeartbeatResp", uint32(mid.HeartbeatResponse), service.ProtoTypePB
 }
 
 // HeartbeatResp is the handler for AccountService.Login.

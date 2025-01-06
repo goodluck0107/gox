@@ -14,8 +14,8 @@ import (
 )
 
 // RouteForLogin 登录
-func (*AccountService) RouteForLogin() (string, uint32) {
-	return "/Login", uint32(mid.LoginRequest)
+func (*AccountService) RouteForLogin() (string, uint32, uint32) {
+	return "/Login", uint32(mid.LoginRequest), service.ProtoTypePB
 }
 
 func (*AccountService) Login(request service.IServiceRequest, msg *cli.LoginRequest) error {

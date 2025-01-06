@@ -8,8 +8,8 @@ import (
 )
 
 // RouteForRPCHeartbeatRequest 心跳
-func (*RpcService) RouteForRPCHeartbeatRequest() (string, uint32) {
-	return "/RPCHeartbeatRequest", uint32(mid.RPCHeartbeatRequest)
+func (*RpcService) RouteForRPCHeartbeatRequest() (string, uint32, uint32) {
+	return "/RPCHeartbeatRequest", uint32(mid.RPCHeartbeatRequest), service.ProtoTypePB
 }
 
 func (*RpcService) RPCHeartbeatRequest(request service.IServiceRequest, msg *rpc.HeartbeatRequest) error {
