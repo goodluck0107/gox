@@ -20,7 +20,7 @@ func (encoder *MessageEncoderHandleOnRoutineSync) ExceptionCaught(ctx channel.Ch
 
 func (encoder *MessageEncoderHandleOnRoutineSync) Write(ctx channel.ChannelContext, e interface{}) (ret interface{}) {
 	//	logger.Debug("MessageEncoder Write")
-	buf := e.(protocol.IProtocol)
+	buf := e.(protocol.Protocol)
 	ret = buf.Encode()
 	return
 }

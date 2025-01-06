@@ -74,7 +74,7 @@ func (cb *CallBack) ConnectInactive(uID int64, currentChlCtx service.IChannelCon
 }
 
 // MessageReceived called on executor routine
-func (cb *CallBack) MessageReceived(Ctx service.IChannelContext, Data protocol.IProtocol) {
+func (cb *CallBack) MessageReceived(Ctx service.IChannelContext, Data protocol.Protocol) {
 	fmt.Println("CallBack.MessageReceived")
 	msg := Data.(*message.Message)
 	msgPath := service.Path(msg.MsgID)

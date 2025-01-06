@@ -60,6 +60,6 @@ func (facade *ClientFacade) Close(uID int64, ChlCtx service.IChannelContext, Des
 }
 
 // SendMessage OnClose:是否在消息发送完毕后关闭连接
-func (facade *ClientFacade) SendMessage(uID int64, ChlCtx service.IChannelContext, Data protocol.IProtocol, OnClose bool, Desc string) {
+func (facade *ClientFacade) SendMessage(uID int64, ChlCtx service.IChannelContext, Data protocol.Protocol, OnClose bool, Desc string) {
 	executor.FireEvent(outboundCommands.NewClientRoutineOutboundCmdMsgSend(Data, OnClose, uID, ChlCtx, Desc))
 }

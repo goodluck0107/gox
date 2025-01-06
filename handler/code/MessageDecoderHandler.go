@@ -1,7 +1,7 @@
 package code
 
 import (
-	"gitee.com/andyxt/gox/message"
+	"gitee.com/andyxt/gox/handler/protocol"
 
 	"gitee.com/andyxt/gona/boot/channel"
 	"gitee.com/andyxt/gona/logger"
@@ -9,10 +9,10 @@ import (
 
 // *buffer.ProtocolBuffer ---> UpBase
 type MessageDecoderHandleOnRoutineSync struct {
-	messageFactory message.IMessageFactory
+	messageFactory protocol.ProtocolFactory
 }
 
-func NewMessageDecoderHandleOnRoutineSync(messageFactory message.IMessageFactory) (this *MessageDecoderHandleOnRoutineSync) {
+func NewMessageDecoderHandleOnRoutineSync(messageFactory protocol.ProtocolFactory) (this *MessageDecoderHandleOnRoutineSync) {
 	this = new(MessageDecoderHandleOnRoutineSync)
 	this.messageFactory = messageFactory
 	return
@@ -21,7 +21,7 @@ func NewMessageDecoderHandleOnRoutineSync(messageFactory message.IMessageFactory
 func (decoder *MessageDecoderHandleOnRoutineSync) MessageReceived(ctx channel.ChannelContext, e interface{}) (ret interface{}, goonNext bool) {
 	//	logger.Debug("MessageDecoder MessageReceived")
 	byteSlice := e.([]byte)
-	valid, msg := decoder.messageFactory.GetMessage(byteSlice)
+	valid, msg := decoder.messageFactory.GetProtocol(byteSlice)
 	if !valid {
 		logger.Error("关闭连接：", " 关闭原因：协议解析失败:IP=", ctx.RemoteAddr()) //, " , 协议号：", VersionId, UserId, AppId, MessageId)
 		ctx.Close()

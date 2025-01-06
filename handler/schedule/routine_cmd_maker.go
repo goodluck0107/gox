@@ -11,7 +11,7 @@ import (
 // Inbound
 type IRoutineInboundEventMaker interface {
 	//收到消息包
-	MakeMessageReceivedEvent(routineId int64, Data protocol.IProtocol, Ctx service.IChannelContext) executor.Event
+	MakeMessageReceivedEvent(routineId int64, Data protocol.Protocol, Ctx service.IChannelContext) executor.Event
 	//新连接
 	MakeActiveEvent(routineId int64, Ctx service.IChannelContext) executor.Event
 	//连接中断
@@ -25,5 +25,5 @@ type IRoutineOutboundEventMaker interface {
 	//关闭连接
 	MakeCloseEvent(routineId int64, uID int64, Desc string) executor.Event
 	//下发消息包:OnClose是否在消息发送完毕后关闭连接
-	MakeSendMessageEvent(routineId int64, Data protocol.IProtocol, OnClose bool, PoolKey int64, ChlCtx service.IChannelContext, Desc string) executor.Event
+	MakeSendMessageEvent(routineId int64, Data protocol.Protocol, OnClose bool, PoolKey int64, ChlCtx service.IChannelContext, Desc string) executor.Event
 }

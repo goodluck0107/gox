@@ -10,14 +10,14 @@ import (
 
 type ServerRoutineOutboundCmdMsgSend struct {
 	routineId int64
-	Data      protocol.IProtocol
+	Data      protocol.Protocol
 	OnClose   bool // 是否在消息发送完毕后关闭连接
 	PoolKey   int64
 	ChlCtx    service.IChannelContext
 	Desc      string
 }
 
-func NewServerRoutineOutboundCmdMsgSend(routineId int64, Data protocol.IProtocol, OnClose bool, PoolKey int64, ChlCtx service.IChannelContext, Desc string) (this *ServerRoutineOutboundCmdMsgSend) {
+func NewServerRoutineOutboundCmdMsgSend(routineId int64, Data protocol.Protocol, OnClose bool, PoolKey int64, ChlCtx service.IChannelContext, Desc string) (this *ServerRoutineOutboundCmdMsgSend) {
 	this = new(ServerRoutineOutboundCmdMsgSend)
 	this.routineId = routineId
 	this.Data = Data

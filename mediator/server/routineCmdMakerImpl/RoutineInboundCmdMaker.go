@@ -27,6 +27,6 @@ func (impl *RoutineInboundCmdMaker) MakeInActiveEvent(routineId int64, Ctx servi
 }
 
 // 收到消息包
-func (impl *RoutineInboundCmdMaker) MakeMessageReceivedEvent(routineId int64, Data protocol.IProtocol, Ctx service.IChannelContext) executor.Event {
+func (impl *RoutineInboundCmdMaker) MakeMessageReceivedEvent(routineId int64, Data protocol.Protocol, Ctx service.IChannelContext) executor.Event {
 	return routineCommands.NewRoutineInboundCmdMsgRecv(routineId, Data, Ctx)
 }

@@ -82,7 +82,7 @@ func (checker *DefaultHandleChecker) IsHandlerMethod(method reflect.Method) bool
 }
 
 // AdaptArgs create the params a handler method need
-func (checker *DefaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}) []reflect.Value {
+func (checker *DefaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType uint32) []reflect.Value {
 	args := []reflect.Value{reflect.ValueOf(params[0]), reflect.ValueOf(params[1]), reflect.ValueOf(params[2])}
 	return args
 }

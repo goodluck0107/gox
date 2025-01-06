@@ -30,7 +30,7 @@ func (event *ClientCommandMessageReceived) Exec() {
 	if event.ChannelCtx == nil || event.e == nil {
 		return
 	}
-	buf, _ := event.e.(protocol.IProtocol)
+	buf, _ := event.e.(protocol.Protocol)
 	uID := event.ChannelCtx.ContextAttr().GetInt64(clientkey.KeyFireUser)
 	executor.FireEvent(event.mEventMaker.MakeMessageReceivedEvent(uID, buf, event.ChannelCtx))
 }

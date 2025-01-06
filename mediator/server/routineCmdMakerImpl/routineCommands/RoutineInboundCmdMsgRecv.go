@@ -11,11 +11,11 @@ import (
 
 type RoutineInboundCmdMsgRecv struct {
 	routineId int64
-	Data      protocol.IProtocol
+	Data      protocol.Protocol
 	Ctx       service.IChannelContext
 }
 
-func NewRoutineInboundCmdMsgRecv(routineId int64, Data protocol.IProtocol,
+func NewRoutineInboundCmdMsgRecv(routineId int64, Data protocol.Protocol,
 	Ctx service.IChannelContext) (this *RoutineInboundCmdMsgRecv) {
 	this = new(RoutineInboundCmdMsgRecv)
 	this.routineId = routineId

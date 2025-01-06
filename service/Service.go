@@ -62,20 +62,21 @@ func (s *service) suitableHandlerMethods(typ reflect.Type, handlerChecker IHandl
 func (s *service) matchHandlerRoute(typ reflect.Type, h *handler) {
 	for m := 0; m < typ.NumMethod(); m++ {
 		method := typ.Method(m)
-		if !s.IsRouteMethod(method) || !s.IsRouteMethodForHandlerMethod(method, h.Method) {
+		if !s.IsRouteMethodForHandlerMethod(method, h.Method) || !s.IsRouteMethod(method) {
 			continue
 		}
 		args := []reflect.Value{h.Receiver} //, reflect.New(h.Types[1].Elem())}
 		result := method.Func.Call(args)
 		h.Path = string(result[0].String())
 		h.Code = uint32(result[1].Uint())
+		h.ProtoType = uint32(result[2].Uint())
 		return
 	}
 }
 
 // IsRouteMethod decide a method is suitable handler method
 func (s *service) IsRouteMethod(method reflect.Method) bool {
-	if strings.Index(method.Name, PreStringForRouteMethod) != 0 {
+	if strings.Index(method.Name, routeMethodPre) != 0 {
 		return false
 	}
 	mt := method.Type
@@ -88,7 +89,7 @@ func (s *service) IsRouteMethod(method reflect.Method) bool {
 		return false
 	}
 	// Method needs one outs: error
-	if mt.NumOut() != 2 {
+	if mt.NumOut() != 3 {
 		return false
 	}
 	if mt.Out(0) != typeOfString {
@@ -97,10 +98,13 @@ func (s *service) IsRouteMethod(method reflect.Method) bool {
 	if mt.Out(1) != typeOfUInt32 {
 		return false
 	}
+	if mt.Out(2) != typeOfUInt32 {
+		return false
+	}
 	return true
 }
 
 // IsRouteMethodForHandlerMethod decide a routeMethod is suitable for handlerMethod
 func (s *service) IsRouteMethodForHandlerMethod(routeMethod reflect.Method, handlerMethod reflect.Method) bool {
-	return routeMethod.Name == PreStringForRouteMethod+handlerMethod.Name
+	return routeMethod.Name == routeMethodPre+handlerMethod.Name
 }

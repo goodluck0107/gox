@@ -10,7 +10,7 @@ func NewMessageFactory() (this *MessageFactory) {
 	return
 }
 
-func (factory *MessageFactory) GetMessage(buf []byte) (valid bool, ret protocol.IProtocol) {
+func (factory *MessageFactory) GetProtocol(buf []byte) (valid bool, ret protocol.Protocol) {
 	msg := NewMessageWith(buf)
 	if msg != nil {
 		return true, msg

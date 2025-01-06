@@ -5,6 +5,6 @@ import (
 )
 
 type Serializier interface {
-	Serialize(protocol.IProtocol) []byte
-	Deserialize(b []byte) (bool, protocol.IProtocol)
+	Serialize(protocol.Protocol) []byte
+	Deserialize(b []byte) (bool, protocol.Protocol)
 }

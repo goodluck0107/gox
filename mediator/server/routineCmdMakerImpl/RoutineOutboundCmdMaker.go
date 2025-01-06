@@ -23,6 +23,6 @@ func (impl *RoutineOutboundCmdMaker) MakeCloseEvent(routineId int64, uID int64, 
 	return nil
 }
 
-func (impl *RoutineOutboundCmdMaker) MakeSendMessageEvent(routineId int64, Data protocol.IProtocol, OnClose bool, PoolKey int64, ChlCtx service.IChannelContext, Desc string) executor.Event {
+func (impl *RoutineOutboundCmdMaker) MakeSendMessageEvent(routineId int64, Data protocol.Protocol, OnClose bool, PoolKey int64, ChlCtx service.IChannelContext, Desc string) executor.Event {
 	return routineCommands.NewServerRoutineOutboundCmdMsgSend(routineId, Data, OnClose, PoolKey, ChlCtx, Desc)
 }

@@ -30,7 +30,7 @@ func NewChannelInboundCmdMsgRecv(
 
 func (event *ChannelInboundCmdMsgRecv) Exec() {
 	logger.Debug("ChannelInboundCmdMsgRecv Exec !", extends.ChannelContextToString(event.ChannelCtx))
-	buf, _ := event.e.(protocol.IProtocol)
+	buf, _ := event.e.(protocol.Protocol)
 	if extends.HasUserInfo(event.ChannelCtx) { // 用户已经发送过登录协议
 		logger.Debug("ChannelInboundCmdMsgRecv Exec executor.FireMessageReceivedEvent !", extends.ChannelContextToString(event.ChannelCtx))
 		executor.FireEvent(event.mEventMaker.MakeMessageReceivedEvent(extends.UID(event.ChannelCtx), buf, event.ChannelCtx))

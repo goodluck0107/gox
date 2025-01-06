@@ -79,7 +79,7 @@ func (sc *serviceCenter) HandlerType(servicePath string) []reflect.Type {
 
 // 调用服务方法
 func (sc *serviceCenter) callServiceHandle(h *handler, data []interface{}) error {
-	handlerArgs := sc.handlerChecker.AdaptArgs(h.Types, data)
+	handlerArgs := sc.handlerChecker.AdaptArgs(h.Types, data, h.ProtoType)
 	if handlerArgs == nil {
 		return errors.New("param for handler is invalid")
 	}

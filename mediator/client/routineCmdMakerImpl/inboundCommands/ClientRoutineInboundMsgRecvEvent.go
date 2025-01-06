@@ -8,13 +8,13 @@ import (
 
 type ClientChannelUpMsgRecvEvent struct {
 	routineId   int64
-	Data        protocol.IProtocol
+	Data        protocol.Protocol
 	Ctx         service.IChannelContext
 	mEventMaker schedule.IRoutineInboundEventMaker
 	callback    ICallBack
 }
 
-func NewClientChannelUpMsgRecvEvent(routineId int64, Data protocol.IProtocol,
+func NewClientChannelUpMsgRecvEvent(routineId int64, Data protocol.Protocol,
 	Ctx service.IChannelContext, mEventMaker schedule.IRoutineInboundEventMaker, callback ICallBack) (this *ClientChannelUpMsgRecvEvent) {
 	this = new(ClientChannelUpMsgRecvEvent)
 	this.routineId = routineId

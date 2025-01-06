@@ -116,7 +116,7 @@ func (cb *callBack) ConnectInactive(uID int64, currentChlCtx service.IChannelCon
 }
 
 // MessageReceived called on executor routine
-func (cb *callBack) MessageReceived(Ctx service.IChannelContext, Data protocol.IProtocol) {
+func (cb *callBack) MessageReceived(Ctx service.IChannelContext, Data protocol.Protocol) {
 	uID := Ctx.ContextAttr().GetInt64(clientkey.KeyFireUser)
 	logger.Info(fmt.Sprintf("RPC.CallBack.MessageReceived uID:%v", uID))
 	// executor.FireEvent(routineCommands.NewRoutineInboundCmdMsgRecv(uID, Data, Ctx))

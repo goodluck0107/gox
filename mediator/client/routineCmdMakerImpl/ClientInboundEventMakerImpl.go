@@ -28,6 +28,6 @@ func (impl *ClientInboundEventMakerImpl) MakeInActiveEvent(routineId int64, Ctx 
 }
 
 // 收到消息包
-func (impl *ClientInboundEventMakerImpl) MakeMessageReceivedEvent(routineId int64, Data protocol.IProtocol, Ctx service.IChannelContext) executor.Event {
+func (impl *ClientInboundEventMakerImpl) MakeMessageReceivedEvent(routineId int64, Data protocol.Protocol, Ctx service.IChannelContext) executor.Event {
 	return inboundCommands.NewClientChannelUpMsgRecvEvent(routineId, Data, Ctx, impl, impl.callback)
 }

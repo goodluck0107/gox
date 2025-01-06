@@ -1,18 +1,17 @@
 package mediator
 
 import (
-	"gitee.com/andyxt/gox/message"
-
 	"gitee.com/andyxt/gona/boot/channel"
 	"gitee.com/andyxt/gox/handler/code"
+	"gitee.com/andyxt/gox/handler/protocol"
 	"gitee.com/andyxt/gox/handler/schedule"
 )
 
-func NewChannelInitializer(mInboundChannelCommandMaker schedule.IChannelInboundCommandMaker, mMessageFactory message.IMessageFactory) channel.ChannelInitializer {
+func NewChannelInitializer(mInboundChannelCommandMaker schedule.IChannelInboundCommandMaker, mMessageFactory protocol.ProtocolFactory) channel.ChannelInitializer {
 	return newChannelInitializer(mInboundChannelCommandMaker, mMessageFactory)
 }
 
-func newChannelInitializer(mInboundChannelCommandMaker schedule.IChannelInboundCommandMaker, mMessageFactory message.IMessageFactory) channel.ChannelInitializer {
+func newChannelInitializer(mInboundChannelCommandMaker schedule.IChannelInboundCommandMaker, mMessageFactory protocol.ProtocolFactory) channel.ChannelInitializer {
 	instance := new(channelInitializer)
 	instance.mInboundChannelCommandMaker = mInboundChannelCommandMaker
 	instance.mMessageFactory = mMessageFactory
@@ -21,7 +20,7 @@ func newChannelInitializer(mInboundChannelCommandMaker schedule.IChannelInboundC
 
 type channelInitializer struct {
 	mInboundChannelCommandMaker schedule.IChannelInboundCommandMaker
-	mMessageFactory             message.IMessageFactory
+	mMessageFactory             protocol.ProtocolFactory
 }
 
 func (initializer *channelInitializer) InitChannel(pipeline channel.ChannelPipeline) {

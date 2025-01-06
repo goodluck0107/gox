@@ -3,7 +3,14 @@ package service
 import (
 	"reflect"
 
+	"gitee.com/andyxt/gox/message"
 	"google.golang.org/protobuf/proto"
+)
+
+const (
+	ProtoTypePB   uint32 = 0 // ProtoBuffer
+	ProtoTypeBN   uint32 = 1 // Binary
+	ProtoTypeJson uint32 = 2 // Json
 )
 
 var (
@@ -14,7 +21,7 @@ var (
 )
 
 const (
-	PreStringForRouteMethod string = "RouteFor"
+	routeMethodPre string = "RouteFor"
 )
 
 type defaultHandleChecker struct{}
@@ -52,15 +59,27 @@ func (checker *defaultHandleChecker) IsHandlerMethod(method reflect.Method) bool
 }
 
 // AdaptArgs create the params a handler method need
-func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}) []reflect.Value {
+func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType uint32) []reflect.Value {
 	data := reflect.New(types[1].Elem()).Interface()
-	pb, ok := data.(proto.Message)
-	if !ok {
-		return nil
-	}
-	err := proto.Unmarshal(params[1].([]byte), pb)
-	if err != nil {
-		return nil
+	b := params[1].([]byte)
+	if protoType == ProtoTypePB { // ProtoBuffer消息
+		pm, ok := data.(proto.Message)
+		if !ok {
+			return nil
+		}
+		err := proto.Unmarshal(b, pm)
+		if err != nil {
+			return nil
+		}
+	} else if protoType == ProtoTypeBN { // 二进制消息
+		bm, ok := data.(message.IMessage)
+		if !ok {
+			return nil
+		}
+		err := message.Unmarshal(b, bm)
+		if err != nil {
+			return nil
+		}
 	}
 	args := []reflect.Value{reflect.ValueOf(params[0]), reflect.ValueOf(data)}
 	return args
