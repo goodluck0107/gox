@@ -143,7 +143,7 @@ func heart() {
 func sendMessage(msgCode uint16, protoData protoreflect.ProtoMessage) {
 	chlCtx := chlCtxReference.Search(clientNodeID)
 	if chlCtx == nil {
-		logger.Warn(fmt.Sprintf("rpc for nodeID %v is not connect\n", clientNodeID))
+		logger.Warn(fmt.Sprintf("rpc for nodeID %v is not connect", clientNodeID))
 		return
 	}
 	clientFacade.SendMessage(clientNodeID, chlCtx, message.NewMessage(1, 0, 1, 1, msgCode, protoData), false, "")
