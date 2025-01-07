@@ -1,6 +1,7 @@
 package service
 
 import (
+	"encoding/json"
 	"reflect"
 
 	"gitee.com/andyxt/gox/message"
@@ -77,6 +78,15 @@ func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []in
 			return nil
 		}
 		err := message.Unmarshal(b, bm)
+		if err != nil {
+			return nil
+		}
+	} else if protoType == ProtoTypeJson { // json消息
+		bm, ok := data.(message.IMessage)
+		if !ok {
+			return nil
+		}
+		err := json.Unmarshal(b, bm)
 		if err != nil {
 			return nil
 		}
