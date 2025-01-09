@@ -2,6 +2,7 @@ package service
 
 import (
 	"encoding/json"
+	"errors"
 	"reflect"
 
 	"gitee.com/andyxt/gox/message"
@@ -60,39 +61,39 @@ func (checker *defaultHandleChecker) IsHandlerMethod(method reflect.Method) bool
 }
 
 // AdaptArgs create the params a handler method need
-func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType uint32) []reflect.Value {
+func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType uint32) ([]reflect.Value, error) {
 	data := reflect.New(types[1].Elem()).Interface()
 	b := params[1].([]byte)
 	if protoType == ProtoTypePB { // ProtoBuffer消息
 		pm, ok := data.(proto.Message)
 		if !ok {
-			return nil
+			return nil, errors.New("param is not proto.Message while protoType is ProtoTypePB")
 		}
 		err := proto.Unmarshal(b, pm)
 		if err != nil {
-			return nil
+			return nil, errors.New("param can not unmarshal to proto.Message while protoType is ProtoTypePB")
 		}
 	} else if protoType == ProtoTypeBN { // 二进制消息
 		bm, ok := data.(message.IMessage)
 		if !ok {
-			return nil
+			return nil, errors.New("param is not message.IMessage while protoType is ProtoTypeBN")
 		}
 		err := message.Unmarshal(b, bm)
 		if err != nil {
-			return nil
+			return nil, errors.New("param can not unmarshal to message.IMessage while protoType is ProtoTypeBN")
 		}
 	} else if protoType == ProtoTypeJson { // json消息
 		bm, ok := data.(message.IMessage)
 		if !ok {
-			return nil
+			return nil, errors.New("param is not message.IMessage while protoType is ProtoTypeJson")
 		}
 		err := json.Unmarshal(b, bm)
 		if err != nil {
-			return nil
+			return nil, errors.New("param can not unmarshal to message.IMessage while protoType is ProtoTypeJson")
 		}
 	}
 	args := []reflect.Value{reflect.ValueOf(params[0]), reflect.ValueOf(data)}
-	return args
+	return args, nil
 }
 
 // fmt.Println("err", err)

@@ -79,9 +79,12 @@ func (sc *serviceCenter) HandlerType(servicePath string) []reflect.Type {
 
 // 调用服务方法
 func (sc *serviceCenter) callServiceHandle(h *handler, data []interface{}) error {
-	handlerArgs := sc.handlerChecker.AdaptArgs(h.Types, data, h.ProtoType)
+	handlerArgs, argE := sc.handlerChecker.AdaptArgs(h.Types, data, h.ProtoType)
+	if argE != nil {
+		return argE
+	}
 	if handlerArgs == nil {
-		return errors.New("param for handler is invalid")
+		return errors.New("handlerArgs is nil")
 	}
 	args := append([]reflect.Value{h.Receiver}, handlerArgs...)
 	result := h.Method.Func.Call(args)
