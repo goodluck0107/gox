@@ -226,6 +226,11 @@ func (p *beProtocolBuffer) WriteInt16(v int16) {
 	p.content = append(p.content, buf...)
 	p.writePosition = p.writePosition + int16Size
 }
+func (p *beProtocolBuffer) WriteUInt16(v uint16) {
+	buf := UInt16ToByte(v)
+	p.content = append(p.content, buf...)
+	p.writePosition = p.writePosition + int16Size
+}
 func (p *beProtocolBuffer) WriteInt16WithIndex(index int32, v int16) {
 	buf := Int16ToByte(v)
 	for i, v := range buf {

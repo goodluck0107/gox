@@ -70,6 +70,7 @@ type Buffer interface {
 	WriteUInt8WithIndex(int32, uint8)
 	WriteInt16(v int16)
 	WriteInt16WithIndex(int32, int16)
+	WriteUInt16(v uint16)
 	WriteInt32(v int32)
 	WriteInt32WithIndex(int32, int32)
 	WriteInt64(v int64)

@@ -102,6 +102,14 @@ func UInt16ToByteLD(v uint16) (buf []byte) {
 	return buf
 }
 
+// UInt16ToByte 大端字节序uint16转字节数组
+func UInt16ToByte(v uint16) (buf []byte) {
+	buf = make([]byte, INT16_SIZE)
+	buf[0] = byte(v >> 8)
+	buf[1] = byte(v)
+	return buf
+}
+
 // Int16ToByte 大端字节序int16转字节数组
 func Int16ToByte(v int16) (buf []byte) {
 	buf = make([]byte, INT16_SIZE)
