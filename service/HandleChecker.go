@@ -83,13 +83,9 @@ func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []in
 			return nil, errors.New("param can not unmarshal to message.IMessage while protoType is ProtoTypeBN")
 		}
 	} else if protoType == ProtoTypeJson { // json消息
-		bm, ok := data.(message.IMessage)
-		if !ok {
-			return nil, errors.New("param is not message.IMessage while protoType is ProtoTypeJson")
-		}
-		err := json.Unmarshal(b, bm)
+		err := json.Unmarshal(b, data)
 		if err != nil {
-			return nil, errors.New("param can not unmarshal to message.IMessage while protoType is ProtoTypeJson")
+			return nil, errors.New("param can not unmarshal to json while protoType is ProtoTypeJson")
 		}
 	}
 	args := []reflect.Value{reflect.ValueOf(params[0]), reflect.ValueOf(data)}
