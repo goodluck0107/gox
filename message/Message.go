@@ -55,7 +55,7 @@ func NewMessage(routeType Type, messageType Type,
 }
 func NewMessageWith(data []byte) (this *Message) {
 	this = new(Message)
-	protocolBuffer := buffer.FromBytes(data)
+	protocolBuffer := buffer.FromBytes(data, buffer.ByteOrderBigEndian)
 	this.RouteType = Type(protocolBuffer.ReadUInt8())   // 路由类型（0-客户端，1-大厅）
 	this.MessageType = Type(protocolBuffer.ReadUInt8()) // 消息类型（0-close,1-proto）
 	this.Verion = uint32(protocolBuffer.ReadInt32())    // 协议版本
@@ -69,7 +69,7 @@ func (msg *Message) Decode(e interface{}) (valid bool) {
 	return
 }
 func (msg *Message) Encode() (ret interface{}) {
-	protocolBuffer := new(buffer.ProtocolBuffer)
+	protocolBuffer := buffer.CreateBigEndianBuffer()
 	protocolBuffer.WriteUInt8(uint8(msg.RouteType))   // 路由类型（0-客户端，1-大厅）
 	protocolBuffer.WriteUInt8(uint8(msg.MessageType)) // 消息类型（0-close,1-proto）
 	protocolBuffer.WriteInt32(int32(msg.Verion))      // 协议版本

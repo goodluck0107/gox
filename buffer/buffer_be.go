@@ -5,24 +5,15 @@ import (
 	"fmt"
 )
 
-const (
-	Int8Size     int32 = 1
-	Int16Size    int32 = 2
-	Int32Size    int32 = 4
-	Int64Size    int32 = 8
-	StringPrefix int32 = 2
-	BytesPrefix  int32 = 4
-)
-
-type ProtocolBuffer struct {
+type beProtocolBuffer struct {
 	content       []byte
 	readPosition  int32
 	writePosition int32
 }
 
-func (p *ProtocolBuffer) ReadInt8() (ret int8) {
+func (p *beProtocolBuffer) ReadInt8() (ret int8) {
 	length := int32(len(p.content))
-	if p.readPosition+Int8Size > length {
+	if p.readPosition+int8Size > length {
 		err := errors.New(fmt.Sprint("ReadInt8() 协议包读取越界，readPosition=", p.readPosition, ",length=", length))
 		panic(err)
 	}
@@ -30,9 +21,9 @@ func (p *ProtocolBuffer) ReadInt8() (ret int8) {
 	p.readPosition = p.readPosition + 1
 	return
 }
-func (p *ProtocolBuffer) ReadUInt8() (ret uint8) {
+func (p *beProtocolBuffer) ReadUInt8() (ret uint8) {
 	length := int32(len(p.content))
-	if p.readPosition+Int8Size > length {
+	if p.readPosition+int8Size > length {
 		err := errors.New(fmt.Sprint("ReadUInt8() 协议包读取越界，readPosition=", p.readPosition, ",length=", length))
 		panic(err)
 	}
@@ -41,9 +32,9 @@ func (p *ProtocolBuffer) ReadUInt8() (ret uint8) {
 	return
 }
 
-func (p *ProtocolBuffer) ReadInt8WithIndex(index int32) (ret int8) {
+func (p *beProtocolBuffer) ReadInt8WithIndex(index int32) (ret int8) {
 	length := int32(len(p.content))
-	if index+Int8Size > length {
+	if index+int8Size > length {
 		err := errors.New(fmt.Sprint("ReadInt8WithIndex() 协议包读取越界，readPosition=", index, ",length=", length))
 		panic(err)
 	}
@@ -51,9 +42,9 @@ func (p *ProtocolBuffer) ReadInt8WithIndex(index int32) (ret int8) {
 	return
 }
 
-func (p *ProtocolBuffer) ReadUInt8WithIndex(index int32) (ret uint8) {
+func (p *beProtocolBuffer) ReadUInt8WithIndex(index int32) (ret uint8) {
 	length := int32(len(p.content))
-	if index+Int8Size > length {
+	if index+int8Size > length {
 		err := errors.New(fmt.Sprint("ReadUInt8WithIndex() 协议包读取越界，readPosition=", index, ",length=", length))
 		panic(err)
 	}
@@ -61,76 +52,76 @@ func (p *ProtocolBuffer) ReadUInt8WithIndex(index int32) (ret uint8) {
 	return
 }
 
-func (p *ProtocolBuffer) ReadInt16() (ret int16) {
+func (p *beProtocolBuffer) ReadInt16() (ret int16) {
 	length := int32(len(p.content))
-	if p.readPosition+Int16Size > length {
+	if p.readPosition+int16Size > length {
 		err := errors.New(fmt.Sprint("ReadUInt8WithIndex() 协议包读取越界，readPosition=", p.readPosition, ",length=", length))
 		panic(err)
 	}
-	buf := p.content[p.readPosition : p.readPosition+Int16Size]
+	buf := p.content[p.readPosition : p.readPosition+int16Size]
 	ret = ByteToInt16(buf)
-	p.readPosition = p.readPosition + Int16Size
+	p.readPosition = p.readPosition + int16Size
 	return
 }
 
-func (p *ProtocolBuffer) ReadInt16WithIndex(index int32) (ret int16) {
+func (p *beProtocolBuffer) ReadInt16WithIndex(index int32) (ret int16) {
 	length := int32(len(p.content))
-	if index+Int16Size > length {
+	if index+int16Size > length {
 		err := errors.New(fmt.Sprint("ReadUInt8WithIndex() 协议包读取越界，readPosition=", index, ",length=", length))
 		panic(err)
 	}
-	buf := p.content[index : index+Int16Size]
+	buf := p.content[index : index+int16Size]
 	ret = ByteToInt16(buf)
 	return
 }
 
-func (p *ProtocolBuffer) ReadInt32() (ret int32) {
+func (p *beProtocolBuffer) ReadInt32() (ret int32) {
 	length := int32(len(p.content))
-	if p.readPosition+Int32Size > length {
+	if p.readPosition+int32Size > length {
 		err := errors.New(fmt.Sprint("ReadUInt8WithIndex() 协议包读取越界，readPosition=", p.readPosition, ",length=", length))
 		panic(err)
 	}
-	buf := p.content[p.readPosition : p.readPosition+Int32Size]
+	buf := p.content[p.readPosition : p.readPosition+int32Size]
 	ret = ByteToInt32(buf)
-	p.readPosition = p.readPosition + Int32Size
+	p.readPosition = p.readPosition + int32Size
 	return
 }
 
-func (p *ProtocolBuffer) ReadInt32WithIndex(index int32) (ret int32) {
+func (p *beProtocolBuffer) ReadInt32WithIndex(index int32) (ret int32) {
 	length := int32(len(p.content))
-	if index+Int32Size > length {
+	if index+int32Size > length {
 		err := errors.New(fmt.Sprint("ReadUInt8WithIndex() 协议包读取越界，readPosition=", index, ",length=", length))
 		panic(err)
 	}
-	buf := p.content[index : index+Int32Size]
+	buf := p.content[index : index+int32Size]
 	ret = ByteToInt32(buf)
 	return
 }
 
-func (p *ProtocolBuffer) ReadInt64() (ret int64) {
+func (p *beProtocolBuffer) ReadInt64() (ret int64) {
 	length := int32(len(p.content))
-	if p.readPosition+Int64Size > length {
+	if p.readPosition+int64Size > length {
 		err := errors.New(fmt.Sprint("ReadUInt8WithIndex() 协议包读取越界，readPosition=", p.readPosition, ",length=", length))
 		panic(err)
 	}
-	buf := p.content[p.readPosition : p.readPosition+Int64Size]
+	buf := p.content[p.readPosition : p.readPosition+int64Size]
 	ret = ByteToInt64(buf)
-	p.readPosition = p.readPosition + Int64Size
+	p.readPosition = p.readPosition + int64Size
 	return
 }
 
-func (p *ProtocolBuffer) ReadInt64WithIndex(index int32) (ret int64) {
+func (p *beProtocolBuffer) ReadInt64WithIndex(index int32) (ret int64) {
 	length := int32(len(p.content))
-	if index+Int64Size > length {
+	if index+int64Size > length {
 		err := errors.New(fmt.Sprint("ReadUInt8WithIndex() 协议包读取越界，readPosition=", index, ",length=", length))
 		panic(err)
 	}
-	buf := p.content[index : index+Int64Size]
+	buf := p.content[index : index+int64Size]
 	ret = ByteToInt64(buf)
 	return
 }
 
-func (p *ProtocolBuffer) ReadBytes() (ret []byte) {
+func (p *beProtocolBuffer) ReadBytes() (ret []byte) {
 	length := int32(len(p.content))
 	size := p.ReadInt32()
 	if p.readPosition+size > length {
@@ -142,29 +133,29 @@ func (p *ProtocolBuffer) ReadBytes() (ret []byte) {
 	return
 }
 
-func (p *ProtocolBuffer) ReadBytesWithOutLength() (ret []byte) {
+func (p *beProtocolBuffer) ReadBytesWithOutLength() (ret []byte) {
 	length := int32(len(p.content))
 	ret = p.content[p.readPosition:length]
 	p.readPosition = length
 	return
 }
 
-func (p *ProtocolBuffer) ReadBytesWithIndex(index int32) (ret []byte) {
+func (p *beProtocolBuffer) ReadBytesWithIndex(index int32) (ret []byte) {
 	length := int32(len(p.content))
 	size := p.ReadInt32WithIndex(index)
-	if index+BytesPrefix+size > length {
-		err := errors.New(fmt.Sprint("ReadBytesWithIndex() 协议包读取越界，readPosition=", index+BytesPrefix, ",length=", length))
+	if index+bytesPrefix+size > length {
+		err := errors.New(fmt.Sprint("ReadBytesWithIndex() 协议包读取越界，readPosition=", index+bytesPrefix, ",length=", length))
 		panic(err)
 	}
-	ret = p.content[index+BytesPrefix : index+BytesPrefix+size]
+	ret = p.content[index+bytesPrefix : index+bytesPrefix+size]
 	return
 }
 
-func (p *ProtocolBuffer) ReadString() (ret string) {
+func (p *beProtocolBuffer) ReadStringWithoutSize() (ret string) {
 	length := int32(len(p.content))
 	size := int32(p.ReadInt16())
 	if p.readPosition+size > length {
-		err := errors.New(fmt.Sprint("ReadString() 协议包读取越界，readPosition=", p.readPosition," readSize=",size, ",length=", length))
+		err := errors.New(fmt.Sprint("ReadStringWithoutSize() 协议包读取越界，readPosition=", p.readPosition, " readSize=", size, ",length=", length))
 		panic(err)
 	}
 	bytes := p.content[p.readPosition : p.readPosition+size]
@@ -173,7 +164,27 @@ func (p *ProtocolBuffer) ReadString() (ret string) {
 	return
 }
 
-func (p *ProtocolBuffer) ReadStringWithOutLength() (ret string) {
+func (p *beProtocolBuffer) ReadString(size int32) (ret string) {
+	length := int32(len(p.content))
+	if p.readPosition+size > length {
+		err := errors.New(fmt.Sprint("ReadString() 协议包读取越界，readPosition=", p.readPosition, " readSize=", size, ",length=", length))
+		panic(err)
+	}
+	bytes := make([]byte, 0)
+	for k := p.readPosition; k < p.readPosition+size; k++ {
+		if p.content[k] != 0 {
+			bytes = append(bytes, p.content[k])
+		} else {
+			break
+		}
+	}
+	// p.content[p.readPosition : p.readPosition+size]
+	p.readPosition = p.readPosition + size
+	ret = string(bytes)
+	return
+}
+
+func (p *beProtocolBuffer) ReadStringWithOutLength() (ret string) {
 	length := int32(len(p.content))
 	bytes := p.content[p.readPosition:length]
 	p.readPosition = length
@@ -181,94 +192,100 @@ func (p *ProtocolBuffer) ReadStringWithOutLength() (ret string) {
 	return
 }
 
-func (p *ProtocolBuffer) ReadStringWithIndex(index int32) (ret string) {
+func (p *beProtocolBuffer) ReadStringWithIndex(index int32, size int32) (ret string) {
 	length := int32(len(p.content))
-	size := int32(p.ReadInt16WithIndex(index))
-	if index+StringPrefix+size > length {
-		err := errors.New(fmt.Sprint("ReadStringWithIndex() 协议包读取越界，readPosition=", index+BytesPrefix, ",length=", length))
+	if index+size > length {
+		err := errors.New(fmt.Sprint("ReadStringWithIndex() 协议包读取越界，readPosition=", index+bytesPrefix, ",length=", length))
 		panic(err)
 	}
-	bytes := p.content[index+StringPrefix : index+StringPrefix+size]
+	bytes := p.content[index : index+size]
 	ret = string(bytes)
 	return
 }
 
-func (p *ProtocolBuffer) WriteInt8(v int8) {
+func (p *beProtocolBuffer) WriteInt8(v int8) {
 	p.content = append(p.content, byte(v))
-	p.writePosition = p.writePosition + Int8Size
+	p.writePosition = p.writePosition + int8Size
 }
 
-func (p *ProtocolBuffer) WriteUInt8(v uint8) {
+func (p *beProtocolBuffer) WriteUInt8(v uint8) {
 	p.content = append(p.content, byte(v))
-	p.writePosition = p.writePosition + Int8Size
+	p.writePosition = p.writePosition + int8Size
 }
 
-func (p *ProtocolBuffer) WriteInt8WithIndex(index int32, v int8) {
+func (p *beProtocolBuffer) WriteInt8WithIndex(index int32, v int8) {
 	p.content[index] = byte(v)
 }
 
-func (p *ProtocolBuffer) WriteUInt8WithIndex(index int32, v uint8) {
+func (p *beProtocolBuffer) WriteUInt8WithIndex(index int32, v uint8) {
 	p.content[index] = byte(v)
 }
 
-func (p *ProtocolBuffer) WriteInt16(v int16) {
+func (p *beProtocolBuffer) WriteInt16(v int16) {
 	buf := Int16ToByte(v)
 	p.content = append(p.content, buf...)
-	p.writePosition = p.writePosition + Int16Size
+	p.writePosition = p.writePosition + int16Size
 }
-func (p *ProtocolBuffer) WriteInt16WithIndex(index int32, v int16) {
+func (p *beProtocolBuffer) WriteInt16WithIndex(index int32, v int16) {
 	buf := Int16ToByte(v)
 	for i, v := range buf {
 		p.content[index+int32(i)] = v
 	}
 }
 
-func (p *ProtocolBuffer) WriteInt32(v int32) {
+func (p *beProtocolBuffer) WriteInt32(v int32) {
 	buf := Int32ToByte(v)
 	p.content = append(p.content, buf...)
-	p.writePosition = p.writePosition + Int32Size
+	p.writePosition = p.writePosition + int32Size
 }
 
-func (p *ProtocolBuffer) WriteInt32WithIndex(index int32, v int32) {
+func (p *beProtocolBuffer) WriteInt32WithIndex(index int32, v int32) {
 	buf := Int32ToByte(v)
 	for i, v := range buf {
 		p.content[index+int32(i)] = v
 	}
 }
 
-func (p *ProtocolBuffer) WriteInt64(v int64) {
+func (p *beProtocolBuffer) WriteInt64(v int64) {
 	buf := Int64ToByte(v)
 	p.content = append(p.content, buf...)
-	p.writePosition = p.writePosition + Int64Size
+	p.writePosition = p.writePosition + int64Size
 }
 
-func (p *ProtocolBuffer) WriteInt64WithIndex(index int32, v int64) {
+func (p *beProtocolBuffer) WriteInt64WithIndex(index int32, v int64) {
 	buf := Int64ToByte(v)
 	for i, v := range buf {
 		p.content[index+int32(i)] = v
 	}
 }
 
-func (p *ProtocolBuffer) WriteBytes(v []byte) {
+func (p *beProtocolBuffer) WriteBytes(v []byte) {
 	length := int32(len(v))
 	p.WriteInt32(int32(length))
 	p.content = append(p.content, v...)
 	p.writePosition = p.writePosition + length
 }
-func (p *ProtocolBuffer) WriteBytesWithOutLength(v []byte) {
+func (p *beProtocolBuffer) WriteBytesWithOutLength(v []byte) {
 	length := int32(len(v))
 	p.content = append(p.content, v...)
 	p.writePosition = p.writePosition + length
 }
-func (p *ProtocolBuffer) WriteBytesWithIndex(index int32, v []byte) {
+func (p *beProtocolBuffer) WriteBytesWithIndex(index int32, v []byte) {
 	length := int32(len(v))
 	p.WriteInt32WithIndex(index, int32(length))
 	for i, v1 := range v {
-		p.content[index+BytesPrefix+int32(i)] = v1
+		p.content[index+bytesPrefix+int32(i)] = v1
 	}
 }
+func (p *beProtocolBuffer) WriteString(size int32, v string) {
+	bytes := make([]byte, size)
+	vBytes := []byte(v)
+	copy(bytes, vBytes)
+	p.content = append(p.content, bytes...)
+	p.writePosition = p.writePosition + size
+}
 
-func (p *ProtocolBuffer) WriteString(v string) {
+func (p *beProtocolBuffer) WriteStringWithoutSize(v string) {
 	bytes := []byte(v)
 	length := int32(len(bytes))
 	p.WriteInt16(int16(length))
@@ -276,44 +293,38 @@ func (p *ProtocolBuffer) WriteString(v string) {
 	p.writePosition = p.writePosition + length
 }
 
-func (p *ProtocolBuffer) WriteStringWithIndex(index int32, v string) {
+func (p *beProtocolBuffer) WriteStringWithIndex(index int32, v string) {
 	bytes := []byte(v)
 	length := int32(len(bytes))
 	p.WriteInt16WithIndex(index, int16(length))
 	for i, v1 := range bytes {
-		p.content[index+StringPrefix+int32(i)] = v1
+		p.content[index+stringPrefix+int32(i)] = v1
 	}
 }
 
-func (p *ProtocolBuffer) ToBytes() (ret []byte) {
+func (p *beProtocolBuffer) ToBytes() (ret []byte) {
 	length := int32(len(p.content))
 	ret = make([]byte, 0, length)
 	ret = append(ret, p.content...)
 	return
 }
 
-func FromBytes(v []byte) (ret *ProtocolBuffer) {
-	ret = new(ProtocolBuffer)
-	ret.content = v
-	return
-}
-
-func (p *ProtocolBuffer) GetWriteIndex() (ret int32) {
+func (p *beProtocolBuffer) GetWriteIndex() (ret int32) {
 	return p.writePosition
 }
 
-func (p *ProtocolBuffer) GetReadIndex() (ret int32) {
+func (p *beProtocolBuffer) GetReadIndex() (ret int32) {
 	return p.readPosition
 }
-func (p *ProtocolBuffer) GetContent() (ret []byte) {
+func (p *beProtocolBuffer) GetContent() (ret []byte) {
 	return p.content
 }
 
-//TOFIX 
-func (p *ProtocolBuffer) GetBodyContent() (ret []byte) {
+// TOFIX
+func (p *beProtocolBuffer) GetBodyContent() (ret []byte) {
 	totalLength := int32(len(p.content))
 	length := totalLength - 8
-	ret = make([]byte, length, length)
+	ret = make([]byte, length)
 	for i := int32(8); i < totalLength; i = i + 1 {
 		ret[i-8] = p.content[i]
 	}

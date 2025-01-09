@@ -19,13 +19,13 @@ func NewDefualtSerializier(mFactory protocolCoder.IMessageFactory) (this *Defual
 }
 
 func (serializier *DefualtSerializier) Serialize(b protocol.Protocol) []byte {
-	pBuf := b.Encode().(*buffer.ProtocolBuffer)
+	pBuf := b.Encode().(buffer.Buffer)
 	return pBuf.ToBytes()
 }
 
 func (serializier *DefualtSerializier) Deserialize(b []byte) (bool, protocol.Protocol) {
 	//logger.Error("MessageDecoder:",byteSlice)
-	buf := buffer.FromBytes(b)
+	buf := buffer.FromBytes(b, buffer.ByteOrderBigEndian)
 	//VersionId, UserId, AppId, MessageId := protocolDefine.GetHeadFiledValue(buf)
 	msg, reuse := serializier.mFactory.GetMessage(buf)
 	if msg != nil {
