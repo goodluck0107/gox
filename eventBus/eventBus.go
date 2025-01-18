@@ -1,8 +1,7 @@
 package eventBus
 
 import (
-	"fmt"
-
+	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/executor"
 )
 
@@ -35,6 +34,6 @@ func TriggerCrossWait(ev string, uID int64, i ...interface{}) {
 	// fmt.Println("eventBus TriggerCrossWait:", ev)
 	result, ok := executor.FireEventWait(newStsEvent(uID, true, ev, i))
 	if ok {
-		fmt.Println("eventBus TriggerCrossWait result:", result)
+		logger.Info("eventBus TriggerCrossWait result:", result)
 	}
 }

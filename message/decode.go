@@ -1,7 +1,5 @@
 package message
 
-import "fmt"
-
 type IMessage interface {
 	Decode(b []byte) error
 
@@ -9,7 +7,6 @@ type IMessage interface {
 }
 
 func Unmarshal(b []byte, m IMessage) error {
-	fmt.Println("Unmarshal b:", b, "m:", m)
 	return m.Decode(b)
 }
 

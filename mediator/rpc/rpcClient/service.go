@@ -99,12 +99,12 @@ func (recvEvent *rpcCallPushEvent) Wait() (interface{}, bool) {
 func (recvEvent *rpcCallPushEvent) Exec() {
 	playerSession := session.GetSession(recvEvent.msg.PlayerID)
 	if playerSession == nil {
-		fmt.Printf("recvEvent to handle for playerID:%v, but player session is nil.\n", recvEvent.msg.PlayerID)
+		logger.Warn(fmt.Sprintf("recvEvent to handle for playerID:%v, but player session is nil.", recvEvent.msg.PlayerID))
 		return
 	}
 	Ctx := extends.GetChlCtx(playerSession)
 	if Ctx == nil {
-		fmt.Printf("recvEvent to handle for playerID:%v, but player ctx is nil.\n", recvEvent.msg.PlayerID)
+		logger.Warn(fmt.Sprintf("recvEvent to handle for playerID:%v, but player ctx is nil.", recvEvent.msg.PlayerID))
 		return
 	}
 	funcMsg := message.NewMessageDirect(1, 0, 1, 1, uint16(recvEvent.msg.FuncCode), recvEvent.msg.FuncData)
