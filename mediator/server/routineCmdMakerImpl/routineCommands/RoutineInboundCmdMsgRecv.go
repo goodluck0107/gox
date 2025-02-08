@@ -1,7 +1,8 @@
 package routineCommands
 
 import (
-	"gitee.com/andyxt/gox/message"
+	"fmt"
+
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gona/logger"
@@ -50,10 +51,25 @@ func (event *RoutineInboundCmdMsgRecv) Exec() {
 		return
 	}
 	logger.Debug("RoutineInboundCmdMsgRecv Exec-CallService", extends.ChannelContextToString(msgCtx))
-	serviceErr := callService(msgCtx, event.Data.(*message.Message))
+	serviceErr := callService(msgCtx, event.Data)
 	if serviceErr != nil {
 		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-CallServiceError !!!", extends.ChannelContextToString(msgCtx), "serviceError:", serviceErr)
 		return
 	}
 	logger.Debug("RoutineInboundCmdMsgRecv Exec-End-Success", extends.ChannelContextToString(msgCtx))
+}
+
+func callService(chlContext service.IChannelContext, protocol protocol.Protocol) error {
+	seqID := protocol.GetSeqID()     // uint32
+	msgID := protocol.GetMsgID()     // uint16
+	msgData := protocol.GetMsgData() // []byte
+
+	request := service.NewSessionRequest(chlContext, service.NewAttr(nil))
+	extends.SetMsgID(request, seqID)
+	serviceCode := int32(msgID)
+	serviceErr := service.DispatchByCode(serviceCode, request, msgData)
+	if serviceErr != nil {
+		logger.Error(fmt.Sprintf("chlCtx %v callService %v error %v ", extends.ChannelContextToString(chlContext), serviceCode, serviceErr))
+	}
+	return serviceErr
 }

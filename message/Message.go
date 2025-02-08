@@ -80,6 +80,18 @@ func (msg *Message) Encode() (ret interface{}) {
 	data = append(data, msg.Data...)
 	return data
 }
+func (msg *Message) GetSeqID() uint32 {
+	return msg.SeqID
+}
+
+func (msg *Message) GetMsgID() uint16 {
+	return msg.MsgID
+}
+
+func (msg *Message) GetMsgData() []byte {
+	return msg.Data
+}
+
 func (msg *Message) GetSerializeType() int8 {
 	return 0
 }

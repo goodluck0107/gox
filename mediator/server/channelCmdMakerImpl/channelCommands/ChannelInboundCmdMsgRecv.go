@@ -1,7 +1,6 @@
 package channelCommands
 
 import (
-	"gitee.com/andyxt/gox/message"
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gona/logger"
@@ -37,24 +36,18 @@ func (event *ChannelInboundCmdMsgRecv) Exec() {
 		return
 	}
 	logger.Debug("ChannelInboundCmdMsgRecv Exec ChannelCtx Not HasUserInfo !", extends.ChannelContextToString(event.ChannelCtx))
-	msgData, ok := buf.(*message.Message)
-	if !ok {
-		logger.Debug("ChannelInboundCmdMsgRecv Exec Message Is Invalid  !", extends.ChannelContextToString(event.ChannelCtx), "关闭连接, 关闭原因：无效消息")
-		extends.Close(event.ChannelCtx)
-		return
-	}
-	if !event.mLoginMessage.IsLoginMessage(msgData) {
+	if !event.mLoginMessage.IsLoginMessage(buf) {
 		logger.Debug("ChannelInboundCmdMsgRecv Exec First Message Is Not Login Message !", extends.ChannelContextToString(event.ChannelCtx), "关闭连接, 关闭原因：尚未通过验证的连接发送任何非登陆消息都认为是非法")
 		extends.Close(event.ChannelCtx)
 		return
 	}
-	if !event.mLoginMessage.IsValid(msgData) {
-		logger.Debug("ChannelInboundCmdMsgRecv Exec Login Message Is Invalid !", extends.ChannelContextToString(event.ChannelCtx), "关闭连接, 关闭原因：发送非法登陆消息,消息内容：", msgData.Data)
+	if !event.mLoginMessage.IsValid(buf) {
+		logger.Debug("ChannelInboundCmdMsgRecv Exec Login Message Is Invalid !", extends.ChannelContextToString(event.ChannelCtx), "关闭连接, 关闭原因：发送非法登陆消息")
 		extends.Close(event.ChannelCtx)
 		return
 	}
-	uID := event.mLoginMessage.GetLoginUID(msgData)
-	lngType := event.mLoginMessage.GetLngType(msgData)
+	uID := event.mLoginMessage.GetLoginUID(buf)
+	lngType := event.mLoginMessage.GetLngType(buf)
 	extends.PutInUserInfo(event.ChannelCtx, uID, lngType)
 	logger.Debug("ChannelInboundCmdMsgRecv Exec Login Message executor.FireMessageReceivedEvent !", extends.ChannelContextToString(event.ChannelCtx))
 	executor.FireEvent(event.mEventMaker.MakeMessageReceivedEvent(extends.UID(event.ChannelCtx), buf, event.ChannelCtx))

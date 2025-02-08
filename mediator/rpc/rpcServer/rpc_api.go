@@ -7,6 +7,7 @@ import (
 	"gitee.com/andyxt/gona/boot/boots"
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gona/utils"
+	"gitee.com/andyxt/gox/handler/protocol"
 	"gitee.com/andyxt/gox/mediator"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
@@ -51,11 +52,20 @@ func NewNofityMessage() channelCommands.ILoginMessage {
 type NofityMessage struct {
 }
 
-func (loginMessage *NofityMessage) IsLoginMessage(msg *message.Message) bool {
+func (loginMessage *NofityMessage) IsLoginMessage(protocol protocol.Protocol) bool {
+	msg, ok := protocol.(*message.Message)
+	if !ok {
+		return false
+	}
+
 	return msg.MsgID == mid.RPCLoginRequest
 }
 
-func (loginMessage *NofityMessage) IsValid(msg *message.Message) bool {
+func (loginMessage *NofityMessage) IsValid(protocol protocol.Protocol) bool {
+	msg, ok := protocol.(*message.Message)
+	if !ok {
+		return false
+	}
 	loginRequest := &rpc.LoginRequest{}
 	loginRequestErr := proto.Unmarshal(msg.Data, loginRequest)
 	if loginRequestErr != nil {
@@ -69,7 +79,11 @@ func (loginMessage *NofityMessage) IsValid(msg *message.Message) bool {
 	return true
 }
 
-func (loginMessage *NofityMessage) GetLoginUID(msg *message.Message) int64 {
+func (loginMessage *NofityMessage) GetLoginUID(protocol protocol.Protocol) int64 {
+	msg, ok := protocol.(*message.Message)
+	if !ok {
+		return 0
+	}
 	loginRequest := &rpc.LoginRequest{}
 	loginRequestErr := proto.Unmarshal(msg.Data, loginRequest)
 	if loginRequestErr != nil {
@@ -78,6 +92,6 @@ func (loginMessage *NofityMessage) GetLoginUID(msg *message.Message) int64 {
 	return loginRequest.NodeID
 }
 
-func (loginMessage *NofityMessage) GetLngType(msg *message.Message) int8 {
+func (loginMessage *NofityMessage) GetLngType(protocol protocol.Protocol) int8 {
 	return 0
 }

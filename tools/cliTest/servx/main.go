@@ -8,6 +8,7 @@ import (
 	"gitee.com/andyxt/gona/boot/boots"
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gona/utils"
+	"gitee.com/andyxt/gox/handler/protocol"
 	"gitee.com/andyxt/gox/mediator"
 	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl"
 	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl/channelCommands"
@@ -62,11 +63,19 @@ func NewEnterMessage() channelCommands.ILoginMessage {
 type EnterMessage struct {
 }
 
-func (loginMessage *EnterMessage) IsLoginMessage(msg *message.Message) bool {
+func (loginMessage *EnterMessage) IsLoginMessage(protocol protocol.Protocol) bool {
+	msg, ok := protocol.(*message.Message)
+	if !ok {
+		return false
+	}
 	return msg.MsgID == mid.LoginRequest
 }
 
-func (loginMessage *EnterMessage) IsValid(msg *message.Message) bool {
+func (loginMessage *EnterMessage) IsValid(protocol protocol.Protocol) bool {
+	msg, ok := protocol.(*message.Message)
+	if !ok {
+		return false
+	}
 	loginRequest := &cli.LoginRequest{}
 	loginRequestErr := proto.Unmarshal(msg.Data, loginRequest)
 	if loginRequestErr != nil {
@@ -84,7 +93,11 @@ func (loginMessage *EnterMessage) IsValid(msg *message.Message) bool {
 	return true
 }
 
-func (loginMessage *EnterMessage) GetLoginUID(msg *message.Message) int64 {
+func (loginMessage *EnterMessage) GetLoginUID(protocol protocol.Protocol) int64 {
+	msg, ok := protocol.(*message.Message)
+	if !ok {
+		return 0
+	}
 	loginRequest := &cli.LoginRequest{}
 	loginRequestErr := proto.Unmarshal(msg.Data, loginRequest)
 	if loginRequestErr != nil {
@@ -93,6 +106,6 @@ func (loginMessage *EnterMessage) GetLoginUID(msg *message.Message) int64 {
 	return loginRequest.UID
 }
 
-func (loginMessage *EnterMessage) GetLngType(msg *message.Message) int8 {
+func (loginMessage *EnterMessage) GetLngType(protocol protocol.Protocol) int8 {
 	return 0
 }
