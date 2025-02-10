@@ -7,6 +7,7 @@ import (
 	"gitee.com/andyxt/gox/message"
 
 	"gitee.com/andyxt/gox/extends"
+	"gitee.com/andyxt/gox/mediator/server/evts"
 	"gitee.com/andyxt/gox/mediator/server/routineCmdMakerImpl"
 
 	"gitee.com/andyxt/gox/service"
@@ -46,9 +47,30 @@ func PushClose(ChlCtx service.IChannelContext, msgMsgID uint16, v interface{}, d
 
 // OnClose 监听连接中断
 func OnClose(closeFunc func(playerID int64, chlCtx service.IChannelContext)) {
-	eventBus.On("Inactive", func(data ...interface{}) {
+	eventBus.On(evts.EVT_Inactive, func(data ...interface{}) {
 		playerID := data[0].(int64)
 		channelContext := data[1].(service.IChannelContext)
 		closeFunc(playerID, channelContext)
+	})
+}
+
+func BeforeService(beforeFunc func(playerID int64, msgProtoID uint16, msgSeqID uint32)) {
+	eventBus.On(evts.EVT_ServiceBefore, func(data ...interface{}) {
+		request := data[0].(service.IServiceRequest)
+		playerID := extends.UID(request.ChannelContext())
+		msgProtoID := extends.MsgID(request)
+		msgSeqID := extends.SeqID(request)
+		beforeFunc(playerID, msgProtoID, msgSeqID)
+	})
+}
+
+func AfterService(afterFunc func(playerID int64, msgProtoID uint16, msgSeqID uint32, serviceE error)) {
+	eventBus.On(evts.EVT_ServiceAfter, func(data ...interface{}) {
+		request := data[0].(service.IServiceRequest)
+		serviceE := data[1].(error)
+		playerID := extends.UID(request.ChannelContext())
+		msgProtoID := extends.MsgID(request)
+		msgSeqID := extends.SeqID(request)
+		afterFunc(playerID, msgProtoID, msgSeqID, serviceE)
 	})
 }
