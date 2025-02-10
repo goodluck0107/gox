@@ -33,14 +33,14 @@ func (*AccountService) Login(request service.IServiceRequest, msg *cli.LoginRequ
 			server.ResponseClose(oldChlCtx, 0, mid.LoginConflictPush, &cli.LoginConflictPush{Service: "Hall"}, "Conflict")
 			extends.ChangeChlCtx(playerSession, channelCtx)
 		}
-		return server.Response(channelCtx, extends.MsgID(request), mid.LoginResponse, &cli.LoginResponse{
+		return server.Response(channelCtx, extends.SeqID(request), mid.LoginResponse, &cli.LoginResponse{
 			UID: uID,
 		})
 	}
 	playerSession = session.NewSession(utils.UUID(), uID) // 构建玩家Session
 	extends.ChangeChlCtx(playerSession, channelCtx)
 	session.AddSession(playerSession) // 将玩家Session放入Session池中
-	return server.Response(channelCtx, extends.MsgID(request), mid.LoginResponse, &cli.LoginResponse{
+	return server.Response(channelCtx, extends.SeqID(request), mid.LoginResponse, &cli.LoginResponse{
 		UID: uID,
 	})
 }

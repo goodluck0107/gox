@@ -4,6 +4,7 @@ import (
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/eventBus"
 	"gitee.com/andyxt/gox/extends"
+	"gitee.com/andyxt/gox/mediator/server/evts"
 	"gitee.com/andyxt/gox/service"
 )
 
@@ -34,5 +35,5 @@ func (event *RoutineInboundCmdInactive) Exec() {
 		logger.Info("RoutineInboundCmdInactive Exec-End-ChlCtx IsConflict !!!", extends.ChannelContextToString(event.ChlCtx))
 		return
 	}
-	eventBus.Trigger("Inactive", event.routineId, event.ChlCtx)
+	eventBus.Trigger(evts.EVT_Inactive, event.routineId, event.ChlCtx)
 }

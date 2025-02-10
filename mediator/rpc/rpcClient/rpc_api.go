@@ -152,7 +152,7 @@ func sendMessage(msgCode uint16, protoData protoreflect.ProtoMessage) {
 // callService
 func callService(chlContext service.IChannelContext, msg *message.Message) error {
 	request := service.NewSessionRequest(chlContext, service.NewAttr(nil))
-	extends.SetMsgID(request, msg.SeqID)
+	extends.SetSeqID(request, msg.SeqID)
 	serviceCode := int32(msg.MsgID)
 	serviceErr := service.DispatchByCode(serviceCode, request, msg.Data)
 	if serviceErr != nil {

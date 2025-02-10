@@ -30,12 +30,12 @@ func (*RpcService) RPCLoginRequest(request service.IServiceRequest, msg *rpc.Log
 			server.ResponseClose(oldChlCtx, 0, mid.RPCLoginConflictPush, &rpc.LoginConflictPush{}, "Conflict")
 			extends.ChangeChlCtx(playerSession, channelCtx)
 		}
-		return server.Response(channelCtx, extends.MsgID(request), mid.RPCLoginResponse, &rpc.LoginResponse{})
+		return server.Response(channelCtx, extends.SeqID(request), mid.RPCLoginResponse, &rpc.LoginResponse{})
 	}
 	playerSession = session.NewSession(utils.UUID(), uID) // 构建玩家Session
 	extends.ChangeChlCtx(playerSession, channelCtx)
 	session.AddSession(playerSession) // 将玩家Session放入Session池中
-	return server.Response(channelCtx, extends.MsgID(request), mid.RPCLoginResponse, &rpc.LoginResponse{})
+	return server.Response(channelCtx, extends.SeqID(request), mid.RPCLoginResponse, &rpc.LoginResponse{})
 }
 
 // checkConflict 检查异地登录冲突-断线重连或异地登陆

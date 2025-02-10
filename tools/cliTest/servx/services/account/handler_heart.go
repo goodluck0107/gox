@@ -13,5 +13,5 @@ func (*AccountService) RouteForHeartbeatRequest() (string, uint32, uint32) {
 }
 
 func (*AccountService) HeartbeatRequest(request service.IServiceRequest, msg *cli.HeartbeatRequest) error {
-	return server.Response(request.ChannelContext(), extends.MsgID(request), mid.HeartbeatResponse, &cli.HeartbeatResponse{})
+	return server.Response(request.ChannelContext(), extends.SeqID(request), mid.HeartbeatResponse, &cli.HeartbeatResponse{})
 }

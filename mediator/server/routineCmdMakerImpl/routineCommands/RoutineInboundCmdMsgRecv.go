@@ -3,11 +3,13 @@ package routineCommands
 import (
 	"fmt"
 
+	"gitee.com/andyxt/gox/eventBus"
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/handler/protocol"
+	"gitee.com/andyxt/gox/mediator/server/evts"
 )
 
 type RoutineInboundCmdMsgRecv struct {
@@ -53,7 +55,6 @@ func (event *RoutineInboundCmdMsgRecv) Exec() {
 	logger.Debug("RoutineInboundCmdMsgRecv Exec-CallService", extends.ChannelContextToString(msgCtx))
 	serviceErr := callService(msgCtx, event.Data)
 	if serviceErr != nil {
-		logger.Debug("RoutineInboundCmdMsgRecv Exec-End-CallServiceError !!!", extends.ChannelContextToString(msgCtx), "serviceError:", serviceErr)
 		return
 	}
 	logger.Debug("RoutineInboundCmdMsgRecv Exec-End-Success", extends.ChannelContextToString(msgCtx))
@@ -63,13 +64,16 @@ func callService(chlContext service.IChannelContext, protocol protocol.Protocol)
 	seqID := protocol.GetSeqID()     // uint32
 	msgID := protocol.GetMsgID()     // uint16
 	msgData := protocol.GetMsgData() // []byte
-
-	request := service.NewSessionRequest(chlContext, service.NewAttr(nil))
-	extends.SetMsgID(request, seqID)
+	reqContext := service.NewAttr(nil)
+	request := service.NewSessionRequest(chlContext, reqContext)
+	extends.SetSeqID(request, seqID)
+	extends.SetMsgID(request, msgID)
+	eventBus.Trigger(evts.EVT_ServiceBefore, request)
 	serviceCode := int32(msgID)
 	serviceErr := service.DispatchByCode(serviceCode, request, msgData)
 	if serviceErr != nil {
 		logger.Error(fmt.Sprintf("chlCtx %v callService %v error %v ", extends.ChannelContextToString(chlContext), serviceCode, serviceErr))
 	}
+	eventBus.Trigger(evts.EVT_ServiceAfter, request, serviceErr)
 	return serviceErr
 }
