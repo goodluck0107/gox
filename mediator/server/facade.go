@@ -54,23 +54,23 @@ func OnClose(closeFunc func(playerID int64, chlCtx service.IChannelContext)) {
 	})
 }
 
-func BeforeService(beforeFunc func(playerID int64, msgProtoID uint16, msgSeqID uint32)) {
+func BeforeService(beforeFunc func(request service.IServiceRequest, playerID int64, msgProtoID uint16, msgSeqID uint32)) {
 	eventBus.On(evts.EVT_ServiceBefore, func(data ...interface{}) {
 		request := data[0].(service.IServiceRequest)
 		playerID := extends.UID(request.ChannelContext())
 		msgProtoID := extends.MsgID(request)
 		msgSeqID := extends.SeqID(request)
-		beforeFunc(playerID, msgProtoID, msgSeqID)
+		beforeFunc(request, playerID, msgProtoID, msgSeqID)
 	})
 }
 
-func AfterService(afterFunc func(playerID int64, msgProtoID uint16, msgSeqID uint32, serviceE error)) {
+func AfterService(afterFunc func(request service.IServiceRequest, playerID int64, msgProtoID uint16, msgSeqID uint32, serviceE error)) {
 	eventBus.On(evts.EVT_ServiceAfter, func(data ...interface{}) {
 		request := data[0].(service.IServiceRequest)
 		serviceE := data[1].(error)
 		playerID := extends.UID(request.ChannelContext())
 		msgProtoID := extends.MsgID(request)
 		msgSeqID := extends.SeqID(request)
-		afterFunc(playerID, msgProtoID, msgSeqID, serviceE)
+		afterFunc(request, playerID, msgProtoID, msgSeqID, serviceE)
 	})
 }
