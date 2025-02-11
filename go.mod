@@ -2,10 +2,8 @@ module gitee.com/andyxt/gox
 
 go 1.22.3
 
-replace gitee.com/andyxt/gona => ../gona
-
 require (
-	gitee.com/andyxt/gona v0.0.0-00010101000000-000000000000
+	gitee.com/andyxt/gona v1.0.17
 	github.com/abiosoft/ishell/v2 v2.0.2
 	google.golang.org/protobuf v1.35.2
 )
