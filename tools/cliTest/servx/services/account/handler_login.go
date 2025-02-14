@@ -6,7 +6,7 @@ import (
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gona/utils"
 	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/mediator/server"
+	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/session"
 	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
@@ -30,17 +30,17 @@ func (*AccountService) Login(request service.IServiceRequest, msg *cli.LoginRequ
 		if checkConflict(request) { // 登录冲突(异地登录或断线重连)
 			oldChlCtx := extends.GetChlCtx(playerSession)
 			extends.Conflict(oldChlCtx)
-			server.ResponseClose(oldChlCtx, 0, mid.LoginConflictPush, &cli.LoginConflictPush{Service: "Hall"}, "Conflict")
+			messageImpl.ResponseClose(oldChlCtx, 0, mid.LoginConflictPush, &cli.LoginConflictPush{Service: "Hall"}, "Conflict")
 			extends.ChangeChlCtx(playerSession, channelCtx)
 		}
-		return server.Response(channelCtx, extends.SeqID(request), mid.LoginResponse, &cli.LoginResponse{
+		return messageImpl.Response(channelCtx, extends.SeqID(request), mid.LoginResponse, &cli.LoginResponse{
 			UID: uID,
 		})
 	}
 	playerSession = session.NewSession(utils.UUID(), uID) // 构建玩家Session
 	extends.ChangeChlCtx(playerSession, channelCtx)
 	session.AddSession(playerSession) // 将玩家Session放入Session池中
-	return server.Response(channelCtx, extends.SeqID(request), mid.LoginResponse, &cli.LoginResponse{
+	return messageImpl.Response(channelCtx, extends.SeqID(request), mid.LoginResponse, &cli.LoginResponse{
 		UID: uID,
 	})
 }

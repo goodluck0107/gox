@@ -15,7 +15,7 @@ import (
 	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl"
 	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl/channelCommands"
 	"gitee.com/andyxt/gox/mediator/server/routineCmdMakerImpl"
-	"gitee.com/andyxt/gox/message"
+	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 	"google.golang.org/protobuf/proto"
 )
@@ -38,7 +38,7 @@ func listenRPC(port int64) {
 			Port(fmt.Sprintf(":%v", port)).
 			ChannelInitializer(
 				mediator.NewChannelInitializer(
-					channelCmdMakerImpl.NewChannelInboundCmdMaker(NewNofityMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), message.NewMessageFactory(),
+					channelCmdMakerImpl.NewChannelInboundCmdMaker(NewNofityMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory(),
 				))
 	err := bootStrap.Listen()
 	utils.CheckError(err)
@@ -53,7 +53,7 @@ type NofityMessage struct {
 }
 
 func (loginMessage *NofityMessage) IsLoginMessage(protocol protocol.Protocol) bool {
-	msg, ok := protocol.(*message.Message)
+	msg, ok := protocol.(*messageImpl.Message)
 	if !ok {
 		return false
 	}
@@ -62,7 +62,7 @@ func (loginMessage *NofityMessage) IsLoginMessage(protocol protocol.Protocol) bo
 }
 
 func (loginMessage *NofityMessage) IsValid(protocol protocol.Protocol) bool {
-	msg, ok := protocol.(*message.Message)
+	msg, ok := protocol.(*messageImpl.Message)
 	if !ok {
 		return false
 	}
@@ -80,7 +80,7 @@ func (loginMessage *NofityMessage) IsValid(protocol protocol.Protocol) bool {
 }
 
 func (loginMessage *NofityMessage) GetLoginUID(protocol protocol.Protocol) int64 {
-	msg, ok := protocol.(*message.Message)
+	msg, ok := protocol.(*messageImpl.Message)
 	if !ok {
 		return 0
 	}

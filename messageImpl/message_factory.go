@@ -1,4 +1,4 @@
-package message
+package messageImpl
 
 import "gitee.com/andyxt/gox/handler/protocol"
 

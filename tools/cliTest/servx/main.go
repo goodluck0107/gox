@@ -13,7 +13,7 @@ import (
 	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl"
 	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl/channelCommands"
 	"gitee.com/andyxt/gox/mediator/server/routineCmdMakerImpl"
-	"gitee.com/andyxt/gox/message"
+	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
 	"gitee.com/andyxt/gox/tools/cliTest/pb/cli"
 	"gitee.com/andyxt/gox/tools/cliTest/servx/services"
@@ -48,7 +48,7 @@ func listenSocket() {
 			Port(fmt.Sprintf(":%v", 20000)).
 			ChannelInitializer(
 				mediator.NewChannelInitializer(
-					channelCmdMakerImpl.NewChannelInboundCmdMaker(NewEnterMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), message.NewMessageFactory(),
+					channelCmdMakerImpl.NewChannelInboundCmdMaker(NewEnterMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory(),
 				))
 	err := bootStrap.Listen()
 	logger.Error("game exit error:", err)
@@ -64,7 +64,7 @@ type EnterMessage struct {
 }
 
 func (loginMessage *EnterMessage) IsLoginMessage(protocol protocol.Protocol) bool {
-	msg, ok := protocol.(*message.Message)
+	msg, ok := protocol.(*messageImpl.Message)
 	if !ok {
 		return false
 	}
@@ -72,7 +72,7 @@ func (loginMessage *EnterMessage) IsLoginMessage(protocol protocol.Protocol) boo
 }
 
 func (loginMessage *EnterMessage) IsValid(protocol protocol.Protocol) bool {
-	msg, ok := protocol.(*message.Message)
+	msg, ok := protocol.(*messageImpl.Message)
 	if !ok {
 		return false
 	}
@@ -94,7 +94,7 @@ func (loginMessage *EnterMessage) IsValid(protocol protocol.Protocol) bool {
 }
 
 func (loginMessage *EnterMessage) GetLoginUID(protocol protocol.Protocol) int64 {
-	msg, ok := protocol.(*message.Message)
+	msg, ok := protocol.(*messageImpl.Message)
 	if !ok {
 		return 0
 	}

@@ -13,7 +13,7 @@ import (
 	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl"
 	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl/inboundCommands"
 	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl/outboundCommands"
-	"gitee.com/andyxt/gox/message"
+	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 )
 
@@ -23,7 +23,7 @@ func BootClient(callback inboundCommands.ICallBack) *ClientFacade {
 	bc.ChannelInitializer(
 		mediator.NewChannelInitializer(
 			channelCmdMakerImpl.NewClientInboundCommandMaker(routineCmdMakerImpl.NewClientInboundEventMakerImpl(callback)),
-			message.NewMessageFactory()))
+			messageImpl.NewMessageFactory()))
 	bc.Listen()
 	return newClientFacade(connector, callback)
 }

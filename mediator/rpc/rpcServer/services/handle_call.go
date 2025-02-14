@@ -8,7 +8,7 @@ import (
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
-	"gitee.com/andyxt/gox/mediator/server"
+	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/session"
 )
@@ -53,7 +53,7 @@ func (recvEvent *rpcCallEvent) Exec() {
 	if Ctx == nil {
 		return
 	}
-	server.Push(Ctx, mid.RPCCallPush, &rpc.RPCCallPush{
+	messageImpl.Push(Ctx, mid.RPCCallPush, &rpc.RPCCallPush{
 		PlayerID: recvEvent.msg.PlayerID,
 		FuncCode: recvEvent.msg.FuncCode,
 		FuncData: recvEvent.msg.FuncData,

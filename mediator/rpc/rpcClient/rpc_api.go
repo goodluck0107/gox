@@ -7,13 +7,12 @@ import (
 
 	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl/inboundCommands"
+	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
-
-	"gitee.com/andyxt/gox/message"
 
 	"gitee.com/andyxt/gox/mediator/client"
 
@@ -120,7 +119,7 @@ func (cb *callBack) MessageReceived(Ctx service.IChannelContext, Data protocol.P
 	uID := Ctx.ContextAttr().GetInt64(clientkey.KeyFireUser)
 	logger.Info(fmt.Sprintf("RPC.CallBack.MessageReceived uID:%v", uID))
 	// executor.FireEvent(routineCommands.NewRoutineInboundCmdMsgRecv(uID, Data, Ctx))
-	msg := Data.(*message.Message)
+	msg := Data.(*messageImpl.Message)
 	callService(Ctx, msg)
 }
 
@@ -146,11 +145,11 @@ func sendMessage(msgCode uint16, protoData protoreflect.ProtoMessage) {
 		logger.Warn(fmt.Sprintf("rpc for nodeID %v is not connect", clientNodeID))
 		return
 	}
-	clientFacade.SendMessage(clientNodeID, chlCtx, message.NewMessage(1, 0, 1, 1, msgCode, protoData), false, "")
+	clientFacade.SendMessage(clientNodeID, chlCtx, messageImpl.NewMessage(1, 0, 1, 1, msgCode, protoData), false, "")
 }
 
 // callService
-func callService(chlContext service.IChannelContext, msg *message.Message) error {
+func callService(chlContext service.IChannelContext, msg *messageImpl.Message) error {
 	request := service.NewSessionRequest(chlContext, service.NewAttr(nil))
 	extends.SetSeqID(request, msg.SeqID)
 	serviceCode := int32(msg.MsgID)

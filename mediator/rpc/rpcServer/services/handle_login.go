@@ -8,7 +8,7 @@ import (
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
-	"gitee.com/andyxt/gox/mediator/server"
+	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/session"
 )
@@ -27,15 +27,15 @@ func (*RpcService) RPCLoginRequest(request service.IServiceRequest, msg *rpc.Log
 		if checkConflict(request) { // 登录冲突(异地登录或断线重连)
 			oldChlCtx := extends.GetChlCtx(playerSession)
 			extends.Conflict(oldChlCtx)
-			server.ResponseClose(oldChlCtx, 0, mid.RPCLoginConflictPush, &rpc.LoginConflictPush{}, "Conflict")
+			messageImpl.ResponseClose(oldChlCtx, 0, mid.RPCLoginConflictPush, &rpc.LoginConflictPush{}, "Conflict")
 			extends.ChangeChlCtx(playerSession, channelCtx)
 		}
-		return server.Response(channelCtx, extends.SeqID(request), mid.RPCLoginResponse, &rpc.LoginResponse{})
+		return messageImpl.Response(channelCtx, extends.SeqID(request), mid.RPCLoginResponse, &rpc.LoginResponse{})
 	}
 	playerSession = session.NewSession(utils.UUID(), uID) // 构建玩家Session
 	extends.ChangeChlCtx(playerSession, channelCtx)
 	session.AddSession(playerSession) // 将玩家Session放入Session池中
-	return server.Response(channelCtx, extends.SeqID(request), mid.RPCLoginResponse, &rpc.LoginResponse{})
+	return messageImpl.Response(channelCtx, extends.SeqID(request), mid.RPCLoginResponse, &rpc.LoginResponse{})
 }
 
 // checkConflict 检查异地登录冲突-断线重连或异地登陆

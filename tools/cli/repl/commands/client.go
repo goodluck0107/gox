@@ -10,7 +10,7 @@ import (
 	"gitee.com/andyxt/gox/mediator/client"
 	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl/inboundCommands"
-	"gitee.com/andyxt/gox/message"
+	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/tools/cli/msgproto"
 )
@@ -76,7 +76,7 @@ func (cb *CallBack) ConnectInactive(uID int64, currentChlCtx service.IChannelCon
 // MessageReceived called on executor routine
 func (cb *CallBack) MessageReceived(Ctx service.IChannelContext, Data protocol.Protocol) {
 	fmt.Println("CallBack.MessageReceived")
-	msg := Data.(*message.Message)
+	msg := Data.(*messageImpl.Message)
 	msgPath := service.Path(msg.MsgID)
 	if msgPath == "" {
 		fmt.Println(`no msgPath for response`, msg.MsgID)
@@ -92,7 +92,7 @@ func (cb *CallBack) MessageReceived(Ctx service.IChannelContext, Data protocol.P
 	callService(Ctx, msg)
 }
 
-func callService(chlContext service.IChannelContext, msg *message.Message) error {
+func callService(chlContext service.IChannelContext, msg *messageImpl.Message) error {
 	request := service.NewSessionRequest(chlContext, service.NewAttr(nil))
 	extends.SetSeqID(request, msg.SeqID)
 	serviceCode := int32(msg.MsgID)

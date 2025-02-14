@@ -9,7 +9,7 @@ import (
 	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
-	"gitee.com/andyxt/gox/message"
+	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/session"
 )
@@ -107,6 +107,6 @@ func (recvEvent *rpcCallPushEvent) Exec() {
 		logger.Warn(fmt.Sprintf("recvEvent to handle for playerID:%v, but player ctx is nil.", recvEvent.msg.PlayerID))
 		return
 	}
-	funcMsg := message.NewMessageDirect(1, 0, 1, 1, uint16(recvEvent.msg.FuncCode), recvEvent.msg.FuncData)
+	funcMsg := messageImpl.NewMessageDirect(1, 0, 1, 1, uint16(recvEvent.msg.FuncCode), recvEvent.msg.FuncData)
 	callService(Ctx, funcMsg)
 }
