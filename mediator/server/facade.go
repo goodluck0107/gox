@@ -67,10 +67,13 @@ func BeforeService(beforeFunc func(request service.IServiceRequest, playerID int
 func AfterService(afterFunc func(request service.IServiceRequest, playerID int64, msgProtoID uint16, msgSeqID uint32, serviceE error)) {
 	eventBus.On(evts.EVT_ServiceAfter, func(data ...interface{}) {
 		request := data[0].(service.IServiceRequest)
-		serviceE := data[1].(error)
 		playerID := extends.UID(request.ChannelContext())
 		msgProtoID := extends.MsgID(request)
 		msgSeqID := extends.SeqID(request)
-		afterFunc(request, playerID, msgProtoID, msgSeqID, serviceE)
+		if data[1] != nil {
+			afterFunc(request, playerID, msgProtoID, msgSeqID, data[1].(error))
+			return
+		}
+		afterFunc(request, playerID, msgProtoID, msgSeqID, nil)
 	})
 }
