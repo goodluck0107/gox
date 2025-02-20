@@ -42,7 +42,7 @@ func (event *ChannelInboundCmdMsgRecv) Exec() {
 		if !event.mLoginMessage.IsWhiteMessage(buf) {
 			extends.Close(event.ChannelCtx)
 		}
-		logger.Debug("ChannelInboundCmdMsgRecv Exec Login Message executor.FireMessageReceivedEvent !", extends.ChannelContextToString(event.ChannelCtx))
+		logger.Debug("ChannelInboundCmdMsgRecv Exec First Message Is Not Login Message executor.FireMessageReceivedEvent !", extends.ChannelContextToString(event.ChannelCtx))
 		executor.FireEvent(event.mEventMaker.MakeMessageReceivedEvent(0, buf, event.ChannelCtx))
 		return
 	}
