@@ -61,6 +61,10 @@ func (loginMessage *NofityMessage) IsLoginMessage(protocol protocol.Protocol) bo
 	return msg.MsgID == mid.RPCLoginRequest
 }
 
+func (loginMessage *NofityMessage) IsWhiteMessage(protocol protocol.Protocol) bool {
+	return false
+}
+
 func (loginMessage *NofityMessage) IsValid(protocol protocol.Protocol) bool {
 	msg, ok := protocol.(*messageImpl.Message)
 	if !ok {

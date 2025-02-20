@@ -10,4 +10,5 @@ type ILoginMessage interface {
 	IsValid(protocol protocol.Protocol) bool
 	GetLoginUID(protocol protocol.Protocol) int64
 	GetLngType(protocol protocol.Protocol) int8
+	IsWhiteMessage(protocol protocol.Protocol) bool
 }

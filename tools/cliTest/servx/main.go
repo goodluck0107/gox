@@ -70,7 +70,9 @@ func (loginMessage *EnterMessage) IsLoginMessage(protocol protocol.Protocol) boo
 	}
 	return msg.MsgID == mid.LoginRequest
 }
-
+func (loginMessage *EnterMessage) IsWhiteMessage(protocol protocol.Protocol) bool {
+	return false
+}
 func (loginMessage *EnterMessage) IsValid(protocol protocol.Protocol) bool {
 	msg, ok := protocol.(*messageImpl.Message)
 	if !ok {
