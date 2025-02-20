@@ -37,9 +37,9 @@ func (event *ChannelInboundCmdMsgRecv) Exec() {
 	}
 	logger.Debug("ChannelInboundCmdMsgRecv Exec ChannelCtx Not HasUserInfo !", extends.ChannelContextToString(event.ChannelCtx))
 	if !event.mLoginMessage.IsLoginMessage(buf) {
-		logger.Debug("ChannelInboundCmdMsgRecv Exec First Message Is Not Login Message !", extends.ChannelContextToString(event.ChannelCtx), "关闭连接, 关闭原因：尚未通过验证的连接发送任何非登陆消息都认为是非法")
 		// 处理白名单消息
 		if !event.mLoginMessage.IsWhiteMessage(buf) {
+			logger.Debug("ChannelInboundCmdMsgRecv Exec First Message Is Not Login Message !", extends.ChannelContextToString(event.ChannelCtx), "关闭连接, 关闭原因：尚未通过验证的连接发送任何非登陆消息都认为是非法")
 			extends.Close(event.ChannelCtx)
 		}
 		logger.Debug("ChannelInboundCmdMsgRecv Exec First Message Is Not Login Message executor.FireMessageReceivedEvent !", extends.ChannelContextToString(event.ChannelCtx))
