@@ -29,11 +29,13 @@ func listenRPC(port int64) {
 	params := make(map[string]interface{})
 	params[boot.KeyPacketBytesCount] = 4
 	params[boot.KeyChannelReadLimit] = 10240
-	params[boot.KeyReadTimeOut] = -1
-	params[boot.KeyWriteTimeOut] = -1
-	boots.Serve(boots.WithTCPAddr(fmt.Sprintf(":%v", port)), boots.WithChannelParams(params), boots.WithInitializer(mediator.NewChannelInitializer(
-		channelCmdMakerImpl.NewChannelInboundCmdMaker(NewNofityMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory(),
-	)))
+	boots.Serve(
+		boots.WithTCPAddr(fmt.Sprintf(":%v", port)),
+		boots.WithChannelParams(params),
+		boots.WithInitializer(mediator.NewChannelInitializer(channelCmdMakerImpl.NewChannelInboundCmdMaker(NewNofityMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory())),
+		boots.WithReadTimeOut(-1),
+		boots.WithWriteTimeOut(-1),
+	)
 }
 
 func NewNofityMessage() channelCommands.ILoginMessage {

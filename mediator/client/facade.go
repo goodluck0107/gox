@@ -41,8 +41,6 @@ func (facade *ClientFacade) Connect(ip string, port int, uID int64) {
 	params := make(map[string]interface{})
 	params[boot.KeyPacketBytesCount] = 4
 	params[boot.KeyChannelReadLimit] = 10240
-	params[boot.KeyReadTimeOut] = -1
-	params[boot.KeyWriteTimeOut] = -1
 	params[boot.KeyConnType] = connType
 	params[boot.KeyIP] = ip
 	params[boot.KeyPort] = port
