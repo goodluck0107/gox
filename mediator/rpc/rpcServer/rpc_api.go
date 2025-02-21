@@ -28,13 +28,13 @@ func Start(port int64) {
 func listenRPC(port int64) {
 	params := make(map[string]interface{})
 	params[boot.KeyPacketBytesCount] = 4
-	params[boot.KeyChannelReadLimit] = 10240
 	boots.Serve(
 		boots.WithTCPAddr(fmt.Sprintf(":%v", port)),
 		boots.WithChannelParams(params),
 		boots.WithInitializer(mediator.NewChannelInitializer(channelCmdMakerImpl.NewChannelInboundCmdMaker(NewNofityMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory())),
 		boots.WithReadTimeOut(-1),
 		boots.WithWriteTimeOut(-1),
+		boots.WithReadLimit(10240),
 	)
 }
 

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"runtime/debug"
 
-	"gitee.com/andyxt/gona/boot"
 	"gitee.com/andyxt/gona/boot/boots"
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/handler/protocol"
@@ -40,10 +39,12 @@ func serviceName() string {
 // listenSocket 监听TcpSocket
 func listenSocket() {
 	params := make(map[string]interface{})
-	params[boot.KeyChannelReadLimit] = 512
-	boots.Serve(boots.WithTCPAddr(fmt.Sprintf(":%v", 20000)), boots.WithChannelParams(params), boots.WithInitializer(mediator.NewChannelInitializer(
-		channelCmdMakerImpl.NewChannelInboundCmdMaker(NewEnterMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory(),
-	)))
+	boots.Serve(
+		boots.WithTCPAddr(fmt.Sprintf(":%v", 20000)),
+		boots.WithChannelParams(params),
+		boots.WithInitializer(mediator.NewChannelInitializer(channelCmdMakerImpl.NewChannelInboundCmdMaker(NewEnterMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory())),
+		boots.WithReadLimit(512),
+	)
 }
 
 func NewEnterMessage() channelCommands.ILoginMessage {

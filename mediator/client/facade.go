@@ -40,7 +40,6 @@ func (facade *ClientFacade) Connect(ip string, port int, uID int64) {
 	connType := connector.NormalSocket
 	params := make(map[string]interface{})
 	params[boot.KeyPacketBytesCount] = 4
-	params[boot.KeyChannelReadLimit] = 10240
 	params[boot.KeyConnType] = connType
 	params[boot.KeyIP] = ip
 	params[boot.KeyPort] = port
