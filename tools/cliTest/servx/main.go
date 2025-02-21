@@ -7,7 +7,6 @@ import (
 	"gitee.com/andyxt/gona/boot"
 	"gitee.com/andyxt/gona/boot/boots"
 	"gitee.com/andyxt/gona/logger"
-	"gitee.com/andyxt/gona/utils"
 	"gitee.com/andyxt/gox/handler/protocol"
 	"gitee.com/andyxt/gox/mediator"
 	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl"
@@ -42,17 +41,9 @@ func serviceName() string {
 func listenSocket() {
 	params := make(map[string]interface{})
 	params[boot.KeyChannelReadLimit] = 512
-	bootStrap :=
-		boots.NewServerBootStrap().
-			Params(params).
-			Port(fmt.Sprintf(":%v", 20000)).
-			ChannelInitializer(
-				mediator.NewChannelInitializer(
-					channelCmdMakerImpl.NewChannelInboundCmdMaker(NewEnterMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory(),
-				))
-	err := bootStrap.Listen()
-	logger.Error("game exit error:", err)
-	utils.CheckError(err)
+	boots.Serve(boots.WithTCPAddr(fmt.Sprintf(":%v", 20000)), boots.WithChannelParams(params), boots.WithInitializer(mediator.NewChannelInitializer(
+		channelCmdMakerImpl.NewChannelInboundCmdMaker(NewEnterMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory(),
+	)))
 }
 
 func NewEnterMessage() channelCommands.ILoginMessage {

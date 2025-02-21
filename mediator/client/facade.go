@@ -18,13 +18,9 @@ import (
 )
 
 func BootClient(callback inboundCommands.ICallBack) *ClientFacade {
-	bc := bootc.NewClientBootStrap()
-	connector := bc.GetConnector()
-	bc.ChannelInitializer(
-		mediator.NewChannelInitializer(
-			channelCmdMakerImpl.NewClientInboundCommandMaker(routineCmdMakerImpl.NewClientInboundEventMakerImpl(callback)),
-			messageImpl.NewMessageFactory()))
-	bc.Listen()
+	connector := bootc.Serv(bootc.WithInitializer(mediator.NewChannelInitializer(
+		channelCmdMakerImpl.NewClientInboundCommandMaker(routineCmdMakerImpl.NewClientInboundEventMakerImpl(callback)),
+		messageImpl.NewMessageFactory())))
 	return newClientFacade(connector, callback)
 }
 

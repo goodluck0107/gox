@@ -6,7 +6,6 @@ import (
 	"gitee.com/andyxt/gona/boot"
 	"gitee.com/andyxt/gona/boot/boots"
 	"gitee.com/andyxt/gona/logger"
-	"gitee.com/andyxt/gona/utils"
 	"gitee.com/andyxt/gox/handler/protocol"
 	"gitee.com/andyxt/gox/mediator"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
@@ -32,16 +31,9 @@ func listenRPC(port int64) {
 	params[boot.KeyChannelReadLimit] = 10240
 	params[boot.KeyReadTimeOut] = -1
 	params[boot.KeyWriteTimeOut] = -1
-	bootStrap :=
-		boots.NewServerBootStrap().
-			Params(params).
-			Port(fmt.Sprintf(":%v", port)).
-			ChannelInitializer(
-				mediator.NewChannelInitializer(
-					channelCmdMakerImpl.NewChannelInboundCmdMaker(NewNofityMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory(),
-				))
-	err := bootStrap.Listen()
-	utils.CheckError(err)
+	boots.Serve(boots.WithTCPAddr(fmt.Sprintf(":%v", port)), boots.WithChannelParams(params), boots.WithInitializer(mediator.NewChannelInitializer(
+		channelCmdMakerImpl.NewChannelInboundCmdMaker(NewNofityMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory(),
+	)))
 }
 
 func NewNofityMessage() channelCommands.ILoginMessage {
