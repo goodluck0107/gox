@@ -3,7 +3,7 @@ module gitee.com/andyxt/gox
 go 1.22.3
 
 require (
-	gitee.com/andyxt/gona v1.0.29
+	gitee.com/andyxt/gona v1.0.30
 	github.com/abiosoft/ishell/v2 v2.0.2
 	google.golang.org/protobuf v1.36.5
 )
@@ -21,6 +21,7 @@ require (
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
+	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/stretchr/testify v1.10.0 // indirect
