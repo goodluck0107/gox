@@ -25,6 +25,17 @@ func ByteToInt16LD(buf []byte) (ret int16) {
 	return
 }
 
+// ByteToUInt16LD 小端字节序字节数组转int16
+func ByteToUInt16LD(buf []byte) (ret uint16) {
+	length := int32(len(buf))
+	if length < INT16_SIZE {
+		err := errors.New("ByteToUInt16LD() 越界,length=" + strconv.Itoa(int(length)))
+		panic(err)
+	}
+	ret = uint16(buf[1])<<8 | uint16(buf[0])
+	return
+}
+
 // ByteToInt16 大端字节序字节数组转int16
 func ByteToInt16(buf []byte) (ret int16) {
 	length := int32(len(buf))
@@ -33,6 +44,17 @@ func ByteToInt16(buf []byte) (ret int16) {
 		panic(err)
 	}
 	ret = int16(buf[0])<<8 | int16(buf[1])
+	return
+}
+
+// ByteToInt16 大端字节序字节数组转uint16
+func ByteToUInt16(buf []byte) (ret uint16) {
+	length := int32(len(buf))
+	if length < INT16_SIZE {
+		err := errors.New("ByteToUInt16() 越界,length=" + strconv.Itoa(int(length)))
+		panic(err)
+	}
+	ret = uint16(buf[0])<<8 | uint16(buf[1])
 	return
 }
 

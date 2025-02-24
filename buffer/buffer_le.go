@@ -55,11 +55,23 @@ func (p *leProtocolBuffer) ReadUInt8WithIndex(index int32) (ret uint8) {
 func (p *leProtocolBuffer) ReadInt16() (ret int16) {
 	length := int32(len(p.content))
 	if p.readPosition+int16Size > length {
-		err := errors.New(fmt.Sprint("ReadUInt8WithIndex() 协议包读取越界，readPosition=", p.readPosition, ",length=", length))
+		err := errors.New(fmt.Sprint("ReadInt16() 协议包读取越界，readPosition=", p.readPosition, ",length=", length))
 		panic(err)
 	}
 	buf := p.content[p.readPosition : p.readPosition+int16Size]
 	ret = ByteToInt16LD(buf)
+	p.readPosition = p.readPosition + int16Size
+	return
+}
+
+func (p *leProtocolBuffer) ReadUInt16() (ret uint16) {
+	length := int32(len(p.content))
+	if p.readPosition+int16Size > length {
+		err := errors.New(fmt.Sprint("ReadUInt16() 协议包读取越界，readPosition=", p.readPosition, ",length=", length))
+		panic(err)
+	}
+	buf := p.content[p.readPosition : p.readPosition+int16Size]
+	ret = ByteToUInt16LD(buf)
 	p.readPosition = p.readPosition + int16Size
 	return
 }

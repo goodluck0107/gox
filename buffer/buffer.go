@@ -51,6 +51,7 @@ type Buffer interface {
 	ReadInt8WithIndex(int32) int8
 	ReadUInt8WithIndex(int32) uint8
 	ReadInt16() int16
+	ReadUInt16() uint16
 	ReadInt16WithIndex(int32) int16
 	ReadInt32() int32
 	ReadInt32WithIndex(int32) int32
