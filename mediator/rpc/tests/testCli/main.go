@@ -23,7 +23,7 @@ func call() {
 	go func() {
 		for {
 			time.Sleep(20 * time.Second)
-			rpcClient.RPCCall("testCli", 10010, mid.EchoRequest, &rpc.EchoRequest{
+			rpcClient.Publish("testCli", mid.EchoRequest, &rpc.EchoRequest{
 				Param1: 1,
 				Param2: "2",
 				Param3: []byte("Echo"),

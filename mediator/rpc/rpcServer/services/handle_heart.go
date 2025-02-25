@@ -7,12 +7,12 @@ import (
 	"gitee.com/andyxt/gox/service"
 )
 
-// RouteForRPCHeartbeatRequest 心跳
-func (*RpcService) RouteForRPCHeartbeatRequest() (string, uint32, uint32) {
-	return "/RPCHeartbeatRequest", uint32(mid.RPCHeartbeatRequest), service.ProtoTypePB
+// RouteForHeartbeatRequest 心跳
+func (*RpcService) RouteForHeartbeatRequest() (string, uint32, uint32) {
+	return "/HeartbeatRequest", uint32(mid.HeartbeatRequest), service.ProtoTypePB
 }
 
-func (*RpcService) RPCHeartbeatRequest(request service.IServiceRequest, msg *rpc.HeartbeatRequest) error {
-	logger.Info("RPCHeartbeatRequest")
+func (*RpcService) HeartbeatRequest(request service.IServiceRequest, msg *rpc.HeartbeatRequest) error {
+	logger.Info("HeartbeatRequest")
 	return nil
 }

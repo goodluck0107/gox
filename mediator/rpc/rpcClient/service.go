@@ -2,16 +2,14 @@ package rpcClient
 
 import (
 	"fmt"
+	"time"
 
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
 	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
-	"gitee.com/andyxt/gox/session"
 )
 
 type RpcClientService struct{}
@@ -20,34 +18,9 @@ func NewService() *RpcClientService {
 	return &RpcClientService{}
 }
 
-// RouteForRPCLoginResponse 登录
-func (*RpcClientService) RouteForRPCLoginResponse() (string, uint32, uint32) {
-	return "/RPCLoginResponse", uint32(mid.RPCLoginResponse), service.ProtoTypePB
-}
-
-func (*RpcClientService) RPCLoginResponse(request service.IServiceRequest, msg *rpc.LoginResponse) error {
-	logger.Info(fmt.Sprintf("RPCLoginResponse Code:%v", msg.Code))
-	chlCtx := request.ChannelContext()
-	uID := chlCtx.ContextAttr().GetInt64(clientkey.KeyFireUser)
-	extends.PutInUserInfo(chlCtx, uID, 0)
-	return nil
-}
-
-// RouteForRPCLogoutResponse 登出
-func (*RpcClientService) RouteForRPCLogoutResponse() (string, uint32, uint32) {
-	return "/RPCLogoutResponse", uint32(mid.RPCLogoutResponse), service.ProtoTypePB
-}
-
-func (*RpcClientService) RPCLogoutResponse(request service.IServiceRequest, msg *rpc.LogoutResponse) error {
-	logger.Info(fmt.Sprintf("RPCLogoutResponse Code:%v Message:%v", msg.Code, msg.Message))
-	chlCtx := request.ChannelContext()
-	extends.Logout(chlCtx)
-	return nil
-}
-
 // RouteForRPCHeartbeatResponse 心跳
 func (*RpcClientService) RouteForRPCHeartbeatResponse() (string, uint32, uint32) {
-	return "/RPCHeartbeatResponse", uint32(mid.RPCHeartbeatResponse), service.ProtoTypePB
+	return "/RPCHeartbeatResponse", uint32(mid.HeartbeatResponse), service.ProtoTypePB
 }
 
 func (*RpcClientService) RPCHeartbeatResponse(request service.IServiceRequest, msg *rpc.HeartbeatResponse) error {
@@ -55,41 +28,31 @@ func (*RpcClientService) RPCHeartbeatResponse(request service.IServiceRequest, m
 	return nil
 }
 
-// RouteForRPCLoginConflictPush 登录冲突
-func (*RpcClientService) RouteForRPCLoginConflictPush() (string, uint32, uint32) {
-	return "/RPCLoginConflictPush", uint32(mid.RPCLoginConflictPush), service.ProtoTypePB
+// RouteForMessagePush 处理服务器推送的RPC调用
+func (*RpcClientService) RouteForMessagePush() (string, uint32, uint32) {
+	return "/MessagePush", uint32(mid.MessagePush), service.ProtoTypePB
 }
 
-func (*RpcClientService) RPCLoginConflictPush(request service.IServiceRequest, msg *rpc.LoginConflictPush) error {
-	logger.Info("RPCLoginConflictPush")
-	chlCtx := request.ChannelContext()
-	extends.Conflict(chlCtx)
-	return nil
-}
-
-// RouteForRPCCallPush 处理服务器推送的RPC调用
-func (*RpcClientService) RouteForRPCCallPush() (string, uint32, uint32) {
-	return "/RPCCallPush", uint32(mid.RPCCallPush), service.ProtoTypePB
-}
-
-func (*RpcClientService) RPCCallPush(request service.IServiceRequest, msg *rpc.RPCCallPush) error {
-	logger.Info(fmt.Sprintf("RPCCallPush PlayerID:%v FuncCode:%v", msg.PlayerID, msg.FuncCode))
-	executor.FireEvent(newRpcCallPushEvent(msg))
+func (*RpcClientService) MessagePush(request service.IServiceRequest, msg *rpc.MessagePush) error {
+	logger.Info(fmt.Sprintf("MessagePush Topic:%v MsgCode:%v", msg.Topic, msg.MsgCode))
+	executor.FireEvent(newRpcCallPushEvent(request.ChannelContext(), msg))
 	return nil
 }
 
 type rpcCallPushEvent struct {
-	msg *rpc.RPCCallPush
+	ctx service.IChannelContext
+	msg *rpc.MessagePush
 }
 
-func newRpcCallPushEvent(msg *rpc.RPCCallPush) (this *rpcCallPushEvent) {
+func newRpcCallPushEvent(ctx service.IChannelContext, msg *rpc.MessagePush) (this *rpcCallPushEvent) {
 	this = new(rpcCallPushEvent)
+	this.ctx = ctx
 	this.msg = msg
 	return this
 }
 
 func (recvEvent *rpcCallPushEvent) QueueId() int64 {
-	return recvEvent.msg.PlayerID
+	return time.Now().Unix()
 }
 
 func (recvEvent *rpcCallPushEvent) Wait() (interface{}, bool) {
@@ -97,16 +60,6 @@ func (recvEvent *rpcCallPushEvent) Wait() (interface{}, bool) {
 }
 
 func (recvEvent *rpcCallPushEvent) Exec() {
-	playerSession := session.GetSession(recvEvent.msg.PlayerID)
-	if playerSession == nil {
-		logger.Warn(fmt.Sprintf("recvEvent to handle for playerID:%v, but player session is nil.", recvEvent.msg.PlayerID))
-		return
-	}
-	Ctx := extends.GetChlCtx(playerSession)
-	if Ctx == nil {
-		logger.Warn(fmt.Sprintf("recvEvent to handle for playerID:%v, but player ctx is nil.", recvEvent.msg.PlayerID))
-		return
-	}
-	funcMsg := messageImpl.NewMessageDirect(1, 0, 1, 1, uint16(recvEvent.msg.FuncCode), recvEvent.msg.FuncData)
-	callService(Ctx, funcMsg)
+	funcMsg := messageImpl.NewMessageDirect(1, 0, 1, 1, uint16(recvEvent.msg.MsgCode), recvEvent.msg.MsgData)
+	callService(recvEvent.ctx, funcMsg)
 }

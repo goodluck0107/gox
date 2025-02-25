@@ -36,32 +36,24 @@ func Start(nodeName string, ip string, port int64) {
 	clientFacade.Connect(ip, int(port), clientNodeID)
 }
 
-// RPCCall 调用master
-func RPCCall(nodeName string, playerID int64, msgCode uint16, protoData protoreflect.ProtoMessage) {
-	marshalV, marshalE := proto.Marshal(protoData)
-	if marshalE != nil {
-		logger.Error(fmt.Sprintf("RPC.RPCCall err:%v", marshalE))
-		return
-	}
-	sendMessage(mid.RPCCallRequest, &rpc.RPCCallRequest{
-		NodeID:   Mod(nodeName),
-		PlayerID: playerID,
-		FuncCode: int64(msgCode),
-		FuncData: marshalV,
+// Subscribe 调用master发起订阅
+func Subscribe(topic string) {
+	sendMessage(mid.SubscribeRequest, &rpc.SubscribeRequest{
+		Topic: topic,
 	})
 }
 
-// RPCBroadcastRequest 调用master
-func RPCBroadcastRequest(playerID int64, msgCode uint16, protoData protoreflect.ProtoMessage) {
+// Publish 调用master发布订阅
+func Publish(topic string, msgCode uint16, protoData protoreflect.ProtoMessage) {
 	marshalV, marshalE := proto.Marshal(protoData)
 	if marshalE != nil {
-		logger.Error(fmt.Sprintf("RPC.RPCBroadcastRequest err:%v", marshalE))
+		logger.Error(fmt.Sprintf("RPC.Publish err:%v", marshalE))
 		return
 	}
-	sendMessage(mid.RPCBroadcastRequest, &rpc.RPCBroadcastRequest{
-		PlayerID: playerID,
-		FuncCode: int64(msgCode),
-		FuncData: marshalV,
+	sendMessage(mid.PublishRequest, &rpc.PublishRequest{
+		Topic:   topic,
+		MsgCode: int64(msgCode),
+		MsgData: marshalV,
 	})
 }
 
@@ -75,7 +67,6 @@ func newCallBack() inboundCommands.ICallBack {
 func (cb *callBack) ConnectSuccess(uID int64, currentChlCtx service.IChannelContext) {
 	logger.Info(fmt.Sprintf("RPC.CallBack.ConnectSuccess uID:%v", uID))
 	chlCtxReference.Store(uID, currentChlCtx)
-	login()
 	heart()
 }
 
@@ -123,17 +114,12 @@ func (cb *callBack) MessageReceived(Ctx service.IChannelContext, Data protocol.P
 	callService(Ctx, msg)
 }
 
-// login 登录master
-func login() {
-	sendMessage(mid.RPCLoginRequest, &rpc.LoginRequest{NodeID: clientNodeID})
-}
-
 // heart 定时心跳
 func heart() {
 	go func() {
 		for {
 			time.Sleep(20 * time.Second)
-			sendMessage(mid.RPCHeartbeatRequest, &rpc.HeartbeatRequest{})
+			sendMessage(mid.HeartbeatRequest, &rpc.HeartbeatRequest{})
 		}
 	}()
 }

@@ -2,46 +2,28 @@ syntax = "proto3";
 package rpc;
 option go_package = "pb/rpc";
 
-message LoginRequest {
-  int64 NodeID = 1;
+message PublishRequest {
+  string Topic = 1;
+  int64 MsgCode = 3;
+  bytes MsgData = 2;
 }
 
-message LoginResponse {
-  int64 Code = 1;
+message SubscribeRequest {
+  string Topic = 1;
 }
-
-message LogoutRequest {}
-
-message LogoutResponse {
-  int64 Code = 1;
-  string Message = 2;
+message UnsubscribeRequest {
+  string Topic = 1;
+}
+message MessagePush {
+  string Topic = 1;
+  int64 MsgCode = 3;
+  bytes MsgData = 2;
 }
 
 message HeartbeatRequest {
 }
 
 message HeartbeatResponse {
-}
-
-message LoginConflictPush {}
-
-message RPCCallRequest {
-  int64 NodeID = 1;
-  int64 PlayerID = 2;
-  int64 FuncCode = 3;
-  bytes FuncData = 4;
-}
-
-message RPCBroadcastRequest {
-  int64 PlayerID = 1;
-  int64 FuncCode = 2;
-  bytes FuncData = 3;
-}
-
-message RPCCallPush {
-  int64 PlayerID = 1;
-  int64 FuncCode = 2;
-  bytes FuncData = 3;
 }
 
 message EchoRequest {
