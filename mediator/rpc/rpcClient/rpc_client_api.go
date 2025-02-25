@@ -16,7 +16,7 @@ import (
 
 	"gitee.com/andyxt/gox/mediator/client"
 
-	"gitee.com/andyxt/gona/boot"
+	"gitee.com/andyxt/gona/boot/bootc"
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/handler/protocol"
@@ -81,8 +81,8 @@ func (cb *callBack) ConnectSuccess(uID int64, currentChlCtx service.IChannelCont
 
 // ConnectFail called on executor routine
 func (cb *callBack) ConnectFail(err error, params map[string]interface{}) {
-	ip := params[boot.KeyIP].(string)
-	port := params[boot.KeyPort].(int)
+	ip := params[bootc.KeyIP].(string)
+	port := params[bootc.KeyPort].(int)
 	uID := params[clientkey.KeyFireUser].(int64)
 	logger.Info(fmt.Sprintf("RPC.CallBack.ConnectFail uID:%v", uID))
 	clientFacade.Connect(ip, port, uID)
@@ -109,8 +109,8 @@ func (cb *callBack) ConnectInactive(uID int64, currentChlCtx service.IChannelCon
 	}
 	// broken: default reconnect
 	logger.Debug("RPC.CallBack.ConnectInactive 连接中断，需要重连", uID)
-	ip := currentChlCtx.ContextAttr().GetString(boot.KeyIP)
-	port := currentChlCtx.ContextAttr().GetInt(boot.KeyPort)
+	ip := currentChlCtx.ContextAttr().GetString(bootc.KeyIP)
+	port := currentChlCtx.ContextAttr().GetInt(bootc.KeyPort)
 	clientFacade.Connect(ip, port, uID)
 }
 

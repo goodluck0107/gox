@@ -1,7 +1,6 @@
 package client
 
 import (
-	"gitee.com/andyxt/gona/boot"
 	"gitee.com/andyxt/gona/boot/bootc"
 	"gitee.com/andyxt/gona/boot/bootc/connector"
 	"gitee.com/andyxt/gona/boot/bootc/listener"
@@ -22,6 +21,7 @@ func BootClient(callback inboundCommands.ICallBack) *ClientFacade {
 		bootc.WithInitializer(mediator.NewChannelInitializer(
 			channelCmdMakerImpl.NewClientInboundCommandMaker(routineCmdMakerImpl.NewClientInboundEventMakerImpl(callback)),
 			messageImpl.NewMessageFactory())),
+		bootc.WithReadLimit(10240),
 	)
 	return newClientFacade(connector, callback)
 }
@@ -30,9 +30,9 @@ func (facade *ClientFacade) Connect(ip string, port int, uID int64) {
 	connType := connector.NormalSocket
 	params := make(map[string]interface{})
 	// params[boot.KeyPacketBytesCount] = 4
-	params[boot.KeyConnType] = connType
-	params[boot.KeyIP] = ip
-	params[boot.KeyPort] = port
+	params[bootc.KeyConnType] = connType
+	params[bootc.KeyIP] = ip
+	params[bootc.KeyPort] = port
 	params[clientkey.KeyFireUser] = uID
 	executor.FireEvent(outboundCommands.NewClientRoutineInboundCmdConnect(uID, ip, port, connType, params,
 		facade.mConnector, facade.mCallback))
