@@ -18,22 +18,12 @@ import (
 )
 
 func BootClient(callback inboundCommands.ICallBack) *ClientFacade {
-	connector := bootc.Serv(bootc.WithInitializer(mediator.NewChannelInitializer(
-		channelCmdMakerImpl.NewClientInboundCommandMaker(routineCmdMakerImpl.NewClientInboundEventMakerImpl(callback)),
-		messageImpl.NewMessageFactory())))
+	connector := bootc.Serv(
+		bootc.WithInitializer(mediator.NewChannelInitializer(
+			channelCmdMakerImpl.NewClientInboundCommandMaker(routineCmdMakerImpl.NewClientInboundEventMakerImpl(callback)),
+			messageImpl.NewMessageFactory())),
+	)
 	return newClientFacade(connector, callback)
-}
-
-type ClientFacade struct {
-	mConnector listener.IConnector
-	mCallback  inboundCommands.ICallBack
-}
-
-func newClientFacade(mConnector listener.IConnector, mCallback inboundCommands.ICallBack) (facade *ClientFacade) {
-	facade = new(ClientFacade)
-	facade.mConnector = mConnector
-	facade.mCallback = mCallback
-	return
 }
 
 func (facade *ClientFacade) Connect(ip string, port int, uID int64) {
@@ -55,4 +45,16 @@ func (facade *ClientFacade) Close(uID int64, ChlCtx service.IChannelContext, Des
 // SendMessage OnClose:是否在消息发送完毕后关闭连接
 func (facade *ClientFacade) SendMessage(uID int64, ChlCtx service.IChannelContext, Data protocol.Protocol, OnClose bool, Desc string) {
 	executor.FireEvent(outboundCommands.NewClientRoutineOutboundCmdMsgSend(Data, OnClose, uID, ChlCtx, Desc))
+}
+
+func newClientFacade(mConnector listener.IConnector, mCallback inboundCommands.ICallBack) (facade *ClientFacade) {
+	facade = new(ClientFacade)
+	facade.mConnector = mConnector
+	facade.mCallback = mCallback
+	return
+}
+
+type ClientFacade struct {
+	mConnector listener.IConnector
+	mCallback  inboundCommands.ICallBack
 }
