@@ -3,7 +3,7 @@ module gitee.com/andyxt/gox
 go 1.22.3
 
 require (
-	gitee.com/andyxt/gona v1.0.30
+	gitee.com/andyxt/gona v1.0.31
 	github.com/abiosoft/ishell/v2 v2.0.2
 	google.golang.org/protobuf v1.36.5
 )
