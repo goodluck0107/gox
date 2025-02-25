@@ -3,7 +3,6 @@ package rpcServer
 import (
 	"fmt"
 
-	"gitee.com/andyxt/gona/boot"
 	"gitee.com/andyxt/gona/boot/boots"
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/handler/protocol"
@@ -27,7 +26,6 @@ func Start(port int64) {
 // listenRPC 监听远端通知(下注与结算以及更新玩家信息)
 func listenRPC(port int64) {
 	params := make(map[string]interface{})
-	params[boot.KeyPacketBytesCount] = 4
 	boots.Serve(
 		boots.WithTCPAddr(fmt.Sprintf(":%v", port)),
 		boots.WithChannelParams(params),
