@@ -25,10 +25,8 @@ func Start(port int64) {
 
 // listenRPC 监听远端通知(下注与结算以及更新玩家信息)
 func listenRPC(port int64) {
-	params := make(map[string]interface{})
 	boots.Serve(
 		boots.WithTCPAddr(fmt.Sprintf(":%v", port)),
-		boots.WithChannelParams(params),
 		boots.WithInitializer(mediator.NewChannelInitializer(channelCmdMakerImpl.NewChannelInboundCmdMaker(NewNofityMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory())),
 		boots.WithReadTimeOut(-1),
 		boots.WithWriteTimeOut(-1),

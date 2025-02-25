@@ -38,10 +38,8 @@ func serviceName() string {
 
 // listenSocket 监听TcpSocket
 func listenSocket() {
-	params := make(map[string]interface{})
 	boots.Serve(
 		boots.WithTCPAddr(fmt.Sprintf(":%v", 20000)),
-		boots.WithChannelParams(params),
 		boots.WithInitializer(mediator.NewChannelInitializer(channelCmdMakerImpl.NewChannelInboundCmdMaker(NewEnterMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory())),
 		boots.WithReadLimit(512),
 	)
