@@ -2,13 +2,12 @@ package services
 
 import (
 	"fmt"
-	"time"
 
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/mediator/rpc/center"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
+	"gitee.com/andyxt/gox/mediator/rpc/rpcServer/center"
 	"gitee.com/andyxt/gox/service"
 )
 
@@ -19,8 +18,7 @@ func (*RpcService) RouteForSubscribeRequest() (string, uint32, uint32) {
 
 func (*RpcService) SubscribeRequest(request service.IServiceRequest, msg *rpc.SubscribeRequest) error {
 	logger.Info(fmt.Sprintf("SubscribeRequest Topic:%v", msg.Topic))
-	ctx := request.ChannelContext()
-	executor.FireEvent(newSubscribeEvent(ctx, msg))
+	executor.FireEvent(newSubscribeEvent(request.ChannelContext(), msg))
 	return nil
 }
 
@@ -37,7 +35,7 @@ func newSubscribeEvent(ctx service.IChannelContext, msg *rpc.SubscribeRequest) (
 }
 
 func (recvEvent *subscribeEvent) QueueId() int64 {
-	return time.Now().UnixNano()
+	return stringToInt64(recvEvent.ctx.ID())
 }
 
 func (recvEvent *subscribeEvent) Wait() (interface{}, bool) {

@@ -3,14 +3,13 @@ package services
 import (
 	"fmt"
 	"strings"
-	"time"
 
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gona/utils/cast"
 	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/mediator/rpc/center"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
+	"gitee.com/andyxt/gox/mediator/rpc/rpcServer/center"
 	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 )
@@ -22,20 +21,21 @@ func (*RpcService) RouteForPublishRequest() (string, uint32, uint32) {
 
 func (*RpcService) PublishRequest(request service.IServiceRequest, msg *rpc.PublishRequest) error {
 	logger.Info(fmt.Sprintf("PublishRequest Topic:%v", msg.Topic))
-	executor.FireEvent(newPublishEvent(msg))
+	executor.FireEvent(newPublishEvent(request.ChannelContext(), msg))
 	return nil
 }
 
 type publishEvent struct {
+	ctx service.IChannelContext
 	msg *rpc.PublishRequest
 }
 
-func newPublishEvent(msg *rpc.PublishRequest) *publishEvent {
-	return &publishEvent{msg: msg}
+func newPublishEvent(ctx service.IChannelContext, msg *rpc.PublishRequest) *publishEvent {
+	return &publishEvent{ctx: ctx, msg: msg}
 }
 
 func (recvEvent *publishEvent) QueueId() int64 {
-	return time.Now().UnixNano()
+	return stringToInt64(recvEvent.ctx.ID())
 }
 
 func (recvEvent *publishEvent) Wait() (interface{}, bool) {
@@ -62,7 +62,6 @@ func (recvEvent *publishEvent) Exec() {
 		return
 	}
 	center.TraverseDo(recvEvent.msg.Topic, func(ctx service.IChannelContext) {
-		// executor.FireEvent(newSubscribeEvent(i1.UID(), msg))
 		messageImpl.Push(ctx, mid.MessagePush, &rpc.MessagePush{
 			Topic:    recvEvent.msg.Topic,
 			PlayerID: playerID,

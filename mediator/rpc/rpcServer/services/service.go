@@ -2,11 +2,12 @@ package services
 
 import (
 	"fmt"
+	"hash/fnv"
 
 	"gitee.com/andyxt/gona/logger"
+	"gitee.com/andyxt/gox/mediator/rpc/rpcServer/center"
 	"gitee.com/andyxt/gox/mediator/server"
 	"gitee.com/andyxt/gox/service"
-	"gitee.com/andyxt/gox/session"
 )
 
 type RpcService struct{}
@@ -22,12 +23,13 @@ func listenEvent() {
 
 // onInactive 连接中断
 func onInactive(playerID int64, chlCtx service.IChannelContext) {
-	logger.Info(fmt.Sprintf("onInactive playerID:%v 掉线", playerID))
-	s := session.GetSession(playerID)
-	if s == nil {
-		return
-	}
-	logger.Info(fmt.Sprintf("onInactive  playerID:%v 掉线成功", playerID))
-	session.RemoveSession(playerID)
-	// remove subscribe TODO
+	logger.Info(fmt.Sprintf("onInactive ctxID:%v 掉线成功", chlCtx.ID()))
+	center.RemoveChannel(chlCtx)
+}
+
+// stringToInt64 根据字符串生成 int64
+func stringToInt64(s string) int64 {
+	h := fnv.New64a()
+	h.Write([]byte(s))
+	return int64(h.Sum64())
 }

@@ -2,13 +2,12 @@ package services
 
 import (
 	"fmt"
-	"time"
 
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/mediator/rpc/center"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
+	"gitee.com/andyxt/gox/mediator/rpc/rpcServer/center"
 	"gitee.com/andyxt/gox/service"
 )
 
@@ -19,8 +18,7 @@ func (*RpcService) RouteForUnsubscribeRequest() (string, uint32, uint32) {
 
 func (*RpcService) UnsubscribeRequest(request service.IServiceRequest, msg *rpc.UnsubscribeRequest) error {
 	logger.Info(fmt.Sprintf("UnsubscribeRequest Topic:%v", msg.Topic))
-	ctx := request.ChannelContext()
-	executor.FireEvent(newUnsubscribeEvent(ctx, msg))
+	executor.FireEvent(newUnsubscribeEvent(request.ChannelContext(), msg))
 	return nil
 }
 
@@ -37,7 +35,7 @@ func newUnsubscribeEvent(ctx service.IChannelContext, msg *rpc.UnsubscribeReques
 }
 
 func (recvEvent *unsubscribeEvent) QueueId() int64 {
-	return time.Now().UnixNano()
+	return stringToInt64(recvEvent.ctx.ID())
 }
 
 func (recvEvent *unsubscribeEvent) Wait() (interface{}, bool) {

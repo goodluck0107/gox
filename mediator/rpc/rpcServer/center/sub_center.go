@@ -6,7 +6,6 @@ import (
 	"sync"
 
 	"gitee.com/andyxt/gox/service"
-	// 引入 logrus 日志库
 )
 
 var (
@@ -60,6 +59,42 @@ func DelSub(topic string, ctx service.IChannelContext) {
 	if len(topicSubs.ctxMap) == 0 {
 		delete(subCenter, topic)
 		logger.Info(fmt.Sprintf("Topic %v removed becauseof empty subscribers", topic))
+	}
+}
+
+func RemoveChannel(ctx service.IChannelContext) {
+	// 获取需要操作的 topic 列表
+	mu.Lock()
+	topics := make([]string, 0, len(subCenter))
+	for topic := range subCenter {
+		topics = append(topics, topic)
+	}
+	mu.Unlock()
+
+	// 遍历并处理每个 topic
+	for _, topic := range topics {
+		topicSubs := subCenter[topic]
+		if topicSubs == nil {
+			continue
+		}
+
+		topicSubs.mu.Lock()
+		defer topicSubs.mu.Unlock()
+
+		ctxID := ctx.ID()
+		if ctxID == "" {
+			logger.Warn("Invalid context ID")
+			continue
+		}
+
+		delete(topicSubs.ctxMap, ctxID)
+		logger.Info(fmt.Sprintf("Topic %v deleted one subscriber", topic))
+		// 如果 ctxMap 为空，则从 subCenter 中删除该 topic
+		if len(topicSubs.ctxMap) == 0 {
+			mu.Lock()
+			delete(subCenter, topic)
+			mu.Unlock()
+		}
 	}
 }
 
