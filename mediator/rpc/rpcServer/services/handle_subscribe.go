@@ -11,9 +11,13 @@ import (
 	"gitee.com/andyxt/gox/service"
 )
 
+const (
+	subscribePath = "/SubscribeRequest"
+)
+
 // SubscribeRequest 发起订阅
 func (*RpcService) RouteForSubscribeRequest() (string, uint32, uint32) {
-	return "/SubscribeRequest", uint32(mid.SubscribeRequest), service.ProtoTypePB
+	return subscribePath, uint32(mid.SubscribeRequest), service.ProtoTypePB
 }
 
 func (*RpcService) SubscribeRequest(request service.IServiceRequest, msg *rpc.SubscribeRequest) error {
@@ -27,11 +31,8 @@ type subscribeEvent struct {
 	msg *rpc.SubscribeRequest
 }
 
-func newSubscribeEvent(ctx service.IChannelContext, msg *rpc.SubscribeRequest) (this *subscribeEvent) {
-	this = new(subscribeEvent)
-	this.ctx = ctx
-	this.msg = msg
-	return this
+func newSubscribeEvent(ctx service.IChannelContext, msg *rpc.SubscribeRequest) *subscribeEvent {
+	return &subscribeEvent{ctx: ctx, msg: msg}
 }
 
 func (recvEvent *subscribeEvent) QueueId() int64 {

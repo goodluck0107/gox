@@ -7,9 +7,13 @@ import (
 	"gitee.com/andyxt/gox/service"
 )
 
+const (
+	heartbeatPath = "/HeartbeatRequest"
+)
+
 // RouteForHeartbeatRequest 心跳
 func (*RpcService) RouteForHeartbeatRequest() (string, uint32, uint32) {
-	return "/HeartbeatRequest", uint32(mid.HeartbeatRequest), service.ProtoTypePB
+	return heartbeatPath, uint32(mid.HeartbeatRequest), service.ProtoTypePB
 }
 
 func (*RpcService) HeartbeatRequest(request service.IServiceRequest, msg *rpc.HeartbeatRequest) error {

@@ -11,9 +11,13 @@ import (
 	"gitee.com/andyxt/gox/service"
 )
 
+const (
+	unsubscribePath = "/UnsubscribeRequest"
+)
+
 // UnsubscribeRequest 取消订阅
 func (*RpcService) RouteForUnsubscribeRequest() (string, uint32, uint32) {
-	return "/UnsubscribeRequest", uint32(mid.UnsubscribeRequest), service.ProtoTypePB
+	return unsubscribePath, uint32(mid.UnsubscribeRequest), service.ProtoTypePB
 }
 
 func (*RpcService) UnsubscribeRequest(request service.IServiceRequest, msg *rpc.UnsubscribeRequest) error {
@@ -28,10 +32,7 @@ type unsubscribeEvent struct {
 }
 
 func newUnsubscribeEvent(ctx service.IChannelContext, msg *rpc.UnsubscribeRequest) (this *unsubscribeEvent) {
-	this = new(unsubscribeEvent)
-	this.ctx = ctx
-	this.msg = msg
-	return this
+	return &unsubscribeEvent{ctx: ctx, msg: msg}
 }
 
 func (recvEvent *unsubscribeEvent) QueueId() int64 {

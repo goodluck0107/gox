@@ -23,37 +23,37 @@ func Start(port int64) {
 func listenRPC(port int64) {
 	boots.Serve(
 		boots.WithTCPAddr(fmt.Sprintf(":%v", port)),
-		boots.WithInitializer(mediator.NewChannelInitializer(channelCmdMakerImpl.NewChannelInboundCmdMaker(NewNofityMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory())),
+		boots.WithInitializer(mediator.NewChannelInitializer(channelCmdMakerImpl.NewChannelInboundCmdMaker(newLoginMessage(), routineCmdMakerImpl.NewRoutineInboundCmdMaker()), messageImpl.NewMessageFactory())),
 		boots.WithReadTimeOut(-1),
 		boots.WithWriteTimeOut(-1),
 		boots.WithReadLimit(10240),
 	)
 }
 
-func NewNofityMessage() channelCommands.ILoginMessage {
-	instance := new(NofityMessage)
+func newLoginMessage() channelCommands.ILoginMessage {
+	instance := new(LoginMessage)
 	return instance
 }
 
-type NofityMessage struct {
+type LoginMessage struct {
 }
 
-func (loginMessage *NofityMessage) IsLoginMessage(protocol protocol.Protocol) bool {
+func (loginMessage *LoginMessage) IsLoginMessage(protocol protocol.Protocol) bool {
 	return false
 }
 
-func (loginMessage *NofityMessage) IsWhiteMessage(protocol protocol.Protocol) bool {
+func (loginMessage *LoginMessage) IsWhiteMessage(protocol protocol.Protocol) bool {
 	return true
 }
 
-func (loginMessage *NofityMessage) IsValid(protocol protocol.Protocol) bool {
+func (loginMessage *LoginMessage) IsValid(protocol protocol.Protocol) bool {
 	return true
 }
 
-func (loginMessage *NofityMessage) GetLoginUID(protocol protocol.Protocol) int64 {
+func (loginMessage *LoginMessage) GetLoginUID(protocol protocol.Protocol) int64 {
 	return 0
 }
 
-func (loginMessage *NofityMessage) GetLngType(protocol protocol.Protocol) int8 {
+func (loginMessage *LoginMessage) GetLngType(protocol protocol.Protocol) int8 {
 	return 0
 }

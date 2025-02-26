@@ -23,7 +23,7 @@ func listenEvent() {
 
 // onInactive 连接中断
 func onInactive(playerID int64, chlCtx service.IChannelContext) {
-	logger.Info(fmt.Sprintf("onInactive ctxID:%v 掉线成功", chlCtx.ID()))
+	logger.Info(fmt.Sprintf("onInactive ctxID:%v 掉线", chlCtx.ID()))
 	center.RemoveChannel(chlCtx)
 }
 
