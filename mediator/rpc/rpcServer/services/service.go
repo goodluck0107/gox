@@ -29,4 +29,5 @@ func onInactive(playerID int64, chlCtx service.IChannelContext) {
 	}
 	logger.Info(fmt.Sprintf("onInactive  playerID:%v 掉线成功", playerID))
 	session.RemoveSession(playerID)
+	// remove subscribe TODO
 }

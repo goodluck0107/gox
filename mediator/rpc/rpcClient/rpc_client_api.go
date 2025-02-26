@@ -43,8 +43,15 @@ func Subscribe(topic string) {
 	})
 }
 
+// Subscribe 调用master发起订阅
+func Unsubscribe(topic string) {
+	sendMessage(mid.UnsubscribeRequest, &rpc.UnsubscribeRequest{
+		Topic: topic,
+	})
+}
+
 // Publish 调用master发布订阅
-func Publish(topic string, msgCode uint16, protoData protoreflect.ProtoMessage) {
+func Publish(topic string, protoData protoreflect.ProtoMessage) {
 	marshalV, marshalE := proto.Marshal(protoData)
 	if marshalE != nil {
 		logger.Error(fmt.Sprintf("RPC.Publish err:%v", marshalE))
@@ -52,7 +59,6 @@ func Publish(topic string, msgCode uint16, protoData protoreflect.ProtoMessage) 
 	}
 	sendMessage(mid.PublishRequest, &rpc.PublishRequest{
 		Topic:   topic,
-		MsgCode: int64(msgCode),
 		MsgData: marshalV,
 	})
 }

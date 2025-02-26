@@ -2,22 +2,24 @@ syntax = "proto3";
 package rpc;
 option go_package = "pb/rpc";
 
-message PublishRequest {
-  string Topic = 1;
-  int64 MsgCode = 3;
-  bytes MsgData = 2;
-}
-
 message SubscribeRequest {
   string Topic = 1;
 }
+
 message UnsubscribeRequest {
   string Topic = 1;
 }
+
+message PublishRequest {
+  string Topic = 1;
+  bytes MsgData = 2;
+}
+
 message MessagePush {
   string Topic = 1;
+  int64 PlayerID =2;
   int64 MsgCode = 3;
-  bytes MsgData = 2;
+  bytes MsgData = 4;
 }
 
 message HeartbeatRequest {

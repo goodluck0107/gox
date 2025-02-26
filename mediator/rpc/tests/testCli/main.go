@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
@@ -23,7 +24,8 @@ func call() {
 	go func() {
 		for {
 			time.Sleep(20 * time.Second)
-			rpcClient.Publish("testCli", mid.EchoRequest, &rpc.EchoRequest{
+			playerID := int64(1)
+			rpcClient.Publish(fmt.Sprintf("%v_%v_%v", playerID, "testCli", mid.EchoRequest), &rpc.EchoRequest{
 				Param1: 1,
 				Param2: "2",
 				Param3: []byte("Echo"),

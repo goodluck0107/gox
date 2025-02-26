@@ -2,6 +2,7 @@ package center
 
 import (
 	"ck-model/logger"
+	"fmt"
 	"sync"
 
 	"gitee.com/andyxt/gox/service"
@@ -37,8 +38,7 @@ func AddSub(topic string, ctx service.IChannelContext) {
 	topicSubs.mu.Lock()
 	defer topicSubs.mu.Unlock()
 	topicSubs.ctxMap[ctx.ID()] = ctx
-
-	logger.Info("Added subscription")
+	logger.Info(fmt.Sprintf("Topic %v added one subscriber", topic))
 }
 
 func DelSub(topic string, ctx service.IChannelContext) {
@@ -47,7 +47,7 @@ func DelSub(topic string, ctx service.IChannelContext) {
 
 	topicSubs, exists := subCenter[topic]
 	if !exists {
-		logger.Info("Topic does not exist")
+		logger.Info(fmt.Sprintf("Topic %v has no subscribers while DelSub", topic))
 		return
 	}
 
@@ -55,12 +55,11 @@ func DelSub(topic string, ctx service.IChannelContext) {
 	defer topicSubs.mu.Unlock()
 
 	delete(topicSubs.ctxMap, ctx.ID())
-	logger.Info("Deleted subscription")
-
+	logger.Info(fmt.Sprintf("Topic %v deleted one subscriber", topic))
 	// 如果 ctxMap 为空，则从 subCenter 中删除该 topic
 	if len(topicSubs.ctxMap) == 0 {
 		delete(subCenter, topic)
-		logger.Info("Removed empty topic")
+		logger.Info(fmt.Sprintf("Topic %v removed becauseof empty subscribers", topic))
 	}
 }
 
@@ -70,7 +69,7 @@ func TraverseDo(topic string, f func(service.IChannelContext)) {
 	mu.RUnlock()
 
 	if !exists {
-		logger.Info("Topic does not exist")
+		logger.Info(fmt.Sprintf("Topic %v has no subscribers while TraverseDo", topic))
 		return
 	}
 
@@ -79,7 +78,7 @@ func TraverseDo(topic string, f func(service.IChannelContext)) {
 	topicSubs.mu.RUnlock()
 
 	if len(ctxMap) == 0 {
-		logger.Info("Topic has no channels")
+		logger.Info(fmt.Sprintf("Topic %v has no channels while TraverseDo", topic))
 		return
 	}
 
