@@ -10,13 +10,13 @@ import (
 
 type serviceCenter struct {
 	handlerChecker      IHandleChecker
-	localHandlers       map[uint16]*handler
+	localHandlers       map[uint32]*handler
 	localHandlersByPath map[string]*handler
 }
 
 func newServiceCenter() *serviceCenter {
 	sc := new(serviceCenter)
-	sc.localHandlers = make(map[uint16]*handler)
+	sc.localHandlers = make(map[uint32]*handler)
 	sc.localHandlersByPath = make(map[string]*handler)
 	return sc
 }
@@ -46,8 +46,8 @@ func (sc *serviceCenter) DispatchByPath(servicePath string, data []interface{}) 
 }
 
 // 通过服务码派发消息到服务方法
-func (sc *serviceCenter) DispatchByCode(serviceCode int32, data []interface{}) error {
-	if h, found := sc.localHandlers[uint16(serviceCode)]; found {
+func (sc *serviceCenter) DispatchByCode(serviceCode uint32, data []interface{}) error {
+	if h, found := sc.localHandlers[uint32(serviceCode)]; found {
 		return sc.callServiceHandle(h, data)
 	}
 	return fmt.Errorf("no handler for route-code: %d", serviceCode)
@@ -62,7 +62,7 @@ func (sc *serviceCenter) Code(servicePath string) uint16 {
 }
 
 // 通过服务码获取服务路径
-func (sc *serviceCenter) Path(serviceCode uint16) string {
+func (sc *serviceCenter) Path(serviceCode uint32) string {
 	if h, found := sc.localHandlers[serviceCode]; found {
 		return h.Path
 	}
@@ -124,11 +124,11 @@ func (sc *serviceCenter) registerHandlersWithCode(serviceName string, handlers m
 			continue
 		}
 		// logger.Info(fmt.Sprintf("Service %v has handler %s for route-code %v", serviceName, handlerName, handler.Code))
-		if _, ok := sc.localHandlers[uint16(handler.Code)]; ok {
+		if _, ok := sc.localHandlers[uint32(handler.Code)]; ok {
 			logger.Error(fmt.Sprintf("Service %v has duplicate handler %s for route-code: %v", serviceName, handlerName, handler.Code))
 			panic(fmt.Errorf("service %v has duplicate handler %s for route-code: %v", serviceName, handlerName, handler.Code))
 		}
-		sc.localHandlers[uint16(handler.Code)] = handler
+		sc.localHandlers[uint32(handler.Code)] = handler
 	}
 }
 

@@ -77,7 +77,7 @@ func (cb *CallBack) ConnectInactive(uID int64, currentChlCtx service.IChannelCon
 func (cb *CallBack) MessageReceived(Ctx service.IChannelContext, Data protocol.Protocol) {
 	fmt.Println("CallBack.MessageReceived")
 	msg := Data.(*messageImpl.Message)
-	msgPath := service.Path(msg.MsgID)
+	msgPath := service.Path(uint32(msg.MsgID))
 	if msgPath == "" {
 		fmt.Println(`no msgPath for response`, msg.MsgID)
 		return
@@ -95,7 +95,7 @@ func (cb *CallBack) MessageReceived(Ctx service.IChannelContext, Data protocol.P
 func callService(chlContext service.IChannelContext, msg *messageImpl.Message) error {
 	request := service.NewSessionRequest(chlContext, service.NewAttr(nil))
 	extends.SetSeqID(request, msg.SeqID)
-	serviceCode := int32(msg.MsgID)
+	serviceCode := uint32(msg.MsgID)
 	serviceErr := service.DispatchByCode(serviceCode, request, msg.Data)
 	if serviceErr != nil {
 		logger.Error(fmt.Sprintf("chlCtx %v callService %v error %v ", extends.ChannelContextToString(chlContext), serviceCode, serviceErr))

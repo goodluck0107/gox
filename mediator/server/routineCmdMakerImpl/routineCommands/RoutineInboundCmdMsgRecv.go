@@ -69,7 +69,7 @@ func callService(chlContext service.IChannelContext, protocol protocol.Protocol)
 	extends.SetSeqID(request, seqID)
 	extends.SetMsgID(request, msgID)
 	eventBus.Trigger(evts.EVT_ServiceBefore, request)
-	serviceCode := int32(msgID)
+	serviceCode := uint32(msgID)
 	serviceErr := service.DispatchByCode(serviceCode, request, msgData)
 	if serviceErr != nil {
 		logger.Error(fmt.Sprintf("chlCtx %v callService %v error %v ", extends.ChannelContextToString(chlContext), serviceCode, serviceErr))

@@ -19,7 +19,7 @@ func DispatchByPath(servicePath string, data ...interface{}) error {
 }
 
 // Dispatch dispatch message to a service handler
-func DispatchByCode(serviceCode int32, data ...interface{}) error {
+func DispatchByCode(serviceCode uint32, data ...interface{}) error {
 	return localServiceCenter.DispatchByCode(serviceCode, data)
 }
 
@@ -34,6 +34,6 @@ func Code(servicePath string) uint16 {
 }
 
 // 通过服务码获取服务路径
-func Path(serviceCode uint16) string {
+func Path(serviceCode uint32) string {
 	return localServiceCenter.Path(serviceCode)
 }
