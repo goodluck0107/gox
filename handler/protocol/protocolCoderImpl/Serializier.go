@@ -19,8 +19,11 @@ func NewDefualtSerializier(mFactory protocolCoder.IMessageFactory) (this *Defual
 }
 
 func (serializier *DefualtSerializier) Serialize(b protocol.Protocol) []byte {
-	pBuf := b.Encode().(buffer.Buffer)
-	return pBuf.ToBytes()
+	pBuf, pE := b.Encode()
+	if pE != nil {
+		logger.Error("序列化失败")
+	}
+	return pBuf
 }
 
 func (serializier *DefualtSerializier) Deserialize(b []byte) (bool, protocol.Protocol) {
@@ -32,8 +35,8 @@ func (serializier *DefualtSerializier) Deserialize(b []byte) (bool, protocol.Pro
 		if reuse {
 			return true, msg
 		} else {
-			valid := msg.Decode(buf)
-			if valid {
+			valid := msg.Decode(b)
+			if valid == nil {
 				return true, msg
 			} else {
 				logger.Info("无效协议") //, " , 协议号：", VersionId, UserId, AppId, MessageId)

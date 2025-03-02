@@ -65,10 +65,10 @@ func NewMessageWith(data []byte) (this *Message) {
 	this.Data = data[protocolBuffer.GetReadIndex():]
 	return
 }
-func (msg *Message) Decode(e interface{}) (valid bool) {
-	return
+func (msg *Message) Decode(e []byte) error {
+	return nil
 }
-func (msg *Message) Encode() (ret interface{}) {
+func (msg *Message) Encode() ([]byte, error) {
 	protocolBuffer := buffer.CreateBigEndianBuffer()
 	protocolBuffer.WriteUInt8(uint8(msg.RouteType))   // 路由类型（0-客户端，1-大厅）
 	protocolBuffer.WriteUInt8(uint8(msg.MessageType)) // 消息类型（0-close,1-proto）
@@ -78,7 +78,7 @@ func (msg *Message) Encode() (ret interface{}) {
 	protocolBuffer.WriteInt16(int16(msg.MsgID))       // 协议ID
 	data := protocolBuffer.GetContent()[:protocolBuffer.GetWriteIndex()]
 	data = append(data, msg.Data...)
-	return data
+	return data, nil
 }
 func (msg *Message) GetSeqID() uint32 {
 	return msg.SeqID

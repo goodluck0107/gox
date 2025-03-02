@@ -28,8 +28,8 @@ func (initializer *channelInitializer) InitChannel(pipeline channel.ChannelPipel
 		return
 	}
 	// UpHandleOnRoutineSync--CTS SecurityDecoder -->  MessageDecoder-->  ExecutionHandleOnRoutineSync
-	pipeline.AddLast("MessageDecoder", code.NewMessageDecoderHandleOnRoutineSync(initializer.mMessageFactory))
+	pipeline.AddLast("MessageDecoder", code.NewProtocolDecoder(initializer.mMessageFactory))
 	pipeline.AddLast("InBoundExecutionHandler", schedule.NewInBoundExecutionHandler(initializer.mInboundChannelCommandMaker))
 	// DownHandleOnRoutineSync--STS or STC  MessageEncoder -->  SecurityEncoder
-	pipeline.AddLast("MessageEncoder", code.NewMessageEncoderHandleOnRoutineSync())
+	pipeline.AddLast("MessageEncoder", code.NewProtocolEncoder())
 }

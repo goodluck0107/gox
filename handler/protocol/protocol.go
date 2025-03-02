@@ -1,8 +1,8 @@
 package protocol
 
 type Protocol interface {
-	Decode(e interface{}) (valid bool)
-	Encode() (ret interface{})
+	Decode(b []byte) error
+	Encode() ([]byte, error)
 	GetSeqID() uint32
 	GetMsgID() uint16
 	GetMsgData() []byte

@@ -2,29 +2,34 @@ package code
 
 import (
 	"gitee.com/andyxt/gona/boot/channel"
-	"gitee.com/andyxt/gox/handler/protocol"
+	"gitee.com/andyxt/gona/logger"
+	"gitee.com/andyxt/gox/handler/message"
 )
 
-// DownBase ---> *buffer.ProtocolBuffer
-type MessageEncoderHandleOnRoutineSync struct {
+// message.IMessage ---> []byte
+type MessageEncoder struct {
 }
 
-func NewMessageEncoderHandleOnRoutineSync() (this *MessageEncoderHandleOnRoutineSync) {
-	this = new(MessageEncoderHandleOnRoutineSync)
+func NewMessageEncoder() (this *MessageEncoder) {
+	this = new(MessageEncoder)
 	return
 }
 
-func (encoder *MessageEncoderHandleOnRoutineSync) ExceptionCaught(ctx channel.ChannelContext, err error) {
+func (encoder *MessageEncoder) ExceptionCaught(ctx channel.ChannelContext, err error) {
 	//	logger.Debug("MessageEncoder ExceptionCaught")
 }
 
-func (encoder *MessageEncoderHandleOnRoutineSync) Write(ctx channel.ChannelContext, e interface{}) (ret interface{}) {
+func (encoder *MessageEncoder) Write(ctx channel.ChannelContext, e interface{}) interface{} {
 	//	logger.Debug("MessageEncoder Write")
-	buf := e.(protocol.Protocol)
-	ret = buf.Encode()
-	return
+	msg := e.(message.IMessage)
+	buf, err := msg.Encode()
+	if err != nil {
+		logger.Error("MessageEncoder Write err=", err)
+		return nil
+	}
+	return buf
 }
 
-func (encoder *MessageEncoderHandleOnRoutineSync) Close(ctx channel.ChannelContext) {
+func (encoder *MessageEncoder) Close(ctx channel.ChannelContext) {
 	//	logger.Debug("MessageEncoder Close")
 }
