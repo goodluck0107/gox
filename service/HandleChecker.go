@@ -64,7 +64,7 @@ func (checker *defaultHandleChecker) IsHandlerMethod(method reflect.Method) bool
 func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType uint32) ([]reflect.Value, error) {
 	data := reflect.New(types[1].Elem()).Interface()
 	b := params[1].([]byte)
-	if protoType == ProtoTypePB { // ProtoBuffer消息
+	if protoType == ProtoTypePB { // ProtoBuffer解码(二进制->消息)
 		pm, ok := data.(proto.Message)
 		if !ok {
 			return nil, errors.New("param is not proto.Message while protoType is ProtoTypePB")
@@ -73,7 +73,12 @@ func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []in
 		if err != nil {
 			return nil, errors.New("param can not unmarshal to proto.Message while protoType is ProtoTypePB")
 		}
-	} else if protoType == ProtoTypeBN { // 二进制消息
+	} else if protoType == ProtoTypeJson { // json解码(二进制->消息)
+		err := json.Unmarshal(b, data)
+		if err != nil {
+			return nil, errors.New("param can not unmarshal to json while protoType is ProtoTypeJson")
+		}
+	} else if protoType == ProtoTypeBN { // 自定义解码(二进制->消息)
 		bm, ok := data.(message.IMessage)
 		if !ok {
 			return nil, errors.New("param is not message.IMessage while protoType is ProtoTypeBN")
@@ -81,11 +86,6 @@ func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []in
 		err := message.Unmarshal(b, bm)
 		if err != nil {
 			return nil, errors.New("param can not unmarshal to message.IMessage while protoType is ProtoTypeBN")
-		}
-	} else if protoType == ProtoTypeJson { // json消息
-		err := json.Unmarshal(b, data)
-		if err != nil {
-			return nil, errors.New("param can not unmarshal to json while protoType is ProtoTypeJson")
 		}
 	}
 	args := []reflect.Value{reflect.ValueOf(params[0]), reflect.ValueOf(data)}
