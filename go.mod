@@ -1,6 +1,6 @@
 module gitee.com/andyxt/gox
 
-go 1.22.3
+go 1.23.6
 
 require (
 	gitee.com/andyxt/gona v1.0.33
