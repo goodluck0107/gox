@@ -54,10 +54,10 @@ func (handler *ExecutionHandler) ChannelInactive(ctx channel.ChannelContext) (go
 }
 
 func (handler *ExecutionHandler) MessageReceived(ctx channel.ChannelContext, e interface{}) (ret interface{}, goonNext bool) {
-	msg := e.([]byte)
-	if msg == nil {
-		msg = []byte{}
+	if e == nil {
+		e = []byte{}
 	}
+	msg := e.([]byte)
 	logger.Info(ctx.ID(), "ExecutionHandler 链接收到消息", "URLPath", ctx.ContextAttr().GetString(boot.KeyURLPath), "msg", string(msg))
 	reqPath := ctx.ContextAttr().GetString(channel.KeyForReqPath)
 	servicePath := fmt.Sprintf("%v", reqPath)
