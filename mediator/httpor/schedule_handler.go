@@ -4,31 +4,11 @@ import (
 	"fmt"
 
 	"gitee.com/andyxt/gona/logger"
-	"gitee.com/andyxt/gox/handler"
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gona/boot"
 	"gitee.com/andyxt/gona/boot/channel"
 )
-
-type ChannelInitializer struct {
-}
-
-func NewChannelInitializer() (instance *ChannelInitializer) {
-	instance = new(ChannelInitializer)
-	return
-}
-
-func (initializer *ChannelInitializer) InitChannel(pipeline channel.ChannelPipeline) {
-	if pipeline == nil {
-		return
-	}
-	// UpHandleOnRoutineSync--CTS SecurityDecoder -->  MessageDecoder-->  ExecutionHandleOnRoutineSync
-	// pipeline.AddLast("MessageDecoder", code.NewMessageDecoderHandleOnRoutineSync(initializer.mMessageFactory)) // 消息解码处理器
-	pipeline.AddLast("ExecutionHandler", NewExecutionHandler()) // 消息逻辑处理
-	// DownHandleOnRoutineSync--STS or STC  MessageEncoder -->  SecurityEncoder
-	pipeline.AddLast("MessageEncoder", handler.NewMessageEncoder()) // 消息编码处理器
-}
 
 type ExecutionHandler struct {
 }
