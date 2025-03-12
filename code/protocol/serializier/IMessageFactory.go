@@ -1,4 +1,4 @@
-package protocolCoder
+package serializier
 
 import (
 	"gitee.com/andyxt/gox/code/protocol"

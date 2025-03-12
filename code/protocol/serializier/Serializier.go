@@ -1,18 +1,26 @@
-package protocolCoderImpl
+package serializier
 
 import (
 	"gitee.com/andyxt/gox/code/protocol"
-	"gitee.com/andyxt/gox/code/protocol/protocolCoder"
 
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/buffer"
 )
 
-type DefualtSerializier struct {
-	mFactory protocolCoder.IMessageFactory
+const (
+	CommonSerilizeType int8 = 1
+)
+
+type Serializier interface {
+	Serialize(protocol.Protocol) []byte
+	Deserialize(b []byte) (bool, protocol.Protocol)
 }
 
-func NewDefualtSerializier(mFactory protocolCoder.IMessageFactory) (this *DefualtSerializier) {
+type DefualtSerializier struct {
+	mFactory IMessageFactory
+}
+
+func NewDefualtSerializier(mFactory IMessageFactory) (this *DefualtSerializier) {
 	this = new(DefualtSerializier)
 	this.mFactory = mFactory
 	return this

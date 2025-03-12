@@ -1,6 +1,15 @@
-package protocolCoderImpl
+package security
 
 import "fmt"
+
+const (
+	CommonSecurityType int8 = 1
+)
+
+type Securitier interface {
+	Encrypt(b []byte) []byte
+	Decrypt(b []byte) (bool, []byte)
+}
 
 type DefualtSecuritier struct {
 	sendMap []byte
