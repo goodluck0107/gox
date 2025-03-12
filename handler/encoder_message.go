@@ -1,9 +1,9 @@
-package code
+package handler
 
 import (
 	"gitee.com/andyxt/gona/boot/channel"
 	"gitee.com/andyxt/gona/logger"
-	"gitee.com/andyxt/gox/handler/message"
+	"gitee.com/andyxt/gox/code/message"
 )
 
 // message.IMessage ---> []byte

@@ -4,21 +4,21 @@ import (
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gona/logger"
+	"gitee.com/andyxt/gox/code/protocol"
 	"gitee.com/andyxt/gox/executor"
 	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/handler/protocol"
-	"gitee.com/andyxt/gox/handler/schedule"
+	"gitee.com/andyxt/gox/handler"
 )
 
 type ChannelInboundCmdMsgRecv struct {
-	mEventMaker   schedule.IRoutineInboundEventMaker
+	mEventMaker   handler.IRoutineInboundEventMaker
 	ChannelCtx    service.IChannelContext
 	e             interface{}
 	mLoginMessage ILoginMessage
 }
 
 func NewChannelInboundCmdMsgRecv(
-	mEventMaker schedule.IRoutineInboundEventMaker, ChannelCtx service.IChannelContext, e interface{}, mLoginMessage ILoginMessage) (this *ChannelInboundCmdMsgRecv) {
+	mEventMaker handler.IRoutineInboundEventMaker, ChannelCtx service.IChannelContext, e interface{}, mLoginMessage ILoginMessage) (this *ChannelInboundCmdMsgRecv) {
 	this = new(ChannelInboundCmdMsgRecv)
 	this.mEventMaker = mEventMaker
 	this.ChannelCtx = ChannelCtx

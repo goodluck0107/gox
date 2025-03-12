@@ -1,8 +1,8 @@
 package inboundCommands
 
 import (
-	"gitee.com/andyxt/gox/handler/protocol"
-	"gitee.com/andyxt/gox/handler/schedule"
+	"gitee.com/andyxt/gox/code/protocol"
+	"gitee.com/andyxt/gox/handler"
 	"gitee.com/andyxt/gox/service"
 )
 
@@ -10,12 +10,12 @@ type ClientChannelUpMsgRecvEvent struct {
 	routineId   int64
 	Data        protocol.Protocol
 	Ctx         service.IChannelContext
-	mEventMaker schedule.IRoutineInboundEventMaker
+	mEventMaker handler.IRoutineInboundEventMaker
 	callback    ICallBack
 }
 
 func NewClientChannelUpMsgRecvEvent(routineId int64, Data protocol.Protocol,
-	Ctx service.IChannelContext, mEventMaker schedule.IRoutineInboundEventMaker, callback ICallBack) (this *ClientChannelUpMsgRecvEvent) {
+	Ctx service.IChannelContext, mEventMaker handler.IRoutineInboundEventMaker, callback ICallBack) (this *ClientChannelUpMsgRecvEvent) {
 	this = new(ClientChannelUpMsgRecvEvent)
 	this.routineId = routineId
 	this.Data = Data

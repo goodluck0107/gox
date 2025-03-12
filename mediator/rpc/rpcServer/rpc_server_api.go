@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"gitee.com/andyxt/gona/boot/boots"
-	"gitee.com/andyxt/gox/handler/protocol"
+	"gitee.com/andyxt/gox/code/protocol"
 	"gitee.com/andyxt/gox/mediator"
 	"gitee.com/andyxt/gox/mediator/rpc/rpcServer/services"
 	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl"

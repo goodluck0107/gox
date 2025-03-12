@@ -18,8 +18,8 @@ import (
 
 	"gitee.com/andyxt/gona/boot/bootc"
 	"gitee.com/andyxt/gona/logger"
+	"gitee.com/andyxt/gox/code/protocol"
 	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/handler/protocol"
 
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"

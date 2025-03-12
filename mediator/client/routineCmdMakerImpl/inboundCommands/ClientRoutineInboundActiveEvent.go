@@ -2,20 +2,20 @@ package inboundCommands
 
 import (
 	"gitee.com/andyxt/gona/logger"
-	"gitee.com/andyxt/gox/handler/schedule"
+	"gitee.com/andyxt/gox/handler"
 	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/service"
 )
 
 type ClientChannelUpActiveEvent struct {
 	routineId   int64
-	mEventMaker schedule.IRoutineInboundEventMaker
+	mEventMaker handler.IRoutineInboundEventMaker
 	ChlCtx      service.IChannelContext
 	callback    ICallBack
 }
 
 func NewClientChannelUpActiveEvent(routineId int64,
-	mEventMaker schedule.IRoutineInboundEventMaker, ChlCtx service.IChannelContext, callback ICallBack) (this *ClientChannelUpActiveEvent) {
+	mEventMaker handler.IRoutineInboundEventMaker, ChlCtx service.IChannelContext, callback ICallBack) (this *ClientChannelUpActiveEvent) {
 	this = new(ClientChannelUpActiveEvent)
 	this.routineId = routineId
 	this.mEventMaker = mEventMaker

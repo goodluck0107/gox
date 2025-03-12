@@ -1,8 +1,8 @@
 package routineCmdMakerImpl
 
 import (
+	"gitee.com/andyxt/gox/code/protocol"
 	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/handler/protocol"
 	"gitee.com/andyxt/gox/mediator/server/routineCmdMakerImpl/routineCommands"
 	"gitee.com/andyxt/gox/service"
 )

@@ -1,8 +1,8 @@
 package protocolCoderImpl
 
 import (
-	"gitee.com/andyxt/gox/handler/protocol"
-	"gitee.com/andyxt/gox/handler/protocol/protocolCoder"
+	"gitee.com/andyxt/gox/code/protocol"
+	"gitee.com/andyxt/gox/code/protocol/protocolCoder"
 
 	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/buffer"

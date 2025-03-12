@@ -2,7 +2,7 @@ package channelCommands
 
 import (
 	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/handler/schedule"
+	"gitee.com/andyxt/gox/handler"
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gona/logger"
@@ -10,12 +10,12 @@ import (
 )
 
 type ServerCommandInActive struct {
-	mEventMaker schedule.IRoutineInboundEventMaker
+	mEventMaker handler.IRoutineInboundEventMaker
 	ChannelCtx  service.IChannelContext
 }
 
 func NewServerCommandInActive(
-	mEventMaker schedule.IRoutineInboundEventMaker, ChannelCtx service.IChannelContext) (this *ServerCommandInActive) {
+	mEventMaker handler.IRoutineInboundEventMaker, ChannelCtx service.IChannelContext) (this *ServerCommandInActive) {
 	this = new(ServerCommandInActive)
 	this.mEventMaker = mEventMaker
 	this.ChannelCtx = ChannelCtx

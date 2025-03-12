@@ -1,9 +1,9 @@
 package routineCmdMakerImpl
 
 import (
+	"gitee.com/andyxt/gox/code/protocol"
 	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/handler/protocol"
-	"gitee.com/andyxt/gox/handler/schedule"
+	"gitee.com/andyxt/gox/handler"
 	"gitee.com/andyxt/gox/mediator/server/routineCmdMakerImpl/routineCommands"
 	"gitee.com/andyxt/gox/service"
 )
@@ -11,7 +11,7 @@ import (
 type RoutineInboundCmdMaker struct {
 }
 
-func NewRoutineInboundCmdMaker() schedule.IRoutineInboundEventMaker {
+func NewRoutineInboundCmdMaker() handler.IRoutineInboundEventMaker {
 	impl := new(RoutineInboundCmdMaker)
 	return impl
 }

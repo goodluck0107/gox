@@ -5,7 +5,7 @@ import (
 	"errors"
 	"reflect"
 
-	"gitee.com/andyxt/gox/handler/message"
+	"gitee.com/andyxt/gox/code/message"
 	"google.golang.org/protobuf/proto"
 )
 

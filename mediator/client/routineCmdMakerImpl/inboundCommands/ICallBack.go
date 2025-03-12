@@ -1,7 +1,7 @@
 package inboundCommands
 
 import (
-	"gitee.com/andyxt/gox/handler/protocol"
+	"gitee.com/andyxt/gox/code/protocol"
 	"gitee.com/andyxt/gox/service"
 )
 

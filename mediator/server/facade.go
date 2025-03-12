@@ -1,10 +1,10 @@
 package server
 
 import (
+	"gitee.com/andyxt/gox/code/protocol"
 	"gitee.com/andyxt/gox/eventBus"
 	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/handler/protocol"
-	"gitee.com/andyxt/gox/handler/schedule"
+	"gitee.com/andyxt/gox/handler"
 
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/mediator/server/evts"
@@ -13,25 +13,25 @@ import (
 	"gitee.com/andyxt/gox/service"
 )
 
-var mRoutineInboundCmdMaker schedule.IRoutineInboundEventMaker = routineCmdMakerImpl.NewRoutineInboundCmdMaker()
-var mRoutineOutboundCmdMaker schedule.IRoutineOutboundEventMaker = routineCmdMakerImpl.NewRoutineOutboundCmdMaker()
+var mRoutineInboundCmdMaker handler.IRoutineInboundEventMaker = routineCmdMakerImpl.NewRoutineInboundCmdMaker()
+var mRoutineOutboundCmdMaker handler.IRoutineOutboundEventMaker = routineCmdMakerImpl.NewRoutineOutboundCmdMaker()
 
-func Response(ChlCtx service.IChannelContext, msgSeqID uint32, msgMsgID uint16, v protocol.Protocol) error {
+func Response(ChlCtx service.IChannelContext, v protocol.Protocol) error {
 	executor.FireEvent(mRoutineOutboundCmdMaker.MakeSendMessageEvent(extends.UID(ChlCtx), v, false, extends.UID(ChlCtx), ChlCtx, ""))
 	return nil
 }
 
-func ResponseClose(ChlCtx service.IChannelContext, msgSeqID uint32, msgMsgID uint16, v protocol.Protocol, desc string) error {
+func ResponseClose(ChlCtx service.IChannelContext, v protocol.Protocol, desc string) error {
 	executor.FireEvent(mRoutineOutboundCmdMaker.MakeSendMessageEvent(extends.UID(ChlCtx), v, true, extends.UID(ChlCtx), ChlCtx, desc))
 	return nil
 }
 
-func Push(ChlCtx service.IChannelContext, msgMsgID uint16, v protocol.Protocol) error {
+func Push(ChlCtx service.IChannelContext, v protocol.Protocol) error {
 	executor.FireEvent(mRoutineOutboundCmdMaker.MakeSendMessageEvent(extends.UID(ChlCtx), v, false, extends.UID(ChlCtx), ChlCtx, ""))
 	return nil
 }
 
-func PushClose(ChlCtx service.IChannelContext, msgMsgID uint16, v protocol.Protocol, desc string) error {
+func PushClose(ChlCtx service.IChannelContext, v protocol.Protocol, desc string) error {
 	executor.FireEvent(mRoutineOutboundCmdMaker.MakeSendMessageEvent(extends.UID(ChlCtx), v, true, extends.UID(ChlCtx), ChlCtx, desc))
 	return nil
 }

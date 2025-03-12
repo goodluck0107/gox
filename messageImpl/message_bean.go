@@ -17,7 +17,7 @@ type Type byte
 type Message struct {
 	RouteType   Type   // 路由类型: 0-close,1-client,2-hall
 	MessageType Type   // 协议类型: 1-proto,2-json
-	Verion      uint32 // 协议版本
+	Verion      Type   // 协议版本
 	SeqID       uint32 // 消息唯一ID,从0开始递增
 	Time        int64  // 时间戳
 	MsgID       uint16 // 协议ID
@@ -26,7 +26,7 @@ type Message struct {
 }
 
 func NewMessageDirect(routeType Type, messageType Type,
-	verion uint32, seqID uint32, msgID uint16,
+	verion Type, seqID uint32, msgID uint16,
 	protoData []byte) (this *Message) {
 	this = new(Message)
 	this.RouteType = routeType
@@ -38,7 +38,7 @@ func NewMessageDirect(routeType Type, messageType Type,
 	return
 }
 func NewMessage(routeType Type, messageType Type,
-	verion uint32, seqID uint32, msgID uint16,
+	verion Type, seqID uint32, msgID uint16,
 	protoData protoreflect.ProtoMessage) (this *Message) {
 	this = new(Message)
 	this.RouteType = routeType
@@ -58,10 +58,10 @@ func NewMessageWith(data []byte) (this *Message) {
 	protocolBuffer := buffer.FromBytes(data, buffer.ByteOrderBigEndian)
 	this.RouteType = Type(protocolBuffer.ReadUInt8())   // 路由类型（0-客户端，1-大厅）
 	this.MessageType = Type(protocolBuffer.ReadUInt8()) // 消息类型（0-close,1-proto）
-	this.Verion = uint32(protocolBuffer.ReadInt32())    // 协议版本
+	this.Verion = Type(protocolBuffer.ReadUInt8())      // 协议版本
 	this.SeqID = uint32(protocolBuffer.ReadInt32())     // 协议序列号
 	protocolBuffer.ReadInt64()                          // 时间戳
-	this.MsgID = uint16(protocolBuffer.ReadInt16())     // 协议ID
+	this.MsgID = protocolBuffer.ReadUInt16()            // 协议ID
 	this.Data = data[protocolBuffer.GetReadIndex():]
 	return
 }
@@ -72,10 +72,10 @@ func (msg *Message) Encode() ([]byte, error) {
 	protocolBuffer := buffer.CreateBigEndianBuffer()
 	protocolBuffer.WriteUInt8(uint8(msg.RouteType))   // 路由类型（0-客户端，1-大厅）
 	protocolBuffer.WriteUInt8(uint8(msg.MessageType)) // 消息类型（0-close,1-proto）
-	protocolBuffer.WriteInt32(int32(msg.Verion))      // 协议版本
+	protocolBuffer.WriteUInt8(uint8(msg.Verion))      // 协议版本
 	protocolBuffer.WriteInt32(int32(msg.SeqID))       // 协议序列号
 	protocolBuffer.WriteInt64(time.Now().Unix())      // 时间戳
-	protocolBuffer.WriteInt16(int16(msg.MsgID))       // 协议ID
+	protocolBuffer.WriteUInt16(msg.MsgID)             // 协议ID
 	data := protocolBuffer.GetContent()[:protocolBuffer.GetWriteIndex()]
 	data = append(data, msg.Data...)
 	return data, nil

@@ -1,9 +1,9 @@
 package channelCommands
 
 import (
+	"gitee.com/andyxt/gox/code/protocol"
 	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/handler/protocol"
-	"gitee.com/andyxt/gox/handler/schedule"
+	"gitee.com/andyxt/gox/handler"
 	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/service"
 
@@ -12,12 +12,12 @@ import (
 )
 
 type ClientCommandMessageReceived struct {
-	mEventMaker schedule.IRoutineInboundEventMaker
+	mEventMaker handler.IRoutineInboundEventMaker
 	ChannelCtx  service.IChannelContext
 	e           interface{}
 }
 
-func NewClientCommandMessageReceived(mEventMaker schedule.IRoutineInboundEventMaker, ChannelCtx service.IChannelContext, e interface{}) (this *ClientCommandMessageReceived) {
+func NewClientCommandMessageReceived(mEventMaker handler.IRoutineInboundEventMaker, ChannelCtx service.IChannelContext, e interface{}) (this *ClientCommandMessageReceived) {
 	this = new(ClientCommandMessageReceived)
 	this.mEventMaker = mEventMaker
 	this.ChannelCtx = ChannelCtx
