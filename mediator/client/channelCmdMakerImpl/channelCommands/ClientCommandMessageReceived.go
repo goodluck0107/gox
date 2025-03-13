@@ -7,8 +7,8 @@ import (
 	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/service"
 
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/executor"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 type ClientCommandMessageReceived struct {

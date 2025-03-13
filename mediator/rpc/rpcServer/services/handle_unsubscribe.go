@@ -3,8 +3,8 @@ package services
 import (
 	"fmt"
 
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/executor"
+	"gitee.com/andyxt/gox/internal/logger"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
 	"gitee.com/andyxt/gox/mediator/rpc/rpcServer/center"

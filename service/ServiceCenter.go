@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"gitee.com/andyxt/gona/logger"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 type serviceCenter struct {

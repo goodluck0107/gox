@@ -7,7 +7,7 @@ import (
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gona/boot/channel"
-	"gitee.com/andyxt/gona/logger"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 type TestParam1 struct{}

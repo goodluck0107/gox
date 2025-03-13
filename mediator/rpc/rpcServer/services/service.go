@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"hash/fnv"
 
-	"gitee.com/andyxt/gona/logger"
+	"gitee.com/andyxt/gox/internal/logger"
 	"gitee.com/andyxt/gox/mediator/rpc/rpcServer/center"
 	"gitee.com/andyxt/gox/mediator/server"
 	"gitee.com/andyxt/gox/service"

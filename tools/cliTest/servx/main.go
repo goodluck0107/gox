@@ -5,8 +5,8 @@ import (
 	"runtime/debug"
 
 	"gitee.com/andyxt/gona/boot/boots"
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/code/protocol"
+	"gitee.com/andyxt/gox/internal/logger"
 	"gitee.com/andyxt/gox/mediator"
 	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl"
 	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl/channelCommands"

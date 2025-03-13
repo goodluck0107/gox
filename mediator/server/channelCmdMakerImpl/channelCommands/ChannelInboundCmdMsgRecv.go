@@ -3,11 +3,11 @@ package channelCommands
 import (
 	"gitee.com/andyxt/gox/service"
 
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/code/protocol"
 	"gitee.com/andyxt/gox/executor"
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/handler"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 type ChannelInboundCmdMsgRecv struct {

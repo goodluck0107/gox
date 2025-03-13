@@ -5,8 +5,8 @@ import (
 	"gitee.com/andyxt/gox/handler"
 	"gitee.com/andyxt/gox/service"
 
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/executor"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 type ServerCommandInActive struct {

@@ -4,7 +4,7 @@ import (
 	"gitee.com/andyxt/gox/code/protocol"
 
 	"gitee.com/andyxt/gona/boot/channel"
-	"gitee.com/andyxt/gona/logger"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 // []byte ---> protocol.Protocol

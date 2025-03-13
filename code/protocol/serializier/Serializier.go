@@ -3,8 +3,8 @@ package serializier
 import (
 	"gitee.com/andyxt/gox/code/protocol"
 
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/buffer"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 const (

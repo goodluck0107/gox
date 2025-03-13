@@ -5,7 +5,7 @@ import (
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/service"
 
-	"gitee.com/andyxt/gona/logger"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 type ClientRoutineOutboundCmdMsgSend struct {

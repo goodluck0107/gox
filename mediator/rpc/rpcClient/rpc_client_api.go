@@ -17,9 +17,9 @@ import (
 	"gitee.com/andyxt/gox/mediator/client"
 
 	"gitee.com/andyxt/gona/boot/bootc"
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/code/protocol"
 	"gitee.com/andyxt/gox/extends"
+	"gitee.com/andyxt/gox/internal/logger"
 
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"

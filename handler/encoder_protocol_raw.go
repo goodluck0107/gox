@@ -2,9 +2,9 @@ package handler
 
 import (
 	"gitee.com/andyxt/gona/boot/channel"
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/code/protocol"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 func NewProtocolRawEncoder() (this *ProtocolRawEncoder) {

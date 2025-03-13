@@ -8,7 +8,7 @@ package security
 // 	"gitee.com/andyxt/gox/code/protocol/protocolDefine"
 
 // 	"gitee.com/andyxt/gona/boot/channel"
-// 	"gitee.com/andyxt/gona/logger"
+// 	"gitee.com/andyxt/gox/internal/logger"
 // )
 
 // // []byte-->*ProtocolBuffer

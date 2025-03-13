@@ -1,8 +1,8 @@
 package inboundCommands
 
 import (
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/handler"
+	"gitee.com/andyxt/gox/internal/logger"
 	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/service"
 )

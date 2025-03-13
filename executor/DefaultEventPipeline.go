@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"gitee.com/andyxt/gona/logger"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 type TailHandler struct {

@@ -3,8 +3,8 @@ package outboundCommands
 import (
 	"gitee.com/andyxt/gona/boot/bootc/connector"
 	"gitee.com/andyxt/gona/boot/bootc/listener"
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/executor"
+	"gitee.com/andyxt/gox/internal/logger"
 	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl/inboundCommands"
 )
 

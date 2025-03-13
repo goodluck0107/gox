@@ -1,8 +1,8 @@
 package eventBus
 
 import (
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gox/executor"
+	"gitee.com/andyxt/gox/internal/logger"
 )
 
 type EventCallback func(...interface{})

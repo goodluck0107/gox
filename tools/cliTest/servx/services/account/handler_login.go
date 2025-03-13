@@ -3,9 +3,9 @@ package account
 import (
 	"fmt"
 
-	"gitee.com/andyxt/gona/logger"
 	"gitee.com/andyxt/gona/utils"
 	"gitee.com/andyxt/gox/extends"
+	"gitee.com/andyxt/gox/internal/logger"
 	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/session"

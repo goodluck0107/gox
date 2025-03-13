@@ -1,6 +1,6 @@
 package executor
 
-import "gitee.com/andyxt/gona/logger"
+import "gitee.com/andyxt/gox/internal/logger"
 
 const (
 	DefaultPoolSize int64 = 10000
