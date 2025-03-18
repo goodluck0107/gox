@@ -11,7 +11,7 @@ type IHandleChecker interface {
 	// IsHandlerMethod decide a method is suitable handler method
 	IsHandlerMethod(method reflect.Method) bool
 	// AdaptArgs create the params a handler method need
-	AdaptArgs(types []reflect.Type, data []interface{}, protoType message.MessageType) ([]reflect.Value, error)
+	AdaptArgs(types []reflect.Type, data []interface{}, messageType message.MessageType) ([]reflect.Value, error)
 }
 
 type IRouteMapper interface {

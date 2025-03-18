@@ -52,10 +52,10 @@ func (checker *defaultHandleChecker) IsHandlerMethod(method reflect.Method) bool
 }
 
 // AdaptArgs create the params a handler method need
-func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType message.MessageType) ([]reflect.Value, error) {
+func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, messageType message.MessageType) ([]reflect.Value, error) {
 	data := reflect.New(types[1].Elem()).Interface()
 	b := params[1].([]byte)
-	err := message.Unmarshal(protoType, b, data)
+	err := message.Unmarshal(messageType, b, data)
 	if err != nil {
 		return nil, err
 	}
