@@ -69,7 +69,7 @@ func (s *service) matchHandlerRoute(typ reflect.Type, h *handler) {
 		result := method.Func.Call(args)
 		h.Path = string(result[0].String())
 		h.Code = uint32(result[1].Uint())
-		h.ProtoType = uint32(result[2].Uint())
+		h.ProtoType = MessageType(result[2].Uint())
 		return
 	}
 }

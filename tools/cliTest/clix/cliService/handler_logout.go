@@ -8,7 +8,7 @@ import (
 )
 
 // RouteForLogoutResponse is route for the handler LoginResp.
-func (*Service) RouteForLogoutResponse() (string, uint32, uint32) {
+func (*Service) RouteForLogoutResponse() (string, uint32, service.MessageType) {
 	return "/LogoutResponse", uint32(mid.LogoutResponse), service.ProtoTypePB
 }
 

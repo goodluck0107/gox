@@ -19,7 +19,7 @@ func NewService() *RpcClientService {
 }
 
 // RouteForRPCHeartbeatResponse 心跳
-func (*RpcClientService) RouteForRPCHeartbeatResponse() (string, uint32, uint32) {
+func (*RpcClientService) RouteForRPCHeartbeatResponse() (string, uint32, service.MessageType) {
 	return "/RPCHeartbeatResponse", uint32(mid.HeartbeatResponse), service.ProtoTypePB
 }
 
@@ -29,7 +29,7 @@ func (*RpcClientService) RPCHeartbeatResponse(request service.IServiceRequest, m
 }
 
 // RouteForMessagePush 处理服务器推送的RPC调用
-func (*RpcClientService) RouteForMessagePush() (string, uint32, uint32) {
+func (*RpcClientService) RouteForMessagePush() (string, uint32, service.MessageType) {
 	return "/MessagePush", uint32(mid.MessagePush), service.ProtoTypePB
 }
 

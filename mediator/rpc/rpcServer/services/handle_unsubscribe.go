@@ -16,7 +16,7 @@ const (
 )
 
 // UnsubscribeRequest 取消订阅
-func (*RpcService) RouteForUnsubscribeRequest() (string, uint32, uint32) {
+func (*RpcService) RouteForUnsubscribeRequest() (string, uint32, service.MessageType) {
 	return unsubscribePath, uint32(mid.UnsubscribeRequest), service.ProtoTypePB
 }
 

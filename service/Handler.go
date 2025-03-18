@@ -8,5 +8,5 @@ type handler struct {
 	Types     []reflect.Type // low-level type of method
 	Code      uint32         // Route compressed code
 	Path      string         // Route service path
-	ProtoType uint32         // Route compressed code
+	ProtoType MessageType    // Route compressed code
 }

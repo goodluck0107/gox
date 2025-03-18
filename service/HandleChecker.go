@@ -9,10 +9,12 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+type MessageType uint32
+
 const (
-	ProtoTypePB   uint32 = 0 // ProtoBuffer
-	ProtoTypeBN   uint32 = 1 // Binary
-	ProtoTypeJson uint32 = 2 // Json
+	ProtoTypePB   MessageType = 0 // ProtoBuffer
+	ProtoTypeBN   MessageType = 1 // Binary
+	ProtoTypeJson MessageType = 2 // Json
 )
 
 var (
@@ -61,7 +63,7 @@ func (checker *defaultHandleChecker) IsHandlerMethod(method reflect.Method) bool
 }
 
 // AdaptArgs create the params a handler method need
-func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType uint32) ([]reflect.Value, error) {
+func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType MessageType) ([]reflect.Value, error) {
 	data := reflect.New(types[1].Elem()).Interface()
 	b := params[1].([]byte)
 	if protoType == ProtoTypePB { // ProtoBuffer解码(二进制->消息)

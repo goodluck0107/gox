@@ -12,7 +12,7 @@ const (
 )
 
 // RouteForHeartbeatRequest 心跳
-func (*RpcService) RouteForHeartbeatRequest() (string, uint32, uint32) {
+func (*RpcService) RouteForHeartbeatRequest() (string, uint32, service.MessageType) {
 	return heartbeatPath, uint32(mid.HeartbeatRequest), service.ProtoTypePB
 }
 

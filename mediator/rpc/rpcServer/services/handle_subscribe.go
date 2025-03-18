@@ -16,7 +16,7 @@ const (
 )
 
 // SubscribeRequest 发起订阅
-func (*RpcService) RouteForSubscribeRequest() (string, uint32, uint32) {
+func (*RpcService) RouteForSubscribeRequest() (string, uint32, service.MessageType) {
 	return subscribePath, uint32(mid.SubscribeRequest), service.ProtoTypePB
 }
 

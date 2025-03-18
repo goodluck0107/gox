@@ -8,7 +8,7 @@ import (
 	"gitee.com/andyxt/gox/tools/cliTest/pb/cli"
 )
 
-func (*AccountService) RouteForHeartbeatRequest() (string, uint32, uint32) {
+func (*AccountService) RouteForHeartbeatRequest() (string, uint32, service.MessageType) {
 	return "/HeartbeatRequest", uint32(mid.HeartbeatRequest), service.ProtoTypePB
 }
 

@@ -9,7 +9,7 @@ import (
 )
 
 // RouteForEchoRequest Echo
-func (*RpcService) RouteForEchoRequest() (string, uint32, uint32) {
+func (*RpcService) RouteForEchoRequest() (string, uint32, service.MessageType) {
 	return "/EchoRequest", uint32(mid.EchoRequest), service.ProtoTypePB
 }
 

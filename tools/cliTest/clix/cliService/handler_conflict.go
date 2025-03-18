@@ -8,7 +8,7 @@ import (
 )
 
 // RouteForLoginConflict is route for the handler LoginResp.
-func (*Service) RouteForLoginConflict() (string, uint32, uint32) {
+func (*Service) RouteForLoginConflict() (string, uint32, service.MessageType) {
 	return "/LoginConflict", uint32(mid.LoginConflictPush), service.ProtoTypePB
 }
 

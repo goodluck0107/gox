@@ -14,7 +14,7 @@ import (
 )
 
 // RouteForLogin 登录
-func (*AccountService) RouteForLogin() (string, uint32, uint32) {
+func (*AccountService) RouteForLogin() (string, uint32, service.MessageType) {
 	return "/Login", uint32(mid.LoginRequest), service.ProtoTypePB
 }
 

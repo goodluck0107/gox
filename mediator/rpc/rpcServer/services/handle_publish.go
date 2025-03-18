@@ -19,7 +19,7 @@ const (
 )
 
 // RouteForPublishRequest 发布订阅
-func (*RpcService) RouteForPublishRequest() (string, uint32, uint32) {
+func (*RpcService) RouteForPublishRequest() (string, uint32, service.MessageType) {
 	return publishPath, uint32(mid.PublishRequest), service.ProtoTypePB
 }
 
