@@ -8,8 +8,8 @@ func NewSessionRequest(channelContext IChannelContext, reqContext IReqContext) I
 }
 
 type Request struct {
-	mChannelContext IChannelContext
-	mReqContext     IReqContext
+	mChannelContext IChannelContext // 链接上下文
+	mReqContext     IReqContext     // 请求上下文
 }
 
 func (req *Request) ChannelContext() IChannelContext {
