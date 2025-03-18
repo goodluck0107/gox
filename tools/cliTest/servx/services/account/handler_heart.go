@@ -10,7 +10,7 @@ import (
 )
 
 func (*AccountService) RouteForHeartbeatRequest() (string, uint32, message.MessageType) {
-	return "/HeartbeatRequest", uint32(mid.HeartbeatRequest), message.ProtoTypePB
+	return "/HeartbeatRequest", uint32(mid.HeartbeatRequest), message.MessageTypePB
 }
 
 func (*AccountService) HeartbeatRequest(request service.IServiceRequest, msg *cli.HeartbeatRequest) error {

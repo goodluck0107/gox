@@ -11,7 +11,7 @@ import (
 
 // RouteForLoginResp is route for the handler LoginResp.
 func (*Service) RouteForLoginResp() (string, uint32, message.MessageType) {
-	return "/LoginResp", uint32(mid.LoginResponse), message.ProtoTypePB
+	return "/LoginResp", uint32(mid.LoginResponse), message.MessageTypePB
 }
 
 // LoginResp is the handler for AccountService.Login.

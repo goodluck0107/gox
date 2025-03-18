@@ -9,7 +9,7 @@ import (
 
 // RouteForHeartbeatResp is route for the handler LoginResp.
 func (*Service) RouteForHeartbeatResp() (string, uint32, message.MessageType) {
-	return "/HeartbeatResp", uint32(mid.HeartbeatResponse), message.ProtoTypePB
+	return "/HeartbeatResp", uint32(mid.HeartbeatResponse), message.MessageTypePB
 }
 
 // HeartbeatResp is the handler for AccountService.Login.

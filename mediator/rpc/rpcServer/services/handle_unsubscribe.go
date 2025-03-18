@@ -18,7 +18,7 @@ const (
 
 // UnsubscribeRequest 取消订阅
 func (*RpcService) RouteForUnsubscribeRequest() (string, uint32, message.MessageType) {
-	return unsubscribePath, uint32(mid.UnsubscribeRequest), message.ProtoTypePB
+	return unsubscribePath, uint32(mid.UnsubscribeRequest), message.MessageTypePB
 }
 
 func (*RpcService) UnsubscribeRequest(request service.IServiceRequest, msg *rpc.UnsubscribeRequest) error {

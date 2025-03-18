@@ -18,7 +18,7 @@ const (
 
 // SubscribeRequest 发起订阅
 func (*RpcService) RouteForSubscribeRequest() (string, uint32, message.MessageType) {
-	return subscribePath, uint32(mid.SubscribeRequest), message.ProtoTypePB
+	return subscribePath, uint32(mid.SubscribeRequest), message.MessageTypePB
 }
 
 func (*RpcService) SubscribeRequest(request service.IServiceRequest, msg *rpc.SubscribeRequest) error {

@@ -14,7 +14,7 @@ const (
 
 // RouteForHeartbeatRequest 心跳
 func (*RpcService) RouteForHeartbeatRequest() (string, uint32, message.MessageType) {
-	return heartbeatPath, uint32(mid.HeartbeatRequest), message.ProtoTypePB
+	return heartbeatPath, uint32(mid.HeartbeatRequest), message.MessageTypePB
 }
 
 func (*RpcService) HeartbeatRequest(request service.IServiceRequest, msg *rpc.HeartbeatRequest) error {

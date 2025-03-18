@@ -11,7 +11,7 @@ import (
 
 // RouteForEchoRequest Echo
 func (*RpcService) RouteForEchoRequest() (string, uint32, message.MessageType) {
-	return "/EchoRequest", uint32(mid.EchoRequest), message.ProtoTypePB
+	return "/EchoRequest", uint32(mid.EchoRequest), message.MessageTypePB
 }
 
 func (*RpcService) EchoRequest(request service.IServiceRequest, msg *rpc.EchoRequest) error {

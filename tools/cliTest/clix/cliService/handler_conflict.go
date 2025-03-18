@@ -10,7 +10,7 @@ import (
 
 // RouteForLoginConflict is route for the handler LoginResp.
 func (*Service) RouteForLoginConflict() (string, uint32, message.MessageType) {
-	return "/LoginConflict", uint32(mid.LoginConflictPush), message.ProtoTypePB
+	return "/LoginConflict", uint32(mid.LoginConflictPush), message.MessageTypePB
 }
 
 // LoginConflict is the handler for AccountService.Login.

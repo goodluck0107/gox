@@ -3,7 +3,7 @@ package message
 type MessageType uint32
 
 const (
-	ProtoTypePB   MessageType = 0 // ProtoBuffer
-	ProtoTypeBN   MessageType = 1 // Binary
-	ProtoTypeJson MessageType = 2 // Json
+	MessageTypePB     MessageType = 0 // ProtoBuffer
+	MessageTypeJson   MessageType = 1 // Json
+	MessageTypeCustom MessageType = 2 // Custom
 )

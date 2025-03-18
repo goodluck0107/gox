@@ -10,7 +10,7 @@ import (
 
 // RouteForLogoutResponse is route for the handler LoginResp.
 func (*Service) RouteForLogoutResponse() (string, uint32, message.MessageType) {
-	return "/LogoutResponse", uint32(mid.LogoutResponse), message.ProtoTypePB
+	return "/LogoutResponse", uint32(mid.LogoutResponse), message.MessageTypePB
 }
 
 // LogoutResponse is the handler for AccountService.Login.

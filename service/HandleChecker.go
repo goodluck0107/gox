@@ -58,7 +58,7 @@ func (checker *defaultHandleChecker) IsHandlerMethod(method reflect.Method) bool
 func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType message.MessageType) ([]reflect.Value, error) {
 	data := reflect.New(types[1].Elem()).Interface()
 	b := params[1].([]byte)
-	if protoType == message.ProtoTypePB { // ProtoBuffer解码(二进制->消息)
+	if protoType == message.MessageTypePB { // ProtoBuffer解码(二进制->消息)
 		pm, ok := data.(proto.Message)
 		if !ok {
 			return nil, errors.New("param is not proto.Message while protoType is ProtoTypePB")
@@ -67,12 +67,12 @@ func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []in
 		if err != nil {
 			return nil, errors.New("param can not unmarshal to proto.Message while protoType is ProtoTypePB")
 		}
-	} else if protoType == message.ProtoTypeJson { // json解码(二进制->消息)
+	} else if protoType == message.MessageTypeJson { // json解码(二进制->消息)
 		err := json.Unmarshal(b, data)
 		if err != nil {
 			return nil, errors.New("param can not unmarshal to json while protoType is ProtoTypeJson")
 		}
-	} else if protoType == message.ProtoTypeBN { // 自定义解码(二进制->消息)
+	} else if protoType == message.MessageTypeCustom { // 自定义解码(二进制->消息)
 		bm, ok := data.(message.IMessage)
 		if !ok {
 			return nil, errors.New("param is not message.IMessage while protoType is ProtoTypeBN")

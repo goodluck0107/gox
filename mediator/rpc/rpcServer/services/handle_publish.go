@@ -21,7 +21,7 @@ const (
 
 // RouteForPublishRequest 发布订阅
 func (*RpcService) RouteForPublishRequest() (string, uint32, message.MessageType) {
-	return publishPath, uint32(mid.PublishRequest), message.ProtoTypePB
+	return publishPath, uint32(mid.PublishRequest), message.MessageTypePB
 }
 
 func (*RpcService) PublishRequest(request service.IServiceRequest, msg *rpc.PublishRequest) error {

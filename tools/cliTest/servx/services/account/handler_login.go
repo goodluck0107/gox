@@ -16,7 +16,7 @@ import (
 
 // RouteForLogin 登录
 func (*AccountService) RouteForLogin() (string, uint32, message.MessageType) {
-	return "/Login", uint32(mid.LoginRequest), message.ProtoTypePB
+	return "/Login", uint32(mid.LoginRequest), message.MessageTypePB
 }
 
 func (*AccountService) Login(request service.IServiceRequest, msg *cli.LoginRequest) error {
