@@ -100,7 +100,7 @@ func (s *service) IsRouteMethod(method reflect.Method) bool {
 	if mt.Out(1) != typeOfUInt32 {
 		return false
 	}
-	if mt.Out(2) != typeOfUInt32 {
+	if mt.Out(2) != typeOfMessageType {
 		return false
 	}
 	return true

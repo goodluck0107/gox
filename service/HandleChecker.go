@@ -7,10 +7,11 @@ import (
 )
 
 var (
-	typeOfError    = reflect.TypeOf((*error)(nil)).Elem()
-	typeOfUInt32   = reflect.TypeOf(uint32(0))
-	typeOfString   = reflect.TypeOf(string(""))
-	typeOfIRequest = reflect.TypeOf((*IServiceRequest)(nil)).Elem()
+	typeOfError       = reflect.TypeOf((*error)(nil)).Elem()
+	typeOfUInt32      = reflect.TypeOf(uint32(0))
+	typeOfString      = reflect.TypeOf(string(""))
+	typeOfIRequest    = reflect.TypeOf((*IServiceRequest)(nil)).Elem()
+	typeOfMessageType = reflect.TypeOf(message.MessageType(0))
 )
 
 const (
