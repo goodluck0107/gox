@@ -2,7 +2,7 @@ package message
 
 import "encoding/json"
 
-func Json(v any) IMessage {
+func Json(v any) CustomMessage {
 	return &jsonMessage{v: v}
 }
 
