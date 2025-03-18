@@ -3,14 +3,15 @@ package services
 import (
 	"fmt"
 
+	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
 	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
 	"gitee.com/andyxt/gox/service"
 )
 
 // RouteForEchoRequest Echo
-func (*RpcService) RouteForEchoRequest() (string, uint32, service.MessageType) {
-	return "/EchoRequest", uint32(mid.EchoRequest), service.ProtoTypePB
+func (*RpcService) RouteForEchoRequest() (string, uint32, message.MessageType) {
+	return "/EchoRequest", uint32(mid.EchoRequest), message.ProtoTypePB
 }
 
 func (*RpcService) EchoRequest(request service.IServiceRequest, msg *rpc.EchoRequest) error {

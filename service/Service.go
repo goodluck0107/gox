@@ -3,6 +3,8 @@ package service
 import (
 	"reflect"
 	"strings"
+
+	"gitee.com/andyxt/gox/code/message"
 )
 
 type service struct {
@@ -69,7 +71,7 @@ func (s *service) matchHandlerRoute(typ reflect.Type, h *handler) {
 		result := method.Func.Call(args)
 		h.Path = string(result[0].String())
 		h.Code = uint32(result[1].Uint())
-		h.ProtoType = MessageType(result[2].Uint())
+		h.ProtoType = message.MessageType(result[2].Uint())
 		return
 	}
 }

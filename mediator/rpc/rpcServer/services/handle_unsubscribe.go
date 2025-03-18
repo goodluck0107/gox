@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 
+	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/executor"
 	"gitee.com/andyxt/gox/internal/logger"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
@@ -16,8 +17,8 @@ const (
 )
 
 // UnsubscribeRequest 取消订阅
-func (*RpcService) RouteForUnsubscribeRequest() (string, uint32, service.MessageType) {
-	return unsubscribePath, uint32(mid.UnsubscribeRequest), service.ProtoTypePB
+func (*RpcService) RouteForUnsubscribeRequest() (string, uint32, message.MessageType) {
+	return unsubscribePath, uint32(mid.UnsubscribeRequest), message.ProtoTypePB
 }
 
 func (*RpcService) UnsubscribeRequest(request service.IServiceRequest, msg *rpc.UnsubscribeRequest) error {

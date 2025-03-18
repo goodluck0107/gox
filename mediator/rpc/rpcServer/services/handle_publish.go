@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"gitee.com/andyxt/gona/utils/cast"
+	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/executor"
 	"gitee.com/andyxt/gox/internal/logger"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
@@ -19,8 +20,8 @@ const (
 )
 
 // RouteForPublishRequest 发布订阅
-func (*RpcService) RouteForPublishRequest() (string, uint32, service.MessageType) {
-	return publishPath, uint32(mid.PublishRequest), service.ProtoTypePB
+func (*RpcService) RouteForPublishRequest() (string, uint32, message.MessageType) {
+	return publishPath, uint32(mid.PublishRequest), message.ProtoTypePB
 }
 
 func (*RpcService) PublishRequest(request service.IServiceRequest, msg *rpc.PublishRequest) error {

@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"gitee.com/andyxt/gona/utils"
+	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/internal/logger"
 	"gitee.com/andyxt/gox/messageImpl"
@@ -14,8 +15,8 @@ import (
 )
 
 // RouteForLogin 登录
-func (*AccountService) RouteForLogin() (string, uint32, service.MessageType) {
-	return "/Login", uint32(mid.LoginRequest), service.ProtoTypePB
+func (*AccountService) RouteForLogin() (string, uint32, message.MessageType) {
+	return "/Login", uint32(mid.LoginRequest), message.ProtoTypePB
 }
 
 func (*AccountService) Login(request service.IServiceRequest, msg *cli.LoginRequest) error {

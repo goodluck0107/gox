@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"testing"
 
+	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/service"
 
 	"gitee.com/andyxt/gona/boot/channel"
@@ -82,7 +83,7 @@ func (checker *DefaultHandleChecker) IsHandlerMethod(method reflect.Method) bool
 }
 
 // AdaptArgs create the params a handler method need
-func (checker *DefaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType service.MessageType) ([]reflect.Value, error) {
+func (checker *DefaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType message.MessageType) ([]reflect.Value, error) {
 	args := []reflect.Value{reflect.ValueOf(params[0]), reflect.ValueOf(params[1]), reflect.ValueOf(params[2])}
 	return args, nil
 }

@@ -1,6 +1,7 @@
 package cliService
 
 import (
+	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/mediator/client/clientkey"
 	"gitee.com/andyxt/gox/service"
@@ -9,8 +10,8 @@ import (
 )
 
 // RouteForLoginResp is route for the handler LoginResp.
-func (*Service) RouteForLoginResp() (string, uint32, service.MessageType) {
-	return "/LoginResp", uint32(mid.LoginResponse), service.ProtoTypePB
+func (*Service) RouteForLoginResp() (string, uint32, message.MessageType) {
+	return "/LoginResp", uint32(mid.LoginResponse), message.ProtoTypePB
 }
 
 // LoginResp is the handler for AccountService.Login.

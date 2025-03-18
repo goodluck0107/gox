@@ -1,6 +1,7 @@
 package account
 
 import (
+	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
@@ -8,8 +9,8 @@ import (
 	"gitee.com/andyxt/gox/tools/cliTest/pb/cli"
 )
 
-func (*AccountService) RouteForHeartbeatRequest() (string, uint32, service.MessageType) {
-	return "/HeartbeatRequest", uint32(mid.HeartbeatRequest), service.ProtoTypePB
+func (*AccountService) RouteForHeartbeatRequest() (string, uint32, message.MessageType) {
+	return "/HeartbeatRequest", uint32(mid.HeartbeatRequest), message.ProtoTypePB
 }
 
 func (*AccountService) HeartbeatRequest(request service.IServiceRequest, msg *cli.HeartbeatRequest) error {

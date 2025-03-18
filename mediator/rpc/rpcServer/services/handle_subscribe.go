@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 
+	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/executor"
 	"gitee.com/andyxt/gox/internal/logger"
 	"gitee.com/andyxt/gox/mediator/rpc/mid"
@@ -16,8 +17,8 @@ const (
 )
 
 // SubscribeRequest 发起订阅
-func (*RpcService) RouteForSubscribeRequest() (string, uint32, service.MessageType) {
-	return subscribePath, uint32(mid.SubscribeRequest), service.ProtoTypePB
+func (*RpcService) RouteForSubscribeRequest() (string, uint32, message.MessageType) {
+	return subscribePath, uint32(mid.SubscribeRequest), message.ProtoTypePB
 }
 
 func (*RpcService) SubscribeRequest(request service.IServiceRequest, msg *rpc.SubscribeRequest) error {

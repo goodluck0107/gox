@@ -1,6 +1,7 @@
 package cliService
 
 import (
+	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
@@ -8,8 +9,8 @@ import (
 )
 
 // RouteForLoginConflict is route for the handler LoginResp.
-func (*Service) RouteForLoginConflict() (string, uint32, service.MessageType) {
-	return "/LoginConflict", uint32(mid.LoginConflictPush), service.ProtoTypePB
+func (*Service) RouteForLoginConflict() (string, uint32, message.MessageType) {
+	return "/LoginConflict", uint32(mid.LoginConflictPush), message.ProtoTypePB
 }
 
 // LoginConflict is the handler for AccountService.Login.
