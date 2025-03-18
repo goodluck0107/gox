@@ -2,8 +2,6 @@ package service
 
 import "reflect"
 
-var localServiceCenter *serviceCenter = newServiceCenter()
-
 func Init(checker IHandleChecker) {
 	localServiceCenter.Init(checker)
 }

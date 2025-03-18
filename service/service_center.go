@@ -8,6 +8,8 @@ import (
 	"gitee.com/andyxt/gox/internal/logger"
 )
 
+var localServiceCenter *serviceCenter = newServiceCenter()
+
 type serviceCenter struct {
 	handlerChecker      IHandleChecker
 	localHandlers       map[uint32]*handler
