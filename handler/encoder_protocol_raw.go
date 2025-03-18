@@ -22,7 +22,7 @@ func (encoder *ProtocolRawEncoder) ExceptionCaught(ctx channel.ChannelContext, e
 
 func (encoder *ProtocolRawEncoder) Write(ctx channel.ChannelContext, e interface{}) interface{} {
 	//	logger.Debug("MessageEncoder Write")
-	msg := e.(message.IMessage)
+	msg := e.(message.CustomMessage)
 	proto := protocol.Raw(msg)
 	buf, err := proto.Encode()
 	if err != nil {

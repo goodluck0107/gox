@@ -73,13 +73,13 @@ func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []in
 			return nil, errors.New("param can not unmarshal to json while protoType is ProtoTypeJson")
 		}
 	} else if protoType == message.MessageTypeCustom { // 自定义解码(二进制->消息)
-		bm, ok := data.(message.IMessage)
+		bm, ok := data.(message.CustomMessage)
 		if !ok {
-			return nil, errors.New("param is not message.IMessage while protoType is ProtoTypeBN")
+			return nil, errors.New("param is not message.CustomMessage while protoType is ProtoTypeBN")
 		}
 		err := message.Unmarshal(b, bm)
 		if err != nil {
-			return nil, errors.New("param can not unmarshal to message.IMessage while protoType is ProtoTypeBN")
+			return nil, errors.New("param can not unmarshal to message.CustomMessage while protoType is ProtoTypeBN")
 		}
 	}
 	args := []reflect.Value{reflect.ValueOf(params[0]), reflect.ValueOf(data)}

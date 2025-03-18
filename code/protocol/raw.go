@@ -4,12 +4,12 @@ import (
 	"gitee.com/andyxt/gox/code/message"
 )
 
-func Raw(v message.IMessage) Protocol {
+func Raw(v message.CustomMessage) Protocol {
 	return &rawMessage{v: v}
 }
 
 type rawMessage struct {
-	v message.IMessage
+	v message.CustomMessage
 }
 
 func (bean *rawMessage) Decode(e []byte) error {
