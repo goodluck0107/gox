@@ -1,12 +1,9 @@
 package service
 
 import (
-	"encoding/json"
-	"errors"
 	"reflect"
 
 	"gitee.com/andyxt/gox/code/message"
-	"google.golang.org/protobuf/proto"
 )
 
 var (
@@ -58,29 +55,9 @@ func (checker *defaultHandleChecker) IsHandlerMethod(method reflect.Method) bool
 func (checker *defaultHandleChecker) AdaptArgs(types []reflect.Type, params []interface{}, protoType message.MessageType) ([]reflect.Value, error) {
 	data := reflect.New(types[1].Elem()).Interface()
 	b := params[1].([]byte)
-	if protoType == message.MessageTypePB { // ProtoBuffer解码(二进制->消息)
-		pm, ok := data.(proto.Message)
-		if !ok {
-			return nil, errors.New("param is not proto.Message while protoType is ProtoTypePB")
-		}
-		err := proto.Unmarshal(b, pm)
-		if err != nil {
-			return nil, errors.New("param can not unmarshal to proto.Message while protoType is ProtoTypePB")
-		}
-	} else if protoType == message.MessageTypeJson { // json解码(二进制->消息)
-		err := json.Unmarshal(b, data)
-		if err != nil {
-			return nil, errors.New("param can not unmarshal to json while protoType is ProtoTypeJson")
-		}
-	} else if protoType == message.MessageTypeCustom { // 自定义解码(二进制->消息)
-		bm, ok := data.(message.CustomMessage)
-		if !ok {
-			return nil, errors.New("param is not message.CustomMessage while protoType is ProtoTypeBN")
-		}
-		err := message.Unmarshal(b, bm)
-		if err != nil {
-			return nil, errors.New("param can not unmarshal to message.CustomMessage while protoType is ProtoTypeBN")
-		}
+	err := message.Unmarshal(protoType, b, data)
+	if err != nil {
+		return nil, err
 	}
 	args := []reflect.Value{reflect.ValueOf(params[0]), reflect.ValueOf(data)}
 	return args, nil
