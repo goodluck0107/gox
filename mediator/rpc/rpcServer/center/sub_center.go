@@ -1,9 +1,10 @@
 package center
 
 import (
-	"ck-logger/logger"
 	"fmt"
 	"sync"
+
+	"gitee.com/andyxt/gox/internal/logger"
 
 	"gitee.com/andyxt/gox/service"
 )
