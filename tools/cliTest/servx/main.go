@@ -13,7 +13,7 @@ import (
 	"gitee.com/andyxt/gox/mediator/server/routineCmdMakerImpl"
 	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
-	"gitee.com/andyxt/gox/tools/cliTest/pb/cli"
+	"gitee.com/andyxt/gox/tools/cliTest/internal/pb/cli"
 	"gitee.com/andyxt/gox/tools/cliTest/servx/services"
 	"google.golang.org/protobuf/proto"
 )

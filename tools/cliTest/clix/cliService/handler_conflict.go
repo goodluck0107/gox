@@ -5,7 +5,7 @@ import (
 	"gitee.com/andyxt/gox/extends"
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
-	"gitee.com/andyxt/gox/tools/cliTest/pb/cli"
+	"gitee.com/andyxt/gox/tools/cliTest/internal/pb/cli"
 )
 
 // RouteForLoginConflict is route for the handler LoginResp.

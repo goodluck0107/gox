@@ -4,7 +4,7 @@ import (
 	"gitee.com/andyxt/gox/code/message"
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
-	"gitee.com/andyxt/gox/tools/cliTest/pb/cli"
+	"gitee.com/andyxt/gox/tools/cliTest/internal/pb/cli"
 )
 
 // RouteForHeartbeatResp is route for the handler LoginResp.

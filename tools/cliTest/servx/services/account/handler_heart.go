@@ -6,7 +6,7 @@ import (
 	"gitee.com/andyxt/gox/messageImpl"
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
-	"gitee.com/andyxt/gox/tools/cliTest/pb/cli"
+	"gitee.com/andyxt/gox/tools/cliTest/internal/pb/cli"
 )
 
 func (*AccountService) RouteForHeartbeatRequest() (string, uint32, message.MessageType) {

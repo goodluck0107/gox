@@ -11,7 +11,7 @@ import (
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/session"
 	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
-	"gitee.com/andyxt/gox/tools/cliTest/pb/cli"
+	"gitee.com/andyxt/gox/tools/cliTest/internal/pb/cli"
 )
 
 // RouteForLogin 登录
