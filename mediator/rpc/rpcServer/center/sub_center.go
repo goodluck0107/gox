@@ -1,7 +1,7 @@
 package center
 
 import (
-	"ck-model/logger"
+	"ck-logger/logger"
 	"fmt"
 	"sync"
 
