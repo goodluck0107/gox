@@ -5,7 +5,7 @@ import (
 )
 
 func StartUp(v ...interface{}) {
-	log.StartUp(v...)
+	log.Info(v...)
 }
 func Debug(v ...interface{}) {
 	log.Debug(v...)
