@@ -18,6 +18,11 @@ func On(ev string, f func(i ...interface{})) {
 
 // Trigger is to trigger an event with args
 func Trigger(ev string, i ...interface{}) {
+	defer func() {
+		if err := recover(); err != nil {
+			logger.Error("safeCall err:", err)
+		}
+	}()
 	for _, f := range onEvents[ev] {
 		f(i...)
 	}

@@ -1,5 +1,7 @@
 package eventBus
 
+import "gitee.com/andyxt/gox/internal/logger"
+
 type stsEvent struct {
 	routineId int64
 	waitChan  chan int8
@@ -32,9 +34,18 @@ func (stsEvent *stsEvent) Wait() (interface{}, bool) {
 
 func (stsEvent *stsEvent) Exec() {
 	for _, f := range onEvents[stsEvent.evt] {
-		f(stsEvent.params...)
+		stsEvent.safeCall(f)
 	}
 	if stsEvent.waitChan != nil {
 		stsEvent.waitChan <- 1
 	}
+}
+
+func (stsEvent *stsEvent) safeCall(f EventCallback) {
+	defer func() {
+		if err := recover(); err != nil {
+			logger.Error("stsEvent.safeCall err:", err)
+		}
+	}()
+	f(stsEvent.params...)
 }
