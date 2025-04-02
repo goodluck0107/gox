@@ -2,6 +2,7 @@ package extends
 
 import (
 	"fmt"
+	"time"
 
 	"gitee.com/andyxt/gox/service"
 	"gitee.com/andyxt/gox/session"
@@ -35,4 +36,16 @@ func GetChlCtx(s session.ISession) service.IChannelContext {
 		}
 	}
 	return nil
+}
+
+func SetStartTime(s session.ISession, startTime int64) {
+	s.Set("startTime", startTime)
+}
+
+func GetStartTime(s session.ISession) int64 {
+	startTimeV := s.Get("startTime")
+	if startTimeV == nil {
+		return time.Now().Unix()
+	}
+	return startTimeV.(int64)
 }
