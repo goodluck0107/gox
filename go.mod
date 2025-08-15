@@ -27,3 +27,5 @@ require (
 	github.com/stretchr/testify v1.10.0 // indirect
 	golang.org/x/sys v0.32.0 // indirect
 )
+
+replace gitee.com/andyxt/gona => github.com/goodluck0107/gona v1.1.3
