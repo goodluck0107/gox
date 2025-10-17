@@ -23,6 +23,13 @@ func PutInUserInfo(chlCtx service.IChannelContext, uID int64, lngType int8) {
 	chlCtx.ContextAttr().Set("isInPool", true)   // 连接是否添加到连接池
 }
 
+// ResetUserInfo 登出释放用户
+func ResetUserInfo(chlCtx service.IChannelContext) {
+	chlCtx.ContextAttr().Set("poolKey", 0)      // 用户在连接列表中的Key，目前使用用户UID标识
+	chlCtx.ContextAttr().Set("lngType", 0)      // 用户语言类型
+	chlCtx.ContextAttr().Set("isInPool", false) // 连接是否添加到连接池
+}
+
 func HasUserInfo(chlCtx service.IChannelContext) bool {
 	return chlCtx.ContextAttr().GetBool("isInPool")
 }
