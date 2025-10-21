@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"gitee.com/andyxt/gox/service"
-	"gitee.com/andyxt/gox/session"
+	"github.com/goodluck0107/gox/service"
+	"github.com/goodluck0107/gox/session"
 )
 
 const sessionKeyChlCtx = "ChlCtx"

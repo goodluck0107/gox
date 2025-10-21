@@ -1,10 +1,10 @@
 package serializier
 
 import (
-	"gitee.com/andyxt/gox/code/protocol"
+	"github.com/goodluck0107/gox/code/protocol"
 
-	"gitee.com/andyxt/gox/buffer"
-	"gitee.com/andyxt/gox/internal/logger"
+	"github.com/goodluck0107/gox/buffer"
+	"github.com/goodluck0107/gox/internal/logger"
 )
 
 const (

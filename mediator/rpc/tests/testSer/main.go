@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitee.com/andyxt/gox/mediator/rpc/rpcServer"
+	"github.com/goodluck0107/gox/mediator/rpc/rpcServer"
 )
 
 func main() {

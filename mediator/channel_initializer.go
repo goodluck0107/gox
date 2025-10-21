@@ -1,9 +1,9 @@
 package mediator
 
 import (
-	"gitee.com/andyxt/gona/boot/channel"
-	"gitee.com/andyxt/gox/code/protocol"
-	"gitee.com/andyxt/gox/handler"
+	"github.com/goodluck0107/gona/boot/channel"
+	"github.com/goodluck0107/gox/code/protocol"
+	"github.com/goodluck0107/gox/handler"
 )
 
 func NewChannelInitializer(mInboundChannelCommandMaker handler.IChannelInboundCommandMaker, mMessageFactory protocol.ProtocolFactory) channel.ChannelInitializer {

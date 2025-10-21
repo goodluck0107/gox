@@ -1,6 +1,6 @@
 package messageImpl
 
-import "gitee.com/andyxt/gox/code/protocol"
+import "github.com/goodluck0107/gox/code/protocol"
 
 type MessageFactory struct {
 }

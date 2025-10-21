@@ -1,11 +1,11 @@
 package services
 
 import (
-	"gitee.com/andyxt/gox/code/message"
-	"gitee.com/andyxt/gox/mediator/rpc/mid"
-	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
-	"gitee.com/andyxt/gox/messageImpl"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/code/message"
+	"github.com/goodluck0107/gox/mediator/rpc/mid"
+	"github.com/goodluck0107/gox/mediator/rpc/pb/rpc"
+	"github.com/goodluck0107/gox/messageImpl"
+	"github.com/goodluck0107/gox/service"
 )
 
 const (

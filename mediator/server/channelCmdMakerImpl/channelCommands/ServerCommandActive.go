@@ -1,10 +1,10 @@
 package channelCommands
 
 import (
-	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/extends"
+	"github.com/goodluck0107/gox/service"
 
-	"gitee.com/andyxt/gox/internal/logger"
+	"github.com/goodluck0107/gox/internal/logger"
 )
 
 type ServerCommandActive struct {

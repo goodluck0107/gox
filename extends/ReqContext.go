@@ -1,6 +1,6 @@
 package extends
 
-import "gitee.com/andyxt/gox/service"
+import "github.com/goodluck0107/gox/service"
 
 func SeqID(request service.IServiceRequest) uint32 {
 	reqContext := request.ReqContext()

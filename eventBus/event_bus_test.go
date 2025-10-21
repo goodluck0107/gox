@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"gitee.com/andyxt/gona/boot/channel"
-	"gitee.com/andyxt/gona/utils"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gona/boot/channel"
+	"github.com/goodluck0107/gona/utils"
+	"github.com/goodluck0107/gox/service"
 )
 
 func TestEventBus(t *testing.T) {

@@ -1,10 +1,10 @@
 package cliService
 
 import (
-	"gitee.com/andyxt/gox/code/message"
-	"gitee.com/andyxt/gox/service"
-	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
-	"gitee.com/andyxt/gox/tools/cliTest/internal/pb/cli"
+	"github.com/goodluck0107/gox/code/message"
+	"github.com/goodluck0107/gox/service"
+	"github.com/goodluck0107/gox/tools/cliTest/generic/mid"
+	"github.com/goodluck0107/gox/tools/cliTest/internal/pb/cli"
 )
 
 // RouteForHeartbeatResp is route for the handler LoginResp.

@@ -1,10 +1,10 @@
 package inboundCommands
 
 import (
-	"gitee.com/andyxt/gox/mediator/client/clientkey"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/mediator/client/clientkey"
+	"github.com/goodluck0107/gox/service"
 
-	"gitee.com/andyxt/gox/internal/logger"
+	"github.com/goodluck0107/gox/internal/logger"
 )
 
 type ClientRoutineInboundCmdInactive struct {

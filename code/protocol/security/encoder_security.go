@@ -1,12 +1,12 @@
 package security
 
 // import (
-// 	"gitee.com/andyxt/gox/code/protocol/protocolCoder"
-// 	"gitee.com/andyxt/gox/code/protocol/protocolCoderImpl"
-// 	"gitee.com/andyxt/gox/code/protocol/protocolDefine"
+// 	"github.com/goodluck0107/gox/code/protocol/protocolCoder"
+// 	"github.com/goodluck0107/gox/code/protocol/protocolCoderImpl"
+// 	"github.com/goodluck0107/gox/code/protocol/protocolDefine"
 
-// 	"gitee.com/andyxt/gona/boot/channel"
-// 	"gitee.com/andyxt/gox/internal/logger"
+// 	"github.com/goodluck0107/gona/boot/channel"
+// 	"github.com/goodluck0107/gox/internal/logger"
 // )
 
 // const (

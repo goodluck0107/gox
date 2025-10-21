@@ -3,16 +3,16 @@ package commands
 import (
 	"fmt"
 
-	"gitee.com/andyxt/gona/boot/bootc"
-	"gitee.com/andyxt/gox/code/protocol"
-	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/internal/logger"
-	"gitee.com/andyxt/gox/mediator/client"
-	"gitee.com/andyxt/gox/mediator/client/clientkey"
-	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl/inboundCommands"
-	"gitee.com/andyxt/gox/messageImpl"
-	"gitee.com/andyxt/gox/service"
-	"gitee.com/andyxt/gox/tools/cli/msgproto"
+	"github.com/goodluck0107/gona/boot/bootc"
+	"github.com/goodluck0107/gox/code/protocol"
+	"github.com/goodluck0107/gox/extends"
+	"github.com/goodluck0107/gox/internal/logger"
+	"github.com/goodluck0107/gox/mediator/client"
+	"github.com/goodluck0107/gox/mediator/client/clientkey"
+	"github.com/goodluck0107/gox/mediator/client/routineCmdMakerImpl/inboundCommands"
+	"github.com/goodluck0107/gox/messageImpl"
+	"github.com/goodluck0107/gox/service"
+	"github.com/goodluck0107/gox/tools/cli/msgproto"
 )
 
 var clientFacade *client.ClientFacade

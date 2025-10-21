@@ -1,7 +1,7 @@
 package inboundCommands
 
 import (
-	"gitee.com/andyxt/gox/internal/logger"
+	"github.com/goodluck0107/gox/internal/logger"
 )
 
 type ClientChannelUpActiveFailEvent struct {

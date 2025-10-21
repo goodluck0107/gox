@@ -3,8 +3,8 @@ package service
 import (
 	"reflect"
 
-	"gitee.com/andyxt/gona/boot/channel"
-	"gitee.com/andyxt/gox/code/message"
+	"github.com/goodluck0107/gona/boot/channel"
+	"github.com/goodluck0107/gox/code/message"
 )
 
 type IHandleChecker interface {

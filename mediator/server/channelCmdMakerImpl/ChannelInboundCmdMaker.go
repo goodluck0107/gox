@@ -1,9 +1,9 @@
 package channelCmdMakerImpl
 
 import (
-	"gitee.com/andyxt/gox/handler"
-	"gitee.com/andyxt/gox/mediator/server/channelCmdMakerImpl/channelCommands"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/handler"
+	"github.com/goodluck0107/gox/mediator/server/channelCmdMakerImpl/channelCommands"
+	"github.com/goodluck0107/gox/service"
 )
 
 type ChannelInboundCmdMaker struct {

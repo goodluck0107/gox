@@ -1,10 +1,10 @@
 package routineCmdMakerImpl
 
 import (
-	"gitee.com/andyxt/gox/code/protocol"
-	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/mediator/server/routineCmdMakerImpl/routineCommands"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/code/protocol"
+	"github.com/goodluck0107/gox/executor"
+	"github.com/goodluck0107/gox/mediator/server/routineCmdMakerImpl/routineCommands"
+	"github.com/goodluck0107/gox/service"
 )
 
 type RoutineOutboundCmdMaker struct {

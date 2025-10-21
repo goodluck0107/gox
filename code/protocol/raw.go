@@ -1,7 +1,7 @@
 package protocol
 
 import (
-	"gitee.com/andyxt/gox/code/message"
+	"github.com/goodluck0107/gox/code/message"
 )
 
 func Raw(v message.CustomMessage) Protocol {

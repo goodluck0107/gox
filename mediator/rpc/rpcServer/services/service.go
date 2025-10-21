@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"hash/fnv"
 
-	"gitee.com/andyxt/gox/internal/logger"
-	"gitee.com/andyxt/gox/mediator/rpc/rpcServer/center"
-	"gitee.com/andyxt/gox/mediator/server"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/internal/logger"
+	"github.com/goodluck0107/gox/mediator/rpc/rpcServer/center"
+	"github.com/goodluck0107/gox/mediator/server"
+	"github.com/goodluck0107/gox/service"
 )
 
 type RpcService struct{}

@@ -1,6 +1,6 @@
 package eventBus
 
-import "gitee.com/andyxt/gox/internal/logger"
+import "github.com/goodluck0107/gox/internal/logger"
 
 type stsEvent struct {
 	routineId int64

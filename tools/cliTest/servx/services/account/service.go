@@ -1,7 +1,7 @@
 package account
 
 import (
-	"gitee.com/andyxt/gox/mediator/server"
+	"github.com/goodluck0107/gox/mediator/server"
 )
 
 type AccountService struct{}

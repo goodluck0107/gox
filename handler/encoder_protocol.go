@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"gitee.com/andyxt/gona/boot/channel"
-	"gitee.com/andyxt/gox/code/protocol"
-	"gitee.com/andyxt/gox/internal/logger"
+	"github.com/goodluck0107/gona/boot/channel"
+	"github.com/goodluck0107/gox/code/protocol"
+	"github.com/goodluck0107/gox/internal/logger"
 )
 
 // protocol.Protocol ---> []byte

@@ -1,6 +1,6 @@
 package channelCommands
 
-import "gitee.com/andyxt/gox/code/protocol"
+import "github.com/goodluck0107/gox/code/protocol"
 
 /*
 一条socket链接建立以后，发送给服务端的第一条消息必须实现该接口，用于分配处理该链接的协程

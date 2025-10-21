@@ -1,8 +1,8 @@
 package messageImpl
 
 import (
-	"gitee.com/andyxt/gox/mediator/server"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/mediator/server"
+	"github.com/goodluck0107/gox/service"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"gitee.com/andyxt/gona/utils"
+	"github.com/goodluck0107/gona/utils"
 )
 
 type DefaultEventHandlerContext struct {

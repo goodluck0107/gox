@@ -3,7 +3,7 @@ package rpcClient
 import (
 	"sync"
 
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/service"
 )
 
 var chlCtxReference *Reference = new(Reference)

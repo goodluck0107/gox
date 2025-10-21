@@ -1,11 +1,11 @@
 package outboundCommands
 
 import (
-	"gitee.com/andyxt/gona/boot/bootc/connector"
-	"gitee.com/andyxt/gona/boot/bootc/listener"
-	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/internal/logger"
-	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl/inboundCommands"
+	"github.com/goodluck0107/gona/boot/bootc/connector"
+	"github.com/goodluck0107/gona/boot/bootc/listener"
+	"github.com/goodluck0107/gox/executor"
+	"github.com/goodluck0107/gox/internal/logger"
+	"github.com/goodluck0107/gox/mediator/client/routineCmdMakerImpl/inboundCommands"
 )
 
 type ChannelParams struct {

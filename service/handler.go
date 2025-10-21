@@ -3,7 +3,7 @@ package service
 import (
 	"reflect"
 
-	"gitee.com/andyxt/gox/code/message"
+	"github.com/goodluck0107/gox/code/message"
 )
 
 type handler struct {

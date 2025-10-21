@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"gitee.com/andyxt/gox/tools/cli/repl"
-	"gitee.com/andyxt/gox/tools/cliTest/clix/cliService"
-	"gitee.com/andyxt/gox/tools/cliTest/servx/services/account"
+	"github.com/goodluck0107/gox/tools/cli/repl"
+	"github.com/goodluck0107/gox/tools/cliTest/clix/cliService"
+	"github.com/goodluck0107/gox/tools/cliTest/servx/services/account"
 
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/service"
 )
 
 func main() {

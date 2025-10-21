@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"sync"
 
-	"gitee.com/andyxt/gox/internal/logger"
+	"github.com/goodluck0107/gox/internal/logger"
 
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/service"
 )
 
 var (

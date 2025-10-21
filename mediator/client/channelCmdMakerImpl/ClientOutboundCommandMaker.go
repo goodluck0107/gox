@@ -1,9 +1,9 @@
 package channelCmdMakerImpl
 
 import (
-	"gitee.com/andyxt/gona/boot/channel"
-	"gitee.com/andyxt/gox/handler"
-	"gitee.com/andyxt/gox/mediator/client/channelCmdMakerImpl/channelCommands"
+	"github.com/goodluck0107/gona/boot/channel"
+	"github.com/goodluck0107/gox/handler"
+	"github.com/goodluck0107/gox/mediator/client/channelCmdMakerImpl/channelCommands"
 )
 
 type ClientOutboundCommandMaker struct {

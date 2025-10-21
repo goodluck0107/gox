@@ -1,16 +1,16 @@
 package server
 
 import (
-	"gitee.com/andyxt/gox/code/protocol"
-	"gitee.com/andyxt/gox/eventBus"
-	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/handler"
+	"github.com/goodluck0107/gox/code/protocol"
+	"github.com/goodluck0107/gox/eventBus"
+	"github.com/goodluck0107/gox/executor"
+	"github.com/goodluck0107/gox/handler"
 
-	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/mediator/server/evts"
-	"gitee.com/andyxt/gox/mediator/server/routineCmdMakerImpl"
+	"github.com/goodluck0107/gox/extends"
+	"github.com/goodluck0107/gox/mediator/server/evts"
+	"github.com/goodluck0107/gox/mediator/server/routineCmdMakerImpl"
 
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/service"
 )
 
 var mRoutineInboundCmdMaker handler.IRoutineInboundEventMaker = routineCmdMakerImpl.NewRoutineInboundCmdMaker()

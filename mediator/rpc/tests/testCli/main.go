@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"time"
 
-	"gitee.com/andyxt/gox/mediator/rpc/mid"
-	"gitee.com/andyxt/gox/mediator/rpc/pb/rpc"
-	"gitee.com/andyxt/gox/mediator/rpc/rpcClient"
-	"gitee.com/andyxt/gox/mediator/rpc/tests/testCli/services"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/mediator/rpc/mid"
+	"github.com/goodluck0107/gox/mediator/rpc/pb/rpc"
+	"github.com/goodluck0107/gox/mediator/rpc/rpcClient"
+	"github.com/goodluck0107/gox/mediator/rpc/tests/testCli/services"
+	"github.com/goodluck0107/gox/service"
 )
 
 func main() {

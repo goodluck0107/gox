@@ -1,6 +1,6 @@
 package executor
 
-import "gitee.com/andyxt/gox/internal/logger"
+import "github.com/goodluck0107/gox/internal/logger"
 
 const (
 	DefaultPoolSize int64 = 10000

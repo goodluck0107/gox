@@ -3,11 +3,11 @@ package httpor
 import (
 	"fmt"
 
-	"gitee.com/andyxt/gox/internal/logger"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/internal/logger"
+	"github.com/goodluck0107/gox/service"
 
-	"gitee.com/andyxt/gona/boot"
-	"gitee.com/andyxt/gona/boot/channel"
+	"github.com/goodluck0107/gona/boot"
+	"github.com/goodluck0107/gona/boot/channel"
 )
 
 type ExecutionHandler struct {

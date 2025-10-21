@@ -1,19 +1,19 @@
 package client
 
 import (
-	"gitee.com/andyxt/gona/boot/bootc"
-	"gitee.com/andyxt/gona/boot/bootc/connector"
-	"gitee.com/andyxt/gona/boot/bootc/listener"
-	"gitee.com/andyxt/gox/code/protocol"
-	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/mediator"
-	"gitee.com/andyxt/gox/mediator/client/channelCmdMakerImpl"
-	"gitee.com/andyxt/gox/mediator/client/clientkey"
-	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl"
-	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl/inboundCommands"
-	"gitee.com/andyxt/gox/mediator/client/routineCmdMakerImpl/outboundCommands"
-	"gitee.com/andyxt/gox/messageImpl"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gona/boot/bootc"
+	"github.com/goodluck0107/gona/boot/bootc/connector"
+	"github.com/goodluck0107/gona/boot/bootc/listener"
+	"github.com/goodluck0107/gox/code/protocol"
+	"github.com/goodluck0107/gox/executor"
+	"github.com/goodluck0107/gox/mediator"
+	"github.com/goodluck0107/gox/mediator/client/channelCmdMakerImpl"
+	"github.com/goodluck0107/gox/mediator/client/clientkey"
+	"github.com/goodluck0107/gox/mediator/client/routineCmdMakerImpl"
+	"github.com/goodluck0107/gox/mediator/client/routineCmdMakerImpl/inboundCommands"
+	"github.com/goodluck0107/gox/mediator/client/routineCmdMakerImpl/outboundCommands"
+	"github.com/goodluck0107/gox/messageImpl"
+	"github.com/goodluck0107/gox/service"
 )
 
 func BootClient(callback inboundCommands.ICallBack) *ClientFacade {

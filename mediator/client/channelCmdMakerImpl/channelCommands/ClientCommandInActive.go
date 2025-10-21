@@ -1,13 +1,13 @@
 package channelCommands
 
 import (
-	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/handler"
-	"gitee.com/andyxt/gox/mediator/client/clientkey"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/extends"
+	"github.com/goodluck0107/gox/handler"
+	"github.com/goodluck0107/gox/mediator/client/clientkey"
+	"github.com/goodluck0107/gox/service"
 
-	"gitee.com/andyxt/gox/executor"
-	"gitee.com/andyxt/gox/internal/logger"
+	"github.com/goodluck0107/gox/executor"
+	"github.com/goodluck0107/gox/internal/logger"
 )
 
 type ClientCommandInActive struct {

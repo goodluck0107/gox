@@ -3,10 +3,10 @@ package account
 import (
 	"fmt"
 
-	"gitee.com/andyxt/gox/service"
-	"gitee.com/andyxt/gox/session"
+	"github.com/goodluck0107/gox/service"
+	"github.com/goodluck0107/gox/session"
 
-	"gitee.com/andyxt/gox/internal/logger"
+	"github.com/goodluck0107/gox/internal/logger"
 )
 
 // OnInactive 连接中断

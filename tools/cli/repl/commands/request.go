@@ -5,14 +5,13 @@ import (
 	"fmt"
 	"strings"
 
-	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/messageImpl"
+	"github.com/goodluck0107/gox/extends"
+	"github.com/goodluck0107/gox/messageImpl"
 
-	"gitee.com/andyxt/gox/tools/cli/msgproto"
+	"github.com/goodluck0107/gox/tools/cli/msgproto"
 
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/service"
 
-	"github.com/abiosoft/ishell/v2"
 	"google.golang.org/protobuf/proto"
 )
 

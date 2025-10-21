@@ -1,10 +1,10 @@
-module gitee.com/andyxt/gox
+module github.com/goodluck0107/gox
 
 go 1.23.6
 
 require (
-	gitee.com/andyxt/gona v1.0.40
 	github.com/abiosoft/ishell/v2 v2.0.2
+	github.com/goodluck0107/gona v1.1.6
 	google.golang.org/protobuf v1.36.5
 )
 
@@ -27,5 +27,3 @@ require (
 	github.com/stretchr/testify v1.10.0 // indirect
 	golang.org/x/sys v0.32.0 // indirect
 )
-
-replace gitee.com/andyxt/gona => github.com/goodluck0107/gona v1.1.3

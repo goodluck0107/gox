@@ -3,15 +3,15 @@ package account
 import (
 	"fmt"
 
-	"gitee.com/andyxt/gona/utils"
-	"gitee.com/andyxt/gox/code/message"
-	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/internal/logger"
-	"gitee.com/andyxt/gox/messageImpl"
-	"gitee.com/andyxt/gox/service"
-	"gitee.com/andyxt/gox/session"
-	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
-	"gitee.com/andyxt/gox/tools/cliTest/internal/pb/cli"
+	"github.com/goodluck0107/gona/utils"
+	"github.com/goodluck0107/gox/code/message"
+	"github.com/goodluck0107/gox/extends"
+	"github.com/goodluck0107/gox/internal/logger"
+	"github.com/goodluck0107/gox/messageImpl"
+	"github.com/goodluck0107/gox/service"
+	"github.com/goodluck0107/gox/session"
+	"github.com/goodluck0107/gox/tools/cliTest/generic/mid"
+	"github.com/goodluck0107/gox/tools/cliTest/internal/pb/cli"
 )
 
 // RouteForLogin 登录

@@ -1,12 +1,12 @@
 package account
 
 import (
-	"gitee.com/andyxt/gox/code/message"
-	"gitee.com/andyxt/gox/extends"
-	"gitee.com/andyxt/gox/messageImpl"
-	"gitee.com/andyxt/gox/service"
-	"gitee.com/andyxt/gox/tools/cliTest/generic/mid"
-	"gitee.com/andyxt/gox/tools/cliTest/internal/pb/cli"
+	"github.com/goodluck0107/gox/code/message"
+	"github.com/goodluck0107/gox/extends"
+	"github.com/goodluck0107/gox/messageImpl"
+	"github.com/goodluck0107/gox/service"
+	"github.com/goodluck0107/gox/tools/cliTest/generic/mid"
+	"github.com/goodluck0107/gox/tools/cliTest/internal/pb/cli"
 )
 
 func (*AccountService) RouteForHeartbeatRequest() (string, uint32, message.MessageType) {

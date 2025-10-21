@@ -1,9 +1,9 @@
 package serializier
 
 import (
-	"gitee.com/andyxt/gox/code/protocol"
+	"github.com/goodluck0107/gox/code/protocol"
 
-	"gitee.com/andyxt/gox/buffer"
+	"github.com/goodluck0107/gox/buffer"
 )
 
 type IMessageFactory interface {

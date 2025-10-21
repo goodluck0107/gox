@@ -1,9 +1,9 @@
 package httpor
 
 import (
-	"gitee.com/andyxt/gox/handler"
+	"github.com/goodluck0107/gox/handler"
 
-	"gitee.com/andyxt/gona/boot/channel"
+	"github.com/goodluck0107/gona/boot/channel"
 )
 
 func NewChannelInitializerRawJson() channel.ChannelInitializer {

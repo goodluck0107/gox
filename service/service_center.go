@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"gitee.com/andyxt/gox/internal/logger"
+	"github.com/goodluck0107/gox/internal/logger"
 )
 
 var localServiceCenter *serviceCenter = newServiceCenter()

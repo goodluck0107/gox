@@ -3,7 +3,7 @@ package extends
 import (
 	"fmt"
 
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/service"
 )
 
 func ChannelContextToString(chlCtx service.IChannelContext) string {

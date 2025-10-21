@@ -1,8 +1,8 @@
 package inboundCommands
 
 import (
-	"gitee.com/andyxt/gox/code/protocol"
-	"gitee.com/andyxt/gox/service"
+	"github.com/goodluck0107/gox/code/protocol"
+	"github.com/goodluck0107/gox/service"
 )
 
 type ICallBack interface {

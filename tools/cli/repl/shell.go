@@ -1,9 +1,7 @@
 package repl
 
 import (
-	"gitee.com/andyxt/gox/tools/cli/repl/commands"
-
-	"github.com/abiosoft/ishell/v2"
+	"github.com/goodluck0107/gox/tools/cli/repl/commands"
 )
 
 // Repl start a shell for user
