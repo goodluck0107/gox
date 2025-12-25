@@ -47,20 +47,22 @@ func (handler *ExecutionHandler) MessageReceived(ctx channel.ChannelContext, e i
 	servicePath := fmt.Sprintf("%v", reqPath)
 	request := service.NewSessionRequest(ctx, service.NewAttr(nil))
 
+	var playerID int64
 	httpRequest := ctx.ContextAttr().Get(channel.KeyForRequest).(*http.Request)
 	if httpRequest != nil {
-		playerID := cast.ToInt64(httpRequest.Header.Get("X-Inner-PlayerID"))
+		playerID = cast.ToInt64(httpRequest.Header.Get("X-Inner-PlayerID"))
+	}
+	if playerID > 0 {
 		extends.PutInUserID(ctx, playerID)
 		msgID := service.Code(servicePath)
 		extends.SetMsgID(request, msgID)
-
 		eventBus.Trigger(evts.EVT_ServiceBefore, request)
 	}
 	serviceErr := service.DispatchByPath(servicePath, request, msg)
 	if serviceErr != nil {
 		logger.Error(fmt.Sprintf("%v callService:%v error:%v ", ctx.ID(), servicePath, serviceErr))
 	}
-	if httpRequest != nil {
+	if playerID > 0 {
 		eventBus.Trigger(evts.EVT_ServiceAfter, request, serviceErr)
 	}
 	return
