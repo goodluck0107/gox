@@ -2,9 +2,13 @@ package httpor
 
 import (
 	"fmt"
-
+	"github.com/goodluck0107/gona/utils/cast"
+	"github.com/goodluck0107/gox/eventBus"
+	"github.com/goodluck0107/gox/extends"
 	"github.com/goodluck0107/gox/internal/logger"
+	"github.com/goodluck0107/gox/mediator/server/evts"
 	"github.com/goodluck0107/gox/service"
+	"net/http"
 
 	"github.com/goodluck0107/gona/boot"
 	"github.com/goodluck0107/gona/boot/channel"
@@ -42,9 +46,22 @@ func (handler *ExecutionHandler) MessageReceived(ctx channel.ChannelContext, e i
 	reqPath := ctx.ContextAttr().GetString(channel.KeyForReqPath)
 	servicePath := fmt.Sprintf("%v", reqPath)
 	request := service.NewSessionRequest(ctx, service.NewAttr(nil))
+
+	httpRequest := ctx.ContextAttr().Get(channel.KeyForRequest).(*http.Request)
+	if httpRequest != nil {
+		playerID := cast.ToInt64(httpRequest.Header.Get("X-Inner-PlayerID"))
+		extends.PutInUserID(ctx, playerID)
+		msgID := service.Code(servicePath)
+		extends.SetMsgID(request, msgID)
+
+		eventBus.Trigger(evts.EVT_ServiceBefore, request)
+	}
 	serviceErr := service.DispatchByPath(servicePath, request, msg)
 	if serviceErr != nil {
 		logger.Error(fmt.Sprintf("%v callService:%v error:%v ", ctx.ID(), servicePath, serviceErr))
+	}
+	if httpRequest != nil {
+		eventBus.Trigger(evts.EVT_ServiceAfter, request, serviceErr)
 	}
 	return
 }
