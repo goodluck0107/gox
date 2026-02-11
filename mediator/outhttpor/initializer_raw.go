@@ -25,5 +25,5 @@ func (initializer *ChannelInitializerRaw) InitChannel(pipeline channel.ChannelPi
 
 	pipeline.AddLast("ExecutionHandler", NewExecutionHandler()) // 消息逻辑处理
 	// DownHandleOnRoutineSync--STS or STC  MessageEncoder -->  SecurityEncoder
-	pipeline.AddLast("MessageEncoder", handler.NewProtocolRawEncoder()) // 消息编码处理器
+	pipeline.AddLast("MessageEncoder", NewProtocolRawEncoder()) // 消息编码处理器
 }

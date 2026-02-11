@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"github.com/goodluck0107/gona/boot"
 	"github.com/goodluck0107/gona/boot/channel"
+	"github.com/goodluck0107/gona/utils/cast"
 	"github.com/goodluck0107/gox/code/protocol"
 	"github.com/goodluck0107/gox/eventBus"
 	"github.com/goodluck0107/gox/extends"
 	"github.com/goodluck0107/gox/internal/logger"
 	"github.com/goodluck0107/gox/mediator/server/evts"
 	"github.com/goodluck0107/gox/service"
+	"net/http"
 )
 
 type ExecutionHandler struct {
@@ -39,6 +41,14 @@ func (handler *ExecutionHandler) MessageReceived(ctx channel.ChannelContext, e i
 	protoMsg := e.(protocol.Protocol)
 	logger.Info(ctx.ID(), "ExecutionHandler 链接收到消息", "URLPath", ctx.ContextAttr().GetString(boot.KeyURLPath), "msg", protoMsg)
 	request := service.NewSessionRequest(ctx, service.NewAttr(nil))
+	var playerID int64
+	httpRequest := ctx.ContextAttr().Get(channel.KeyForRequest).(*http.Request)
+	if httpRequest != nil {
+		playerID = cast.ToInt64(httpRequest.Header.Get("X-Inner-PlayerID"))
+	}
+	if playerID > 0 {
+		extends.PutInUserID(ctx, playerID)
+	}
 	msgID := protoMsg.GetMsgID()
 	extends.SetSeqID(request, protoMsg.GetSeqID())
 	extends.SetMsgID(request, msgID)
