@@ -1,6 +1,6 @@
 package executor
 
-var executorInstance *RoutinePool = NewRoutinePool(64, 10000)
+var executorInstance *RoutinePool = NewRoutinePool(2000, 10000)
 
 func FireEvent(e Event) {
 	executorInstance.FireEvent(e)
