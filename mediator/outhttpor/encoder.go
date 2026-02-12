@@ -2,7 +2,6 @@ package outhttpor
 
 import (
 	"github.com/goodluck0107/gona/boot/channel"
-	"github.com/goodluck0107/gox/code/message"
 	"github.com/goodluck0107/gox/code/protocol"
 	"gitlab.yq-dev-inner.com/yq-game-developer/main-server/ck-common.git/ck-logger/logger"
 	"net/http"
@@ -36,11 +35,10 @@ func (encoder *ProtocolRawEncoder) Write(ctx channel.ChannelContext, e interface
 		httpWriter.Header().Set("Content-Type", "text/plain; charset=UTF-8")
 	}
 	//	logger.Debug("MessageEncoder Write")
-	msg := e.(message.CustomMessage)
-	proto := protocol.Raw(msg)
+	proto := e.(protocol.Protocol)
 	buf, err := proto.Encode()
 	if err != nil {
-		logger.Error("ProtocolRawEncoder Write err=", err)
+		logger.Error("ProtocolEncoder Write err=", err)
 		return nil
 	}
 	return buf
