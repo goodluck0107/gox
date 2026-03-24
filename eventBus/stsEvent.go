@@ -1,6 +1,9 @@
 package eventBus
 
-import "github.com/goodluck0107/gox/internal/logger"
+import (
+	"github.com/goodluck0107/gox/internal/logger"
+	"runtime/debug"
+)
 
 type stsEvent struct {
 	routineId int64
@@ -44,7 +47,7 @@ func (stsEvent *stsEvent) Exec() {
 func (stsEvent *stsEvent) safeCall(f EventCallback) {
 	defer func() {
 		if err := recover(); err != nil {
-			logger.Error("stsEvent.safeCall err:", err)
+			logger.Error("stsEvent.safeCall err:", err, "event:", stsEvent.evt, "stack:", string(debug.Stack()))
 		}
 	}()
 	f(stsEvent.params...)
