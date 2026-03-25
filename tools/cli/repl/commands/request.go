@@ -3,6 +3,7 @@ package commands
 import (
 	"errors"
 	"fmt"
+	"github.com/abiosoft/ishell/v2"
 	"strings"
 
 	"github.com/goodluck0107/gox/extends"
