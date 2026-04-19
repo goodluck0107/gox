@@ -22,7 +22,7 @@ func NewRoutinePool(PoolSize int64, ChanSize int64) (pool *RoutinePool) {
 	for routineId = 0; routineId < PoolSize; routineId = routineId + 1 {
 		chSize := ChanSize
 		if routineId == 0 {
-			chSize = 20480
+			chSize = 1024
 		}
 		routine := NewRoutine(chSize)
 		startChan := make(chan int, 1)
